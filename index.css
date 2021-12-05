@@ -1,0 +1,21 @@
+h1 {
+  color: white;
+}
+
+body {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  background-color: #2b2b2b;
+  font-family: "Robot Mono", monospace;
+}
+
+.container {
+  position: absolute;
+  width: 80vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
