@@ -16,20 +16,20 @@ const D = {
 
 // states
 const S = {
+  Center: "center",
   Top: "top",
   Bottom: "bottom",
   Left: "left",
-  Right: "right",
-  Center: "center"
+  Right: "right"
 };
 
 // positions
 const P = {
-  Top: [0, -1],
-  Bottom: [0, 1],
-  Left: [-1, 0],
-  Right: [1, 0],
-  Center: [0, 0]
+  Center: [1, 1],
+  Top: [1, -12],
+  Bottom: [1, 12],
+  Left: [-12, 1],
+  Right: [12, 1]
 };
 
 let startTouch;
@@ -136,8 +136,8 @@ function anim(actions) {
     actions.map(([state, [x, y]]) => {
       const element = document.getElementById(state);
       const animation = {
-        "margin-left": `${x * 100}vw`,
-        "margin-top": `${y * 100}vh`
+        "margin-left": `${x * 10}vw`,
+        "margin-top": `${y * 10}vh`
       };
 
       const centered = x === P.Center[0] || y === P.Center[1];
@@ -184,6 +184,8 @@ window.addEventListener("keydown", event => {
 });
 
 window.addEventListener("touchend", event => {
+  event.preventDefault();
+
   if (!startTouch) return;
   const [touch] = event.changedTouches;
 
@@ -195,6 +197,8 @@ window.addEventListener("touchend", event => {
 });
 
 window.addEventListener("touchstart", event => {
+  event.preventDefault();
+
   if (startTouch) return;
   const [touch] = event.touches;
 
