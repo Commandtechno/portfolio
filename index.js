@@ -35,6 +35,14 @@ const P = {
 let isPending = false;
 let state = "center";
 
+function hide(state) {
+  document.getElementById(state).style.display = "none";
+}
+
+function show(state) {
+  document.getElementById(state).style.display = null;
+}
+
 function anim(actions) {
   return Promise.all(
     actions.map(([state, [x, y]]) => {
@@ -43,7 +51,15 @@ function anim(actions) {
         "margin-top": `${y * 100}vh`
       };
 
-      return new Promise(resolve => $("#" + state).animate(animation, resolve));
+      const centered = x === P.Center[0] || y === P.Center[1];
+      if (centered) show(state);
+
+      return new Promise(resolve =>
+        $("#" + state).animate(animation, () => {
+          if (!centered) hide(state);
+          resolve();
+        })
+      );
     })
   );
 }
@@ -136,7 +152,7 @@ async function move(direction) {
   isPending = false;
 }
 
-document.addEventListener("keydown", event => {
+window.addEventListener("keydown", event => {
   switch (event.key) {
     case K.Up:
       move(D.Up);
@@ -154,4 +170,34 @@ document.addEventListener("keydown", event => {
       move(D.Right);
       break;
   }
+});
+
+let firstTouch;
+
+window.addEventListener("touchstart", event => {
+  if (firstTouch) return;
+  const [touch] = event.touches;
+
+  firstTouch = {
+    x: touch.clientX,
+    y: touch.clientY
+  };
+});
+
+window.addEventListener("touchend", event => {
+  if (!firstTouch) return;
+  const [touch] = event.changedTouches;
+
+  const deltaX = touch.clientX - firstTouch.x;
+  const deltaY = touch.clientY - firstTouch.y;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (deltaX > 0) move(D.Left);
+    else move(D.Right);
+  } else {
+    if (deltaY > 0) move(D.Up);
+    else move(D.Down);
+  }
+
+  firstTouch = null;
 });

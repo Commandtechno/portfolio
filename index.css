@@ -2,20 +2,39 @@ h1 {
   color: white;
 }
 
+img {
+  max-width: 80vw;
+  max-height: 80vh;
+}
+
 body {
-  position: relative;
-  overflow: hidden;
   margin: 0;
-  background-color: #2b2b2b;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
   font-family: "Robot Mono", monospace;
+  background-color: #2b2b2b;
+}
+
+button {
+  width: 10vw;
+  height: 10vw;
+
+  border: none;
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
 }
 
 .container {
-  position: absolute;
-  width: 80vw;
-  height: 80vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
+  position: absolute;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
