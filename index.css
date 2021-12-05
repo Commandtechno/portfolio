@@ -1,7 +1,3 @@
-h1 {
-  color: white;
-}
-
 img {
   max-width: 80vw;
   max-height: 80vh;
@@ -9,32 +5,83 @@ img {
 
 body {
   margin: 0;
+
   overflow: hidden;
   position: relative;
   user-select: none;
   font-family: "Robot Mono", monospace;
+
+  color: white;
   background-color: #2b2b2b;
-}
-
-button {
-  width: 10vw;
-  height: 10vw;
-
-  border: none;
-  cursor: pointer;
-  display: flex;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
 }
 
 .container {
   width: 100vw;
   height: 100vh;
+
   display: flex;
   position: absolute;
   align-items: center;
   flex-direction: column;
   justify-content: center;
+}
+
+.arrow {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  position: absolute;
+}
+
+.top {
+  top: 16px;
+  left: 50%;
+}
+
+.bottom {
+  left: 50%;
+  bottom: 16px;
+}
+
+.left {
+  top: 50%;
+  left: 16px;
+}
+
+.right {
+  top: 50%;
+  right: 16px;
+}
+
+.pulseX {
+  animation: pulseX 1s infinite;
+}
+
+.pulseY {
+  animation: pulseY 1s infinite;
+}
+
+@keyframes pulseX {
+  0% {
+    transform: translateX(-50%) scale(0.5);
+  }
+  50% {
+    transform: translateX(-50%) scale(0.75);
+  }
+  100% {
+    transform: translateX(-50%) scale(0.5);
+  }
+}
+
+@keyframes pulseY {
+  0% {
+    transform: translateY(-50%) scale(0.5);
+  }
+  50% {
+    transform: translateY(-50%) scale(0.75);
+  }
+  100% {
+    transform: translateY(-50%) scale(0.5);
+  }
 }

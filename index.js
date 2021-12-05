@@ -32,39 +32,18 @@ const P = {
   Center: [0, 0]
 };
 
+let startTouch;
 let isPending = false;
+let hasMoved = false;
 let state = "center";
 
-function hide(state) {
-  document.getElementById(state).style.display = "none";
-}
-
-function show(state) {
-  document.getElementById(state).style.display = null;
-}
-
-function anim(actions) {
-  return Promise.all(
-    actions.map(([state, [x, y]]) => {
-      const animation = {
-        "margin-left": `${x * 100}vw`,
-        "margin-top": `${y * 100}vh`
-      };
-
-      const centered = x === P.Center[0] || y === P.Center[1];
-      if (centered) show(state);
-
-      return new Promise(resolve =>
-        $("#" + state).animate(animation, () => {
-          if (!centered) hide(state);
-          resolve();
-        })
-      );
-    })
-  );
-}
-
 async function move(direction) {
+  if (!hasMoved) {
+    hasMoved = true;
+    const elements = document.getElementsByClassName("arrow");
+    for (const element of elements) element.style.display = "none";
+  }
+
   if (isPending) return;
   isPending = true;
 
@@ -152,6 +131,38 @@ async function move(direction) {
   isPending = false;
 }
 
+function anim(actions) {
+  return Promise.all(
+    actions.map(([state, [x, y]]) => {
+      const element = document.getElementById(state);
+      const animation = {
+        "margin-left": `${x * 100}vw`,
+        "margin-top": `${y * 100}vh`
+      };
+
+      const centered = x === P.Center[0] || y === P.Center[1];
+      if (centered) element.style.display = null;
+
+      return new Promise(resolve =>
+        $(element).animate(animation, () => {
+          if (!centered) element.style.display = "none";
+          resolve();
+        })
+      );
+    })
+  );
+}
+
+function handleSwipe(deltaX, deltaY) {
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (deltaX > 0) move(D.Right);
+    else if (deltaX < 0) move(D.Left);
+  } else {
+    if (deltaY > 0) move(D.Down);
+    else if (deltaY < 0) move(D.Up);
+  }
+}
+
 window.addEventListener("keydown", event => {
   switch (event.key) {
     case K.Up:
@@ -172,32 +183,25 @@ window.addEventListener("keydown", event => {
   }
 });
 
-let firstTouch;
+window.addEventListener("touchend", event => {
+  if (!startTouch) return;
+  const [touch] = event.changedTouches;
+
+  const deltaX = touch.clientX - startTouch.x;
+  const deltaY = touch.clientY - startTouch.y;
+
+  handleSwipe(deltaX, deltaY);
+  startTouch = null;
+});
 
 window.addEventListener("touchstart", event => {
-  if (firstTouch) return;
+  if (startTouch) return;
   const [touch] = event.touches;
 
-  firstTouch = {
+  startTouch = {
     x: touch.clientX,
     y: touch.clientY
   };
 });
 
-window.addEventListener("touchend", event => {
-  if (!firstTouch) return;
-  const [touch] = event.changedTouches;
-
-  const deltaX = touch.clientX - firstTouch.x;
-  const deltaY = touch.clientY - firstTouch.y;
-
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    if (deltaX > 0) move(D.Left);
-    else move(D.Right);
-  } else {
-    if (deltaY > 0) move(D.Up);
-    else move(D.Down);
-  }
-
-  firstTouch = null;
-});
+window.addEventListener("wheel", ({ deltaX, deltaY }) => handleSwipe(deltaX, deltaY));
