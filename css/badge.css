@@ -1,0 +1,10 @@
+.badge {
+  vertical-align: middle;
+  height: 24px;
+}
+
+@media screen and (max-width: 600px) {
+  .badge {
+    display: none;
+  }
+}
