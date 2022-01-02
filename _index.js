@@ -1,73 +1,3 @@
-// _hideArrows.js
-function hideArrows() {
-  if (!arrows) return;
-
-  const elements = document.getElementsByClassName("arrow");
-  for (const element of elements) {
-    function decrease() {
-      if (element.style.opacity <= 0) {
-        arrows = false;
-        return;
-      }
-
-      element.style.opacity -= 0.1;
-      setTimeout(decrease, 10);
-    }
-
-    decrease();
-  }
-}
-
-// _quake.js
-function quake(i = 16) {
-  /*document.body.style.marginTop = `${Math.random() * i - i / 2}px`;
-  document.body.style.marginLeft = `${Math.random() * i - i / 2}px`;
-
-  if (i > 0) {
-    setTimeout(() => quake(i - 1), 16);
-    return;
-  }
-
-  document.body.style.marginTop = "0";
-  document.body.style.marginLeft = "0";*/
-}
-
-// _showArrows.js
-function showArrows() {
-  if (arrows) return;
-
-  const elements = document.getElementsByClassName("arrow");
-  for (const element of elements) {
-    function increase() {
-      if (element.style.opacity >= 1) {
-        arrows = true;
-        return;
-      }
-
-      element.style.opacity = element.style.opacity * 1 + 0.1;
-      setTimeout(increase, 10);
-    }
-
-    increase();
-  }
-}
-
-// anim.js
-function anim(actions) {
-  return Promise.all(
-    actions.map(([state, [x, y]]) => {
-      const element = document.getElementById(state);
-      const animation = {
-        "margin-left": `${x * 10}vw`,
-        "margin-top": `${y * 10}vh`
-      };
-
-      return new Promise(resolve => $(element).animate(animation, resolve));
-    })
-  );
-}
-
-// constants.js
 // keys
 const K = {
   Up: "ArrowUp",
@@ -107,58 +37,6 @@ let arrows = true;
 let isPending = false;
 let startTouch;
 
-// keydown.js
-window.addEventListener("keydown", event => {
-  switch (event.key) {
-    case K.Up:
-      move(D.Up);
-      break;
-
-    case K.Down:
-      move(D.Down);
-      break;
-
-    case K.Left:
-      move(D.Left);
-      break;
-
-    case K.Right:
-      move(D.Right);
-      break;
-  }
-});
-
-window.onload = () => {
-  const tab = new URL(window.location).searchParams.get("tab");
-
-  switch (tab) {
-    case "about":
-      move(D.Up);
-      break;
-
-    case "contact":
-      move(D.Down);
-      break;
-
-    case "gfx":
-      move(D.Left);
-      break;
-
-    case "dev":
-      move(D.Right);
-      break;
-  }
-
-  const images = document.getElementsByTagName("img");
-  for (const image of images) {
-    if (!image.alt) alert("Missing alt attribute on image: " + image.src);
-    tippy(image, {
-      content: image.alt
-    });
-  }
-};
-
-// move.js
 async function move(direction) {
   if (isPending) return;
   isPending = true;
@@ -255,7 +133,87 @@ async function move(direction) {
   isPending = false;
 }
 
-// touchend.js
+function anim(actions) {
+  return Promise.all(
+    actions.map(([state, [x, y]]) => {
+      const element = document.getElementById(state);
+      const animation = {
+        "margin-left": `${x * 10}vw`,
+        "margin-top": `${y * 10}vh`
+      };
+
+      return new Promise(resolve => $(element).animate(animation, resolve));
+    })
+  );
+}
+
+function quake(i = 16) {
+  /*document.body.style.marginTop = `${Math.random() * i - i / 2}px`;
+  document.body.style.marginLeft = `${Math.random() * i - i / 2}px`;
+
+  if (i > 0) {
+    setTimeout(() => quake(i - 1), 16);
+    return;
+  }
+
+  document.body.style.marginTop = "0";
+  document.body.style.marginLeft = "0";*/
+}
+
+function showArrows() {
+  if (arrows) return;
+
+  const elements = document.getElementsByClassName("arrow");
+  for (const element of elements) {
+    function increase() {
+      if (element.style.opacity >= 1) {
+        arrows = true;
+        return;
+      }
+
+      element.style.opacity = element.style.opacity * 1 + 0.1;
+      setTimeout(increase, 10);
+    }
+
+    increase();
+  }
+}
+
+function hideArrows() {
+  if (!arrows) return;
+
+  const elements = document.getElementsByClassName("arrow");
+  for (const element of elements) {
+    function decrease() {
+      if (element.style.opacity <= 0) {
+        arrows = false;
+        return;
+      }
+
+      element.style.opacity -= 0.1;
+      setTimeout(decrease, 10);
+    }
+
+    decrease();
+  }
+}
+
+window.addEventListener(
+  "touchmove",
+  event => event.target === document.body && event.preventDefault(),
+  { passive: false }
+);
+
+window.addEventListener("touchstart", event => {
+  if (startTouch) return;
+  const [touch] = event.touches;
+
+  startTouch = {
+    x: touch.clientX,
+    y: touch.clientY
+  };
+});
+
 window.addEventListener("touchend", event => {
   if (!startTouch) return;
   const [touch] = event.changedTouches;
@@ -274,25 +232,6 @@ window.addEventListener("touchend", event => {
   startTouch = null;
 });
 
-// touchmove.js
-window.addEventListener(
-  "touchmove",
-  event => event.target === document.body && event.preventDefault(),
-  { passive: false }
-);
-
-// touchstart.js
-window.addEventListener("touchstart", event => {
-  if (startTouch) return;
-  const [touch] = event.touches;
-
-  startTouch = {
-    x: touch.clientX,
-    y: touch.clientY
-  };
-});
-
-// wheel.js
 window.addEventListener("wheel", ({ deltaX, deltaY }) => {
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
     if (deltaX > 0) move(D.Right);
@@ -302,3 +241,53 @@ window.addEventListener("wheel", ({ deltaX, deltaY }) => {
     else if (deltaY < 0) move(D.Up);
   }
 });
+
+window.addEventListener("keydown", event => {
+  switch (event.key) {
+    case K.Up:
+      move(D.Up);
+      break;
+
+    case K.Down:
+      move(D.Down);
+      break;
+
+    case K.Left:
+      move(D.Left);
+      break;
+
+    case K.Right:
+      move(D.Right);
+      break;
+  }
+});
+
+window.onload = () => {
+  const tab = new URL(window.location).searchParams.get("tab");
+
+  switch (tab) {
+    case "about":
+      move(D.Up);
+      break;
+
+    case "contact":
+      move(D.Down);
+      break;
+
+    case "gfx":
+      move(D.Left);
+      break;
+
+    case "dev":
+      move(D.Right);
+      break;
+  }
+
+  const images = document.getElementsByTagName("img");
+  for (const image of images) {
+    if (!image.alt) alert("Missing alt attribute on image: " + image.src);
+    tippy(image, {
+      content: image.alt
+    });
+  }
+};

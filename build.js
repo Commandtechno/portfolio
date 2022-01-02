@@ -15,4 +15,11 @@ setInterval(() => {
     .join("\n\n");
 
   fs.writeFileSync("build/index.css", css);
+
+  const js = fs
+    .readdirSync("js")
+    .map(file => "// " + file + "\n" + fs.readFileSync("js/" + file, "utf8"))
+    .join("\n\n");
+
+  fs.writeFileSync("build/index.js", js);
 }, 100);
