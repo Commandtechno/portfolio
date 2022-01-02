@@ -1,3 +1,12 @@
+.inner-container {
+  gap: 24px;
+  max-height: 80vh;
+
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+}
+
 .inner-container::-webkit-scrollbar {
   display: none;
 }

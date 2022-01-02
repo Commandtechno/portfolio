@@ -7,6 +7,7 @@
 .badge {
   vertical-align: middle;
   height: 24px;
+  border-radius: 4px;
 }
 
 @media screen and (max-width: 600px) {
@@ -73,29 +74,31 @@ body {
 }
 
 /* inner-container.css */
+.inner-container {
+  gap: 24px;
+  max-height: 80vh;
+
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+}
+
 .inner-container::-webkit-scrollbar {
   display: none;
 }
 
 /* outer-container.css */
 .outer-container {
-  gap: 24px;
   width: 100%;
   max-width: 800px;
 
   display: flex;
-  overflow-x: visible;
-  overflow-y: auto;
   justify-content: center;
-  flex-direction: column;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 
   padding-left: 10vw;
   padding-right: 10vw;
   padding-top: 10vh;
   padding-bottom: 10vh;
-  height: 80vh;
 }
 
 /* section.css */
