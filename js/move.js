@@ -7,7 +7,6 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Top;
-          hideArrows();
           await anim([
             [S.Center, P.Bottom],
             [S.Top, P.Center]
@@ -20,7 +19,6 @@ async function move(direction) {
             [S.Center, P.Center],
             [S.Bottom, P.Bottom]
           ]);
-          showArrows();
           break;
       }
       break;
@@ -29,7 +27,6 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Bottom;
-          hideArrows();
           await anim([
             [S.Center, P.Top],
             [S.Bottom, P.Center]
@@ -42,7 +39,6 @@ async function move(direction) {
             [S.Center, P.Center],
             [S.Top, P.Top]
           ]);
-          showArrows();
           break;
       }
       break;
@@ -51,7 +47,6 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Left;
-          hideArrows();
           await anim([
             [S.Center, P.Right],
             [S.Left, P.Center]
@@ -64,7 +59,6 @@ async function move(direction) {
             [S.Center, P.Center],
             [S.Right, P.Right]
           ]);
-          showArrows();
           break;
       }
       break;
@@ -73,7 +67,6 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Right;
-          hideArrows();
           await anim([
             [S.Center, P.Left],
             [S.Right, P.Center]
@@ -86,7 +79,6 @@ async function move(direction) {
             [S.Center, P.Center],
             [S.Left, P.Left]
           ]);
-          showArrows();
           break;
       }
   }

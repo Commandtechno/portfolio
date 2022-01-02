@@ -1,57 +1,3 @@
-// _hideArrows.js
-function hideArrows() {
-  if (!arrows) return;
-
-  const elements = document.getElementsByClassName("arrow");
-  for (const element of elements) {
-    function decrease() {
-      if (element.style.opacity <= 0) {
-        arrows = false;
-        return;
-      }
-
-      element.style.opacity -= 0.1;
-      setTimeout(decrease, 10);
-    }
-
-    decrease();
-  }
-}
-
-// _quake.js
-function quake(i = 16) {
-  /*document.body.style.marginTop = `${Math.random() * i - i / 2}px`;
-  document.body.style.marginLeft = `${Math.random() * i - i / 2}px`;
-
-  if (i > 0) {
-    setTimeout(() => quake(i - 1), 16);
-    return;
-  }
-
-  document.body.style.marginTop = "0";
-  document.body.style.marginLeft = "0";*/
-}
-
-// _showArrows.js
-function showArrows() {
-  if (arrows) return;
-
-  const elements = document.getElementsByClassName("arrow");
-  for (const element of elements) {
-    function increase() {
-      if (element.style.opacity >= 1) {
-        arrows = true;
-        return;
-      }
-
-      element.style.opacity = element.style.opacity * 1 + 0.1;
-      setTimeout(increase, 10);
-    }
-
-    increase();
-  }
-}
-
 // anim.js
 function anim(actions) {
   return Promise.all(
@@ -168,7 +114,6 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Top;
-          hideArrows();
           await anim([
             [S.Center, P.Bottom],
             [S.Top, P.Center]
@@ -181,7 +126,6 @@ async function move(direction) {
             [S.Center, P.Center],
             [S.Bottom, P.Bottom]
           ]);
-          showArrows();
           break;
       }
       break;
@@ -190,7 +134,6 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Bottom;
-          hideArrows();
           await anim([
             [S.Center, P.Top],
             [S.Bottom, P.Center]
@@ -203,7 +146,6 @@ async function move(direction) {
             [S.Center, P.Center],
             [S.Top, P.Top]
           ]);
-          showArrows();
           break;
       }
       break;
@@ -212,7 +154,6 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Left;
-          hideArrows();
           await anim([
             [S.Center, P.Right],
             [S.Left, P.Center]
@@ -225,7 +166,6 @@ async function move(direction) {
             [S.Center, P.Center],
             [S.Right, P.Right]
           ]);
-          showArrows();
           break;
       }
       break;
@@ -234,7 +174,6 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Right;
-          hideArrows();
           await anim([
             [S.Center, P.Left],
             [S.Right, P.Center]
@@ -247,7 +186,6 @@ async function move(direction) {
             [S.Center, P.Center],
             [S.Left, P.Left]
           ]);
-          showArrows();
           break;
       }
   }
