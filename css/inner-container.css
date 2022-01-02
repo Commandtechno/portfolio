@@ -1,10 +1,17 @@
 .inner-container {
-  gap: 24px;
+  gap: 25px;
   max-height: 80vh;
+
+  padding-left: 5vw;
+  padding-right: 5vw;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
 
   display: flex;
   overflow-y: auto;
   flex-direction: column;
+  box-shadow: 5px 5px 15px 5px rgb(0 0 0 / 25%);
+  border-radius: 25px;
 }
 
 .inner-container::-webkit-scrollbar {

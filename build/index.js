@@ -74,11 +74,12 @@ window.addEventListener("keydown", event => {
   }
 });
 
-window.onload = () => {
+// load.js
+window.addEventListener("load", () => {
   const tab = new URL(window.location).searchParams.get("tab");
 
   switch (tab) {
-    case "about":
+    case "socials":
       move(D.Up);
       break;
 
@@ -100,9 +101,10 @@ window.onload = () => {
     if (!image.alt) alert("Missing alt attribute on image: " + image.src);
     tippy(image, {
       content: image.alt
+      // placement: image.getAttribute("tooltip-placement") || "top"
     });
   }
-};
+});
 
 // move.js
 async function move(direction) {

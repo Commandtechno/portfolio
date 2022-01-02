@@ -1,7 +1,9 @@
 .badge {
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  object-fit: contain;
   vertical-align: middle;
-  height: 24px;
-  border-radius: 4px;
 }
 
 @media screen and (max-width: 600px) {

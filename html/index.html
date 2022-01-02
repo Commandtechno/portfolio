@@ -9,7 +9,9 @@
 
 <body>
   <div id="center" class="section" style="margin-left: 0vw; margin-top: 0vh">
-    <div class="outer-container"><div class="inner-container">{CENTER}</div></div>
+    <div class="outer-container">
+      <div class="inner-container" data-tilt data-tilt-perspective="1000">{CENTER}</div>
+    </div>
   </div>
   <div id="top" class="section" style="margin-top: -100vh; margin-left: 0vw">
     <div class="outer-container"><div class="inner-container">{TOP}</div></div>
@@ -23,4 +25,5 @@
   <div id="right" class="section" style="margin-left: 100vw; margin-top: 0vh">
     <div class="outer-container"><div class="inner-container">{RIGHT}</div></div>
   </div>
+  <script src="https://unpkg.com/tilt.js@1.2.1/dest/tilt.jquery.min.js"></script>
 </body>
