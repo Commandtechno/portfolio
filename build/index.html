@@ -3,46 +3,127 @@
   <link rel="stylesheet" href="index.css" />
   <script src="jquery.js"></script>
   <script src="index.js"></script>
-  <script src="https://unpkg.com/@popperjs/core@2"></script>
-  <script src="https://unpkg.com/tippy.js@6"></script>
+  <script src="popper.js"></script>
+  <script src="tippy.js"></script>
 </head>
 
 <body>
-  <div id="center" class="section" style="margin-left: 0vw; margin-top: 0vh">
+  <div id="center" class="section" style="left: 0vw; top: 0vh">
     <div class="outer-container">
-      <div class="inner-container" data-tilt data-tilt-perspective="1000"><img alt="Avatar" class="avatar" src="assets/avatar.gif" width="128px" height="128px" />
+      <div class="inner-container" data-tilt data-tilt-perspective="1000"><div class="profile">
+  <!-- <div class="profile-avatar"> -->
+  <img alt="Avatar" class="profile-avatar-image" src="assets/avatar.gif" />
+  <!-- <img alt="Offline Status" class="profile-avatar-status" src="assets/status/offline.png" />
+  </div> -->
+  <div class="profile-activity">
+    <p class="profile-activity-title">Listening to Spotify</p>
+    <div class="profile-activity-content">
+      <img
+        alt="Cover"
+        class="profile-activity-content-image"
+        src="https://cdn.discordapp.com/emojis/897592969782243368.gif?size=96"
+      />
+    </div>
+  </div>
+</div>
+
 <h1>Commandtechno</h1>
 <p>
   <img alt="Wave" class="emoji" src="assets/emojis/wave.svg" />
   Hello there. I'm a developer and graphics designer. I'm interested in all things tech, and
   community management! Here you will find my projects, and the various things I have worked on.
 </p>
-<p>Left: Graphics Design<br />Right: Development<br />Up: Socials<br />Down: Contact</p>
-<p>
-  <img alt="GitHub" class="emoji" src="assets/socials/github.png" tooltip-placement="left" />
-  <b>GitHub</b> - Commandtechno<br />
-  <img alt="Discord" class="emoji" src="assets/socials/discord.png" tooltip-placement="left" />
-  <b>Discord</b> - Commandtechno#0841 <br />
-  <img alt="Twitch" class="emoji" src="assets/socials/twitch.png" tooltip-placement="left" />
-  <b>Twitch</b> - commandtechno
+
+<div class="social-desktop">
+  <a
+    class="social-desktop-container hover"
+    href="https://github.com/Commandtechno"
+    style="background-color: rgba(88, 101, 242, 0.25)"
+  >
+    <img alt="GitHub Logo" class="social-desktop-icon" src="assets/socials/discord.png" />
+  </a>
+  <a
+    class="social-desktop-container hover"
+    href="https://discord.com/users/296776625432035328"
+    style="background-color: rgba(0, 0, 0, 0.25)"
+  >
+    <img alt="Discord Logo" class="social-desktop-icon" src="assets/socials/github.png" />
+  </a>
+  <a
+    class="social-desktop-container hover"
+    href="https://youtube.com/Commandtechno"
+    style="background-color: rgba(236, 31, 31, 0.25)"
+  >
+    <img alt="YouTube Logo" class="social-desktop-icon" src="assets/socials/youtube.png" />
+  </a>
+  <a
+    class="social-desktop-container hover"
+    href="https://twitch.tv/Commandtechno"
+    style="background-color: rgba(154, 31, 236, 0.25)"
+  >
+    <img alt="Twitch Logo" class="social-desktop-icon" src="assets/socials/twitch.png" />
+  </a>
+  <a
+    class="social-desktop-container hover"
+    href="https://reddit.com/u/Commandtechno"
+    style="background-color: rgba(255, 81, 0, 0.25)"
+  >
+    <img alt="Reddit Logo" class="social-desktop-icon" src="assets/socials/reddit.png" />
+  </a>
+  <a
+    class="social-desktop-container hover"
+    href="https://open.spotify.com/user/goysc6kienrd64c1g1vbevz6h"
+    style="background-color: rgba(31, 236, 31, 0.25)"
+  >
+    <img alt="Spotify Logo" class="social-desktop-icon" src="assets/socials/spotify.png" />
+  </a>
+</div>
+
+<p class="social-mobile">
+  <a class="social-mobile-container" href="https://github.com/Commandtechno">
+    <img alt="GitHub Logo" class="emoji" src="assets/socials/github.png" />
+    <b>Commandtechno</b>
+  </a>
+  <a class="social-mobile-container" href="https://discord.com/users/296776625432035328">
+    <img alt="Discord Logo" class="emoji" src="assets/socials/discord.png" />
+    <b>Commandtechno#0841</b>
+  </a>
+  <a class="social-mobile-container" href="https://youtube.com/Commandtechno">
+    <img alt="YouTube Logo" class="emoji" src="assets/socials/youtube.png" />
+    <b>Penguii</b>
+  </a>
+  <a class="social-mobile-container" href="https://twitch.tv/Commandtechno">
+    <img alt="Twitch Logo" class="emoji" src="assets/socials/twitch.png" />
+    <b>Commandtechno</b>
+  </a>
+  <a class="social-mobile-container" href="https://reddit.com/u/Commandtechno">
+    <img alt="Reddit Logo" class="emoji" src="assets/socials/reddit.png" />
+    <b>u/Commandtechno</b>
+  </a>
+  <a class="social-mobile-container" href="https://open.spotify.com/user/goysc6kienrd64c1g1vbevz6h">
+    <img alt="Spotify Logo" class="emoji" src="assets/socials/spotify.png" />
+    <b>Commandtechno</b>
+  </a>
 </p></div>
     </div>
   </div>
-  <div id="top" class="section" style="margin-top: -100vh; margin-left: 0vw">
-    <div class="outer-container"><div class="inner-container"><h1>Socials</h1>
-<div style="display: grid; grid-template-rows: 1fr 1fr 1fr">
-  <img src="assets/socials/github.png" alt="GitHub Logo" />
-  <img src="assets/socials/spotify.png" alt="GitHub Logo" />
-  <img src="assets/socials/discord.png" alt="GitHub Logo" />
-</div></div></div>
+  <div id="top" class="section" style="top: -100vh; left: 0vw">
+    <div class="outer-container"><div class="inner-container">top? coming soon?</div></div>
   </div>
-  <div id="bottom" class="section" style="margin-top: 100vh; margin-left: 0vw">
-    <div class="outer-container"><div class="inner-container"></div></div>
+  <div id="bottom" class="section" style="top: 100vh; left: 0vw">
+    <div class="outer-container" style="width: 100%; height: 50%">
+      <div class="inner-container" style="width: 100%"><h1>Contact</h1>
+
+<input id="form-email" class="form-input" placeholder="Email" />
+<input id="form-subject" class="form-input" placeholder="Subject" />
+<textarea id="form-content" class="form-input" placeholder="Content"></textarea>
+<button id="form-submit" class="hover">Submit!</button></div>
+    </div>
   </div>
-  <div id="left" class="section" style="margin-left: -100vw; margin-top: 0vh">
+  <div id="left" class="section" style="left: -100vw; top: 0vh">
     <div class="outer-container"><div class="inner-container"><h1>Graphics Design</h1>
 <a
-  class="card"
+  class="card hover"
   href="https://discord.gg/qsociety"
   style="background-color: rgba(29, 91, 138, 0.25)"
 >
@@ -66,7 +147,11 @@
     </p>
   </div>
 </a>
-<a class="card" href="https://discord.gg/ps" style="background-color: rgba(13, 19, 122, 0.25)">
+<a
+  class="card hover"
+  href="https://discord.gg/ps"
+  style="background-color: rgba(13, 19, 122, 0.25)"
+>
   <img
     alt="PlayStation Discord Logo"
     class="card-icon circle"
@@ -78,10 +163,14 @@
   </div>
 </a></div></div>
   </div>
-  <div id="right" class="section" style="margin-left: 100vw; margin-top: 0vh">
+  <div id="right" class="section" style="left: 100vw; top: 0vh">
     <div class="outer-container"><div class="inner-container"><h1>Development</h1>
-<a class="card" href="https://discord.gg/qsociety" style="background-color: rgba(29, 91, 138, 0.25)"
-  ><img
+<a
+  class="card hover"
+  href="https://discord.gg/qsociety"
+  style="background-color: rgba(29, 91, 138, 0.25)"
+>
+  <img
     alt="Quantum Utilities Icon"
     class="card-icon circle"
     src="assets/projects/quantum-utilities.png"
@@ -95,8 +184,12 @@
     <p>The main Discord bot for Quantum Society that has a bunch of random things</p>
   </div>
 </a>
-<a class="card" href="https://discord.gg/qsociety" style="background-color: rgba(29, 91, 138, 0.25)"
-  ><img alt="Quantum Music Icon" class="card-icon circle" src="assets/projects/quantum-music.png" />
+<a
+  class="card hover"
+  href="https://discord.gg/qsociety"
+  style="background-color: rgba(29, 91, 138, 0.25)"
+>
+  <img alt="Quantum Music Icon" class="card-icon circle" src="assets/projects/quantum-music.png" />
   <div class="card-content">
     <h3>
       Quantum Music
@@ -106,8 +199,12 @@
     <p>A high quality music bot for Quantum Society which offers music from many services</p>
   </div>
 </a>
-<a class="card" href="https://discord.gg/qsociety" style="background-color: rgba(29, 91, 138, 0.25)"
-  ><img alt="Quantum Staff Icon" class="card-icon circle" src="assets/projects/quantum-staff.png" />
+<a
+  class="card hover"
+  href="https://discord.gg/qsociety"
+  style="background-color: rgba(29, 91, 138, 0.25)"
+>
+  <img alt="Quantum Staff Icon" class="card-icon circle" src="assets/projects/quantum-staff.png" />
   <div class="card-content">
     <h3>
       Quantum Staff
@@ -116,7 +213,10 @@
     <p>A modmail and tickets bot for Quantum Society's staff and management</p>
   </div>
 </a>
-<a class="card" href="https://discord.gg/qsociety" style="background-color: rgba(29, 91, 138, 0.25)"
+<a
+  class="card hover"
+  href="https://discord.gg/qsociety"
+  style="background-color: rgba(29, 91, 138, 0.25)"
   ><img alt="Quantum Staff Icon" class="card-icon circle" src="assets/projects/quantum-staff.png" />
   <div class="card-content">
     <h3>
@@ -127,7 +227,7 @@
   </div>
 </a>
 <a
-  class="card"
+  class="card hover"
   href="https://discord.com/oauth2/authorize?client_id=899089676751765524&scope=applications.commands"
   style="background-color: rgba(168, 142, 129, 0.25)"
 >
@@ -143,7 +243,11 @@
     </p>
   </div>
 </a>
-<a class="card" href="https://commandtechno.com" style="background-color: rgba(98, 42, 202, 0.25)">
+<a
+  class="card hover"
+  href="https://commandtechno.com"
+  style="background-color: rgba(98, 42, 202, 0.25)"
+>
   <img class="card-icon circle" alt="Portfolio Icon" src="assets/avatar.gif" />
   <div class="card-content">
     <h3>
@@ -156,7 +260,7 @@
   </div>
 </a>
 <a
-  class="card"
+  class="card hover"
   href="https://commandtechno.com/snowflake"
   style="background-color: rgba(35, 218, 231, 0.25)"
 >
@@ -176,7 +280,7 @@
   </div>
 </a>
 <a
-  class="card"
+  class="card hover"
   href="https://commandtechno.com/paste"
   style="background-color: rgba(85, 85, 85, 0.25)"
 >
@@ -192,5 +296,5 @@
   </div>
 </a></div></div>
   </div>
-  <script src="https://unpkg.com/tilt.js@1.2.1/dest/tilt.jquery.min.js"></script>
+  <!-- <script src="tilt.js"></script> -->
 </body>

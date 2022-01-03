@@ -26,10 +26,10 @@ const S = {
 // positions
 const P = {
   Center: [0, 0],
-  Top: [0, -10],
-  Bottom: [0, 10],
-  Left: [-10, 0],
-  Right: [10, 0]
+  Top: [0, -100],
+  Bottom: [0, 100],
+  Left: [-100, 0],
+  Right: [100, 0]
 };
 
 let state = "center";

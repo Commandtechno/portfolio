@@ -1,0 +1,22 @@
+.social-desktop {
+  gap: 25px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.social-desktop-container {
+  width: 20%;
+  aspect-ratio: 1/1;
+  padding: 15px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-desktop-icon {
+  max-width: 100%;
+  max-height: 100%;
+}

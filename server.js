@@ -43,8 +43,9 @@ ws.on("message", packet => {
 
           createServer((req, res) => {
             res.setHeader("Content-Type", "application/json");
+            res.setHeader("Access-Control-Allow-Origin", "*");
             res.end(JSON.stringify(presence));
-          }).listen(3000, () => console.log("Server started"));
+          }).listen(3001, () => console.log("Server started"));
           break;
       }
       break;

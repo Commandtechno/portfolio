@@ -4,8 +4,8 @@ function anim(actions) {
     actions.map(([state, [x, y]]) => {
       const element = document.getElementById(state);
       const animation = {
-        "margin-left": `${x * 10}vw`,
-        "margin-top": `${y * 10}vh`
+        left: `${x}vw`,
+        top: `${y}vh`
       };
 
       return new Promise(resolve => $(element).animate(animation, resolve));
@@ -42,10 +42,10 @@ const S = {
 // positions
 const P = {
   Center: [0, 0],
-  Top: [0, -10],
-  Bottom: [0, 10],
-  Left: [-10, 0],
-  Right: [10, 0]
+  Top: [0, -100],
+  Bottom: [0, 100],
+  Left: [-100, 0],
+  Right: [100, 0]
 };
 
 let state = "center";
@@ -104,6 +104,20 @@ window.addEventListener("load", () => {
       // placement: image.getAttribute("tooltip-placement") || "top"
     });
   }
+
+  const submit = document.getElementById("form-submit");
+  submit.onclick = event => {
+    const email = document.getElementById("form-email").value;
+    const subject = document.getElementById("form-subject").value;
+    const content = document.getElementById("form-content").value;
+    console.log({ email, subject, content });
+  };
+
+  fetch("http://localhost:3001")
+    .then(res => res.json())
+    .then(presence => {
+      console.log(presence);
+    });
 });
 
 // move.js

@@ -2,10 +2,10 @@
   gap: 25px;
   max-height: 80vh;
 
-  padding-left: 5vw;
-  padding-right: 5vw;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
+  padding-left: 5vmin;
+  padding-right: 5vmin;
+  padding-top: 5vmin;
+  padding-bottom: 5vmin;
 
   display: flex;
   overflow-y: auto;

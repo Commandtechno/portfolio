@@ -1,13 +1,9 @@
-/* avatar.css */
-.avatar {
-  border-radius: 15px;
-}
-
 /* badge.css */
 .badge {
   width: 25px;
   height: 25px;
   border-radius: 5px;
+
   object-fit: contain;
   vertical-align: middle;
 }
@@ -20,24 +16,13 @@
 
 /* card.css */
 .card {
-  color: white;
   display: flex;
   align-items: center;
-  text-decoration: none;
 
   gap: 15px;
   padding: 15px;
   border-radius: 15px;
-
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-
-/*
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 5px 5px 25px 0px rgba(0, 0, 0, 0.25);
-}
-*/
 
 .card-icon {
   width: 75px;
@@ -59,14 +44,78 @@
 .emoji {
   width: 25px;
   height: 25px;
+
   object-fit: contain;
   vertical-align: middle;
 }
+
+/* form.css */
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+
+  border: none;
+
+  color: rgb(175, 175, 175);
+  background-color: rgb(35, 35, 35);
+}
+
+.form-input::placeholder {
+  color: rgb(105, 105, 105);
+}
+
+#form-content {
+  height: 100%;
+  resize: none;
+}
+
+#form-submit {
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+
+  border: none;
+  align-self: flex-end;
+
+  color: rgb(175, 175, 175);
+  background-color: rgb(35, 35, 35);
+}
+
+#form-submit:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  #form-submit {
+    width: 100%;
+  }
+}
+
+/* hover.css */
+.hover {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hover:hover {
+  transform: scale(1.05);
+  box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* box-shadow: offset-x offset-y blur spread */
 
 /* index.css */
 * {
   margin-top: 0;
   margin-bottom: 0;
+
+  font-style: normal;
+  font-family: "Robot Mono", monospace;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 body {
@@ -78,7 +127,6 @@ body {
   overflow-anchor: none;
 
   color: white;
-  font-style: normal;
   font-family: "Robot Mono", monospace;
   background-color: #2b2b2b;
 }
@@ -88,10 +136,10 @@ body {
   gap: 25px;
   max-height: 80vh;
 
-  padding-left: 5vw;
-  padding-right: 5vw;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
+  padding-left: 5vmin;
+  padding-right: 5vmin;
+  padding-top: 5vmin;
+  padding-bottom: 5vmin;
 
   display: flex;
   overflow-y: auto;
@@ -106,16 +154,57 @@ body {
 
 /* outer-container.css */
 .outer-container {
-  width: 100%;
+  width: 80vw;
   max-width: 800px;
 
   display: flex;
   justify-content: center;
 
-  padding-left: 5vw;
-  padding-right: 5vw;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
+  padding-left: 5vmin;
+  padding-right: 5vmin;
+  padding-top: 5vmin;
+  padding-bottom: 5vmin;
+}
+
+/* profile.css */
+.profile {
+  height: 128px;
+  display: flex;
+  gap: 25px;
+}
+
+/* .profile-avatar {
+  position: relative;
+} */
+
+.profile-avatar-image {
+  height: 100%;
+  border-radius: 15px;
+}
+
+/* .profile-avatar-status {
+  width: 32px;
+  height: 32px;
+
+  right: 0;
+  bottom: 0;
+
+  position: absolute;
+} */
+
+.profile-activity {
+  padding: 15px;
+  border-radius: 15px;
+  background-color: rgb(35, 35, 35);
+}
+
+.profile-activity-content {
+  margin-top: 15px;
+  display: flex;
+}
+
+.profile-activity-content-image {
+  border-radius: 15px;
 }
 
 /* section.css */
@@ -127,4 +216,49 @@ body {
   position: absolute;
   align-items: center;
   justify-content: center;
+}
+
+/* social-desktop.css */
+.social-desktop {
+  gap: 25px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.social-desktop-container {
+  width: 20%;
+  aspect-ratio: 1/1;
+  padding: 15px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-desktop-icon {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* social-mobile.css */
+.social-mobile-container {
+  gap: 5px;
+  display: flex;
+}
+
+/* social.css */
+.social-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .social-desktop {
+    display: none;
+  }
+
+  .social-mobile {
+    display: block;
+  }
 }

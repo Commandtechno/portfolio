@@ -1,0 +1,41 @@
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+
+  border: none;
+
+  color: rgb(175, 175, 175);
+  background-color: rgb(35, 35, 35);
+}
+
+.form-input::placeholder {
+  color: rgb(105, 105, 105);
+}
+
+#form-content {
+  height: 100%;
+  resize: none;
+}
+
+#form-submit {
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+
+  border: none;
+  align-self: flex-end;
+
+  color: rgb(175, 175, 175);
+  background-color: rgb(35, 35, 35);
+}
+
+#form-submit:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  #form-submit {
+    width: 100%;
+  }
+}

@@ -1,0 +1,39 @@
+.profile {
+  height: 128px;
+  display: flex;
+  gap: 25px;
+}
+
+/* .profile-avatar {
+  position: relative;
+} */
+
+.profile-avatar-image {
+  height: 100%;
+  border-radius: 15px;
+}
+
+/* .profile-avatar-status {
+  width: 32px;
+  height: 32px;
+
+  right: 0;
+  bottom: 0;
+
+  position: absolute;
+} */
+
+.profile-activity {
+  padding: 15px;
+  border-radius: 15px;
+  background-color: rgb(35, 35, 35);
+}
+
+.profile-activity-content {
+  margin-top: 15px;
+  display: flex;
+}
+
+.profile-activity-content-image {
+  border-radius: 15px;
+}

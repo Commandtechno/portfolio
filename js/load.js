@@ -27,4 +27,18 @@ window.addEventListener("load", () => {
       // placement: image.getAttribute("tooltip-placement") || "top"
     });
   }
+
+  const submit = document.getElementById("form-submit");
+  submit.onclick = event => {
+    const email = document.getElementById("form-email").value;
+    const subject = document.getElementById("form-subject").value;
+    const content = document.getElementById("form-content").value;
+    console.log({ email, subject, content });
+  };
+
+  fetch("http://localhost:3001")
+    .then(res => res.json())
+    .then(presence => {
+      console.log(presence);
+    });
 });
