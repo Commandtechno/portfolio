@@ -53,6 +53,7 @@ function connect() {
               console.log("Starting server...");
               server = new WebSocket.Server({ port });
               server.on("connection", ws => ws.send(JSON.stringify(presence)));
+              server.once("listening", () => console.log("Server started"));
             }
             break;
         }
