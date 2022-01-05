@@ -118,10 +118,6 @@ window.addEventListener("keydown", event => {
         document.getElementById("profile").parentElement.children[1].innerText = "Boop Dog";
         document.getElementById("profile").parentElement.children[2].innerText =
           "Hello there. I'm a gamer and gamer. I'm interested in all things gaming, and gaming! Here you will find my gamings, and the various things I have gamed on.";
-
-        setTimeout(() => {
-          window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-        }, 5000);
       }
       break;
   }
