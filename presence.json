@@ -1,39 +1,40 @@
 {
+  "__image": "https://commandtechno.com/i/71qf423ej672",
   "user": { "id": "296776625432035328" },
   "status": "dnd",
-  "guild_id": "828872209367957525",
   "client_status": { "desktop": "dnd" },
   "activities": [
     {
       "type": 0,
-      "timestamps": { "start": 1641189033365 },
-      "state": "Workspace: portfolio",
-      "session_id": "629945e83df96718f6690f00e39597e5",
-      "name": "Visual Studio Code",
-      "id": "c61f8ec6e4ac93cf",
-      "details": "Editing contact.html",
-      "created_at": 1641189109295,
-      "buttons": ["View Repository"],
+      "timestamps": { "start": 1641249198000, "end": 1641249198000 },
+      "state": "Join now",
+      "session_id": "f90aea5c640daf11226a860d44080cac",
+      "party": { "size": [211, 889], "id": "-1" },
+      "name": "in Quantum Society",
+      "id": "ae11bc0f2cfb479a",
+      "details": "very cool server yes",
+      "created_at": 1641249199319,
+      "buttons": ["Join!"],
       "assets": {
-        "small_text": "Visual Studio Code",
-        "small_image": "565945770067623946",
-        "large_text": "Editing a HTML file",
-        "large_image": "565944799455346703"
+        "small_text": "the cat",
+        "small_image": "mp:external/L3XDmM8_Te6tcP3TnMrP2feebyM2Po1ep7hmE9RZGqw/https/cdn.discordapp.com/emojis/859584749366804510.gif",
+        "large_text": "the penguin",
+        "large_image": "mp:external/0g8mlaBL2Xax0nf8f1WjenSR9-SL4x98RSze3wxnF8I/https/cdn.discordapp.com/emojis/765141043603046420.gif"
       },
-      "application_id": "383226320970055681"
+      "application_id": "761105819491893269"
     },
     {
       "type": 2,
-      "timestamps": { "start": 1641188940333, "end": 1641189167413 },
+      "timestamps": { "start": 1641249026060, "end": 1641249253140 },
       "sync_id": "3n69hLUdIsSa1WlRmjMZlW",
       "state": "alt-J",
-      "session_id": "629945e83df96718f6690f00e39597e5",
+      "session_id": "f90aea5c640daf11226a860d44080cac",
       "party": { "id": "spotify:296776625432035328" },
       "name": "Spotify",
       "id": "spotify:1",
       "flags": 48,
       "details": "Breezeblocks",
-      "created_at": 1641188941459,
+      "created_at": 1641249026678,
       "assets": {
         "large_text": "An Awesome Wave",
         "large_image": "spotify:ab67616d0000b27369592e88bb29d610a35118f8"

@@ -67,10 +67,12 @@ ws.on("message", packet => {
         })
       );
 
-      setTimeout(
+      setInterval(
         () => ws.send(JSON.stringify({ op: 1, d: sequence })),
         packet.d.heartbeat_interval
       );
       break;
   }
 });
+
+ws.on("close", console.log);

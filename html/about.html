@@ -1,16 +1,35 @@
-<div class="profile">
+<div id="profile" class="profile">
   <!-- <div class="profile-avatar"> -->
-  <img alt="Avatar" class="profile-avatar-image" src="assets/avatar.gif" />
+  <img alt="Avatar" id="profile-avatar" class="profile-avatar" src="assets/avatar.gif" />
   <!-- <img alt="Offline Status" class="profile-avatar-status" src="assets/status/offline.png" />
   </div> -->
-  <div class="profile-activity">
-    <p class="profile-activity-title">Listening to Spotify</p>
-    <div class="profile-activity-content">
+  <div id="profile-activity" class="profile-activity" style="display: none">
+    <div class="profile-activity-assets">
       <img
-        alt="Cover"
-        class="profile-activity-content-image"
-        src="https://cdn.discordapp.com/emojis/897592969782243368.gif?size=96"
+        alt="Activity Image"
+        id="profile-activity-large-image"
+        class="profile-activity-large-image"
+        style="display: none"
       />
+      <div
+        id="profile-activity-small-image-container"
+        class="profile-activity-small-image-container"
+        style="display: none"
+      >
+        <img
+          alt="Activity Smol Image Pog Sex Cum Balls"
+          id="profile-activity-small-image"
+          class="profile-activity-small-image"
+        />
+      </div>
+    </div>
+    <div id="profile-activity-content" class="profile-activity-content">
+      <h3 id="profile-activity-name" class="profile-activity-name"></h3>
+      <p id="profile-activity-details" class="profile-activity-details"></p>
+      <p id="profile-activity-state" class="profile-activity-state"></p>
+      <div id="profile-activity-bar" class="profile-activity-bar" style="display: none">
+        <div id="profile-activity-bar-slider" class="profile-activity-bar-slider"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -26,16 +45,16 @@
   <a
     class="social-desktop-container hover"
     href="https://github.com/Commandtechno"
-    style="background-color: rgba(88, 101, 242, 0.25)"
+    style="background-color: rgba(0, 0, 0, 0.25)"
   >
-    <img alt="GitHub Logo" class="social-desktop-icon" src="assets/socials/discord.png" />
+    <img alt="GitHub Logo" class="social-desktop-icon" src="assets/socials/github.png" />
   </a>
   <a
     class="social-desktop-container hover"
     href="https://discord.com/users/296776625432035328"
-    style="background-color: rgba(0, 0, 0, 0.25)"
+    style="background-color: rgba(88, 101, 242, 0.25)"
   >
-    <img alt="Discord Logo" class="social-desktop-icon" src="assets/socials/github.png" />
+    <img alt="Discord Logo" class="social-desktop-icon" src="assets/socials/discord.png" />
   </a>
   <a
     class="social-desktop-container hover"

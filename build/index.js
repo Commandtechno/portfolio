@@ -53,6 +53,28 @@ let arrows = true;
 let isPending = false;
 let startTouch;
 
+// getAssetURL.js
+function getAssetURL(application, asset) {
+  if (!asset) return null;
+  if (asset.includes(":")) {
+    const [platform, id] = asset.split(":");
+    switch (platform) {
+      case "mp":
+        return `https://media.discordapp.net/${id}`;
+      case "spotify":
+        return `https://i.scdn.co/image/${id}`;
+      case "youtube":
+        return `https://i.ytimg.com/vi/${id}/hqdefault_live.jpg`;
+      case "twitch":
+        return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${id}.png`;
+      default:
+        return null;
+    }
+  }
+
+  return "https://cdn.discordapp.com/app-assets/" + application + "/" + asset;
+}
+
 // keydown.js
 window.addEventListener("keydown", event => {
   switch (event.key) {
@@ -96,14 +118,14 @@ window.addEventListener("load", () => {
       break;
   }
 
-  const images = document.getElementsByTagName("img");
-  for (const image of images) {
-    if (!image.alt) alert("Missing alt attribute on image: " + image.src);
-    tippy(image, {
-      content: image.alt
-      // placement: image.getAttribute("tooltip-placement") || "top"
-    });
-  }
+  // const images = document.getElementsByTagName("img");
+  // for (const image of images) {
+  //   if (!image.alt) alert("Missing alt attribute on image: " + image.src);
+  //   tippy(image, {
+  //     content: image.alt
+  //     // placement: image.getAttribute("tooltip-placement") || "top"
+  //   });
+  // }
 
   const submit = document.getElementById("form-submit");
   submit.onclick = event => {
@@ -117,6 +139,77 @@ window.addEventListener("load", () => {
     .then(res => res.json())
     .then(presence => {
       console.log(presence);
+      const activity = presence.activities.find(activity => activity.type !== 4);
+      if (!activity) return;
+
+      if (activity.assets.large_image) {
+        const element = document.getElementById("profile-activity-large-image");
+        const image = getAssetURL(activity.application_id, activity.assets.large_image);
+        if (image) {
+          element.src = image;
+          element.style.display = null;
+        }
+      }
+
+      if (activity.assets.small_image) {
+        const element = document.getElementById("profile-activity-small-image");
+        const image = getAssetURL(activity.application_id, activity.assets.small_image);
+        if (image) {
+          element.src = image;
+          element.parentElement.style.display = null;
+        }
+      }
+
+      if (activity.id === "spotify:1") {
+        if (activity.details) {
+          const element = document.getElementById("profile-activity-name");
+          element.innerText = activity.details;
+        }
+
+        if (activity.state) {
+          const element = document.getElementById("profile-activity-details");
+          element.innerText = "by " + activity.state;
+        }
+
+        if (activity.assets.large_text) {
+          const element = document.getElementById("profile-activity-state");
+          element.innerText = "on " + activity.assets.large_text;
+        }
+
+        if (activity.timestamps) {
+          const bar = document.getElementById("profile-activity-bar");
+          const slider = document.getElementById("profile-activity-bar-slider");
+
+          const completed = Date.now() - activity.timestamps.start;
+          const total = activity.timestamps.end - activity.timestamps.start;
+
+          slider.style.width = (completed / total) * 100 + "%";
+          bar.style.display = null;
+        }
+      } else {
+        if (activity.name) {
+          const element = document.getElementById("profile-activity-name");
+          element.innerText = activity.name;
+        }
+
+        if (activity.details) {
+          const element = document.getElementById("profile-activity-details");
+          element.innerText = activity.details;
+        }
+
+        if (activity.state) {
+          const element = document.getElementById("profile-activity-state");
+          if (activity.party?.size) {
+            const [min, max] = activity.party.size;
+            element.innerText = activity.state + " (" + min + " of " + max + ")";
+          } else {
+            element.innerText = activity.state;
+          }
+        }
+      }
+
+      const element = document.getElementById("profile-activity");
+      element.style.display = null;
     });
 });
 
