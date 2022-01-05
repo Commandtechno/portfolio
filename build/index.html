@@ -11,12 +11,17 @@
   <div id="center" class="section" style="left: 0vw; top: 0vh">
     <div class="outer-container">
       <div class="inner-container" data-tilt data-tilt-perspective="1000"><div id="profile">
-  <img alt="Avatar" id="profile-avatar" src="assets/avatar.gif" />
-  <div id="profile-activity" style="display: none">
+  <div id="profile-avatar-container">
+    <img alt="Avatar" id="profile-avatar" src="assets/avatar.gif" />
+    <div id="profile-avatar-status-container" class="circle" style="display: none">
+      <img alt="Status" id="profile-avatar-status" class="circle" src="assets/status/offline.png" />
+    </div>
+  </div>
+  <a id="profile-activity" target="_blank" rel="noopener noreferrer" style="display: none">
     <div id="profile-activity-assets">
       <img id="profile-activity-large-image" style="display: none" />
-      <div id="profile-activity-small-image-container" style="display: none">
-        <img id="profile-activity-small-image" />
+      <div id="profile-activity-small-image-container" class="circle" style="display: none">
+        <img id="profile-activity-small-image" class="circle" />
       </div>
     </div>
     <div id="profile-activity-content">
@@ -27,7 +32,7 @@
         <div id="profile-activity-bar"></div>
       </div>
     </div>
-  </div>
+  </a>
 </div>
 
 <h1>Commandtechno</h1>
@@ -37,7 +42,7 @@
   community management! Here you will find my projects, and the various things I have worked on.
 </p>
 
-<div class="social-desktop">
+<div id="social-desktop">
   <a
     class="social-desktop-container hover"
     href="https://github.com/Commandtechno"
@@ -82,7 +87,7 @@
   </a>
 </div>
 
-<p class="social-mobile">
+<p id="social-mobile">
   <a class="social-mobile-container" href="https://github.com/Commandtechno">
     <img alt="GitHub Logo" class="emoji" src="assets/socials/github.png" />
     <b>Commandtechno</b>
@@ -110,10 +115,10 @@
 </p></div>
     </div>
   </div>
-  <div id="top" class="section" style="top: -100vh; left: 0vw">
+  <div id="top" class="section" style="top: -100vh; left: 0vw; display: none">
     <div class="outer-container"><div class="inner-container">top? coming soon?</div></div>
   </div>
-  <div id="bottom" class="section" style="top: 100vh; left: 0vw">
+  <div id="bottom" class="section" style="top: 100vh; left: 0vw; display: none">
     <div class="outer-container" style="width: 100%; height: 50%">
       <div class="inner-container" style="width: 100%"><h1>Contact</h1>
 
@@ -123,7 +128,7 @@
 <button id="form-submit" class="hover">Submit!</button></div>
     </div>
   </div>
-  <div id="left" class="section" style="left: -100vw; top: 0vh">
+  <div id="left" class="section" style="left: -100vw; top: 0vh; display: none">
     <div class="outer-container"><div class="inner-container"><h1>Graphics Design</h1>
 <a
   class="card hover"
@@ -166,7 +171,7 @@
   </div>
 </a></div></div>
   </div>
-  <div id="right" class="section" style="left: 100vw; top: 0vh">
+  <div id="right" class="section" style="left: 100vw; top: 0vh; display: none">
     <div class="outer-container"><div class="inner-container"><h1>Development</h1>
 <a
   class="card hover"
@@ -299,5 +304,4 @@
   </div>
 </a></div></div>
   </div>
-  <!-- <script src="tilt.js"></script> -->
 </body>

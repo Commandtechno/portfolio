@@ -7,7 +7,19 @@ function anim(actions) {
         top: `${y}vh`
       };
 
-      return new Promise(resolve => $(element).animate(animation, resolve));
+      let shouldHide = false;
+      if (x === P.Center[0] && y === P.Center[1]) {
+        show(element);
+      } else {
+        shouldHide = true;
+      }
+
+      return new Promise(resolve =>
+        $(element).animate(animation, () => {
+          if (shouldHide) hide(element);
+          resolve();
+        })
+      );
     })
   );
 }

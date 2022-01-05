@@ -1,10 +1,15 @@
 <div id="profile">
-  <img alt="Avatar" id="profile-avatar" src="assets/avatar.gif" />
-  <div id="profile-activity" style="display: none">
+  <div id="profile-avatar-container">
+    <img alt="Avatar" id="profile-avatar" src="assets/avatar.gif" />
+    <div id="profile-avatar-status-container" class="circle" style="display: none">
+      <img alt="Status" id="profile-avatar-status" class="circle" src="assets/status/offline.png" />
+    </div>
+  </div>
+  <a id="profile-activity" target="_blank" rel="noopener noreferrer" style="display: none">
     <div id="profile-activity-assets">
       <img id="profile-activity-large-image" style="display: none" />
-      <div id="profile-activity-small-image-container" style="display: none">
-        <img id="profile-activity-small-image" />
+      <div id="profile-activity-small-image-container" class="circle" style="display: none">
+        <img id="profile-activity-small-image" class="circle" />
       </div>
     </div>
     <div id="profile-activity-content">
@@ -15,7 +20,7 @@
         <div id="profile-activity-bar"></div>
       </div>
     </div>
-  </div>
+  </a>
 </div>
 
 <h1>Commandtechno</h1>
@@ -25,7 +30,7 @@
   community management! Here you will find my projects, and the various things I have worked on.
 </p>
 
-<div class="social-desktop">
+<div id="social-desktop">
   <a
     class="social-desktop-container hover"
     href="https://github.com/Commandtechno"
@@ -70,7 +75,7 @@
   </a>
 </div>
 
-<p class="social-mobile">
+<p id="social-mobile">
   <a class="social-mobile-container" href="https://github.com/Commandtechno">
     <img alt="GitHub Logo" class="emoji" src="assets/socials/github.png" />
     <b>Commandtechno</b>

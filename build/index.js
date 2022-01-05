@@ -8,7 +8,19 @@ function anim(actions) {
         top: `${y}vh`
       };
 
-      return new Promise(resolve => $(element).animate(animation, resolve));
+      let shouldHide = false;
+      if (x === P.Center[0] && y === P.Center[1]) {
+        show(element);
+      } else {
+        shouldHide = true;
+      }
+
+      return new Promise(resolve =>
+        $(element).animate(animation, () => {
+          if (shouldHide) hide(element);
+          resolve();
+        })
+      );
     })
   );
 }
@@ -98,6 +110,16 @@ window.addEventListener("keydown", event => {
     case K.Right:
       move(D.Right);
       break;
+
+    case "k":
+      if (event.ctrlKey) {
+        event.preventDefault();
+        document.getElementById("profile-avatar").src = "assets/gaming.png";
+        document.getElementById("profile").parentElement.children[1].innerText = "Boop Dog";
+        document.getElementById("profile").parentElement.children[2].innerText =
+          "Hello there. I'm a gamer and gamer. I'm interested in all things gaming, and gaming! Here you will find my gamings, and the various things I have gamed on.";
+      }
+      break;
   }
 });
 
@@ -140,8 +162,13 @@ window.addEventListener("load", () => {
     console.log({ email, subject, content });
   };
 
+  const statusContainerElement = document.getElementById("profile-avatar-status-container");
+  const statusElement = document.getElementById("profile-avatar-status");
   const activityElement = document.getElementById("profile-activity");
   const largeImageElement = document.getElementById("profile-activity-large-image");
+  const smallImageContainerElement = document.getElementById(
+    "profile-activity-small-image-container"
+  );
   const smallImageElement = document.getElementById("profile-activity-small-image");
   const nameElement = document.getElementById("profile-activity-name");
   const detailsElement = document.getElementById("profile-activity-details");
@@ -154,10 +181,14 @@ window.addEventListener("load", () => {
 
   ws.onmessage = message => {
     const presence = JSON.parse(message.data);
-    const activity = presence.activities.find(activity => activity.type !== 4);
+    console.log(presence);
 
+    statusElement.src = "assets/status/" + presence.status + ".png";
+    show(statusContainerElement);
+
+    const activity = presence.activities.find(activity => activity.type !== 4);
     if (!activity) {
-      hide(element);
+      hide(activityElement);
       return;
     }
 
@@ -174,6 +205,7 @@ window.addEventListener("load", () => {
       smallImage = getAssetURL(activity.application_id, activity.assets.small_image);
 
     if (activity.id === "spotify:1") {
+      activityElement.href = "https://open.spotify.com/track/" + activity.sync_id;
       if (activity.details) name = activity.details;
       if (activity.state) details = "by " + activity.state;
       if (activity.assets.large_text) state = "on " + activity.assets.large_text;
@@ -187,7 +219,7 @@ window.addEventListener("load", () => {
           barElement.style.width = (barCompleted / barTotal) * 100 + "%";
         }, 1000);
       }
-    }
+    } else activityElement.removeAttribute("href");
 
     if (activity.party?.size) {
       const [min, max] = activity.party.size;
@@ -216,8 +248,8 @@ window.addEventListener("load", () => {
 
     if (smallImage) {
       smallImageElement.src = smallImage;
-      show(smallImageElement);
-    } else hide(smallImageElement);
+      show(smallImageContainerElement);
+    } else hide(smallImageContainerElement);
 
     if (barCompleted && barTotal) {
       barElement.style.width = (barCompleted / barTotal) * 100 + "%";

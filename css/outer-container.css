@@ -1,9 +1,9 @@
 .outer-container {
-  width: 80vw;
-  max-width: 800px;
-
   display: flex;
   justify-content: center;
+
+  width: 80vw;
+  max-width: 800px;
 
   padding-left: 5vmin;
   padding-right: 5vmin;

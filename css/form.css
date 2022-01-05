@@ -1,33 +1,33 @@
 .form-input {
+  border: none;
+
   width: 100%;
   padding: 10px;
   border-radius: 10px;
 
-  border: none;
-
-  color: rgb(175, 175, 175);
-  background-color: rgb(35, 35, 35);
+  color: var(--primary-light);
+  background-color: var(--secondary);
 }
 
 .form-input::placeholder {
-  color: rgb(105, 105, 105);
+  color: var(--secondary-light);
 }
 
 #form-content {
-  height: 100%;
   resize: none;
+  height: 100%;
 }
 
 #form-submit {
+  border: none;
+  align-self: flex-end;
+
   width: 300px;
   padding: 10px;
   border-radius: 10px;
 
-  border: none;
-  align-self: flex-end;
-
-  color: rgb(175, 175, 175);
-  background-color: rgb(35, 35, 35);
+  color: var(--primary-light);
+  background-color: var(--secondary);
 }
 
 #form-submit:hover {

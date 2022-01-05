@@ -1,4 +1,8 @@
 .inner-container {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+
   gap: 25px;
   max-height: 80vh;
 
@@ -7,10 +11,7 @@
   padding-top: 5vmin;
   padding-bottom: 5vmin;
 
-  display: flex;
-  overflow-y: auto;
-  flex-direction: column;
-  box-shadow: 5px 5px 15px 5px rgb(0 0 0 / 25%);
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 25%);
   border-radius: 25px;
 }
 

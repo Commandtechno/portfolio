@@ -51,35 +51,35 @@
 
 /* form.css */
 .form-input {
+  border: none;
+
   width: 100%;
   padding: 10px;
   border-radius: 10px;
 
-  border: none;
-
-  color: rgb(175, 175, 175);
-  background-color: rgb(35, 35, 35);
+  color: var(--primary-light);
+  background-color: var(--secondary);
 }
 
 .form-input::placeholder {
-  color: rgb(105, 105, 105);
+  color: var(--secondary-light);
 }
 
 #form-content {
-  height: 100%;
   resize: none;
+  height: 100%;
 }
 
 #form-submit {
+  border: none;
+  align-self: flex-end;
+
   width: 300px;
   padding: 10px;
   border-radius: 10px;
 
-  border: none;
-  align-self: flex-end;
-
-  color: rgb(175, 175, 175);
-  background-color: rgb(35, 35, 35);
+  color: var(--primary-light);
+  background-color: var(--secondary);
 }
 
 #form-submit:hover {
@@ -102,9 +102,15 @@
   box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.5);
 }
 
-/* box-shadow: offset-x offset-y blur spread */
-
 /* index.css */
+:root {
+  --primary: rgb(43, 43, 43);
+  --secondary: rgb(35, 35, 35);
+
+  --primary-light: rgb(175, 175, 175);
+  --secondary-light: rgb(105, 105, 105);
+}
+
 * {
   margin-top: 0;
   margin-bottom: 0;
@@ -127,11 +133,15 @@ body {
   overflow-anchor: none;
 
   color: white;
-  background-color: #2b2b2b;
+  background-color: var(--primary);
 }
 
 /* inner-container.css */
 .inner-container {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+
   gap: 25px;
   max-height: 80vh;
 
@@ -140,10 +150,7 @@ body {
   padding-top: 5vmin;
   padding-bottom: 5vmin;
 
-  display: flex;
-  overflow-y: auto;
-  flex-direction: column;
-  box-shadow: 5px 5px 15px 5px rgb(0 0 0 / 25%);
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 25%);
   border-radius: 25px;
 }
 
@@ -153,11 +160,11 @@ body {
 
 /* outer-container.css */
 .outer-container {
-  width: 80vw;
-  max-width: 800px;
-
   display: flex;
   justify-content: center;
+
+  width: 80vw;
+  max-width: 800px;
 
   padding-left: 5vmin;
   padding-right: 5vmin;
@@ -172,40 +179,53 @@ body {
   display: flex;
 }
 
+/*
+avatar and status thing
+*/
+
+#profile-avatar-container {
+  position: relative;
+}
+
 #profile-avatar {
   height: 100%;
   border-radius: 15px;
 }
+
+#profile-avatar-status-container {
+  position: absolute;
+
+  width: 35px;
+  height: 35px;
+  right: -15px;
+  bottom: -15px;
+  padding: 10px;
+
+  background-color: #2b2b2b;
+}
+
+#profile-avatar-status {
+  height: 100%;
+}
+
+/* 
+activity
+*/
 
 #profile-activity {
   display: flex;
 
   gap: 15px;
   padding: 15px;
+  min-width: 50%;
   border-radius: 15px;
+
   background-color: rgb(35, 35, 35);
 }
 
-#profile-activity-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#profile-activity-bar-container {
-  height: 6px;
-  margin-top: 10px;
-  border-radius: 3px;
-  background-color: darkgray;
-}
-
-#profile-activity-bar {
-  height: 6px;
-  min-width: 6px;
-  max-width: 100%;
-  border-radius: 3px;
-  background-color: white;
-}
+/* 
+images and stuff
+*/
 
 #profile-activity-assets {
   position: relative;
@@ -224,15 +244,49 @@ body {
   right: -10px;
   bottom: -10px;
   padding: 5px;
-  border-radius: 50%;
 
   background-color: rgb(35, 35, 35);
 }
 
 #profile-activity-small-image {
   height: 100%;
-  border-radius: 50%;
 }
+
+/* 
+the text
+*/
+
+#profile-activity-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/*
+spotify progress bar thing
+*/
+
+#profile-activity-bar-container {
+  height: 6px;
+  margin-top: 10px;
+  border-radius: 3px;
+
+  background-color: darkgray;
+}
+
+#profile-activity-bar {
+  height: 6px;
+  min-width: 6px;
+  max-width: 100%;
+  border-radius: 3px;
+
+  background-color: white;
+}
+
+/* 
+its big so no mobile
+*/
 
 @media screen and (max-width: 600px) {
   #profile-activity {
@@ -252,7 +306,7 @@ body {
 }
 
 /* social-desktop.css */
-.social-desktop {
+#social-desktop {
   gap: 25px;
 
   display: flex;
@@ -261,9 +315,9 @@ body {
 
 .social-desktop-container {
   width: 20%;
-  aspect-ratio: 1/1;
   padding: 15px;
   border-radius: 10px;
+  aspect-ratio: 1/1;
 
   display: flex;
   align-items: center;
@@ -276,22 +330,22 @@ body {
 }
 
 /* social-mobile.css */
-.social-mobile-container {
+#social-mobile-container {
   gap: 5px;
   display: flex;
 }
 
 /* social.css */
-.social-mobile {
+#social-mobile {
   display: none;
 }
 
 @media screen and (max-width: 600px) {
-  .social-desktop {
+  #social-desktop {
     display: none;
   }
 
-  .social-mobile {
-    display: block;
+  #social-mobile {
+    display: grid;
   }
 }

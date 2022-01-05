@@ -1,4 +1,4 @@
-.social-desktop {
+#social-desktop {
   gap: 25px;
 
   display: flex;
@@ -7,9 +7,9 @@
 
 .social-desktop-container {
   width: 20%;
-  aspect-ratio: 1/1;
   padding: 15px;
   border-radius: 10px;
+  aspect-ratio: 1/1;
 
   display: flex;
   align-items: center;
