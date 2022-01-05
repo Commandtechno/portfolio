@@ -75,6 +75,11 @@ function getAssetURL(application, asset) {
   return "https://cdn.discordapp.com/app-assets/" + application + "/" + asset;
 }
 
+// hide.js
+function hide(element) {
+  element.style.display = "none";
+}
+
 // keydown.js
 window.addEventListener("keydown", event => {
   switch (event.key) {
@@ -135,82 +140,92 @@ window.addEventListener("load", () => {
     console.log({ email, subject, content });
   };
 
-  fetch("http://localhost:3001")
-    .then(res => res.json())
-    .then(presence => {
-      console.log(presence);
-      const activity = presence.activities.find(activity => activity.type !== 4);
-      if (!activity) return;
+  const activityElement = document.getElementById("profile-activity");
+  const largeImageElement = document.getElementById("profile-activity-large-image");
+  const smallImageElement = document.getElementById("profile-activity-small-image");
+  const nameElement = document.getElementById("profile-activity-name");
+  const detailsElement = document.getElementById("profile-activity-details");
+  const stateElement = document.getElementById("profile-activity-state");
+  const barContainerElement = document.getElementById("profile-activity-bar-container");
+  const barElement = document.getElementById("profile-activity-bar");
 
-      if (activity.assets.large_image) {
-        const element = document.getElementById("profile-activity-large-image");
-        const image = getAssetURL(activity.application_id, activity.assets.large_image);
-        if (image) {
-          element.src = image;
-          element.style.display = null;
-        }
+  const ws = new WebSocket("ws://localhost:3001");
+  let interval;
+
+  ws.onmessage = message => {
+    const presence = JSON.parse(message.data);
+    const activity = presence.activities.find(activity => activity.type !== 4);
+
+    if (!activity) {
+      hide(element);
+      return;
+    }
+
+    let { name, details, state } = activity;
+    let largeImage;
+    let smallImage;
+    let barCompleted;
+    let barTotal;
+
+    if (activity.assets.large_image)
+      largeImage = getAssetURL(activity.application_id, activity.assets.large_image);
+
+    if (activity.assets.small_image)
+      smallImage = getAssetURL(activity.application_id, activity.assets.small_image);
+
+    if (activity.id === "spotify:1") {
+      if (activity.details) name = activity.details;
+      if (activity.state) details = "by " + activity.state;
+      if (activity.assets.large_text) state = "on " + activity.assets.large_text;
+      if (activity.timestamps) {
+        barCompleted = Date.now() - activity.timestamps.start;
+        barTotal = activity.timestamps.end - activity.timestamps.start;
+
+        clearInterval(interval);
+        interval = setInterval(() => {
+          barCompleted += 1000;
+          barElement.style.width = (barCompleted / barTotal) * 100 + "%";
+        }, 1000);
       }
+    }
 
-      if (activity.assets.small_image) {
-        const element = document.getElementById("profile-activity-small-image");
-        const image = getAssetURL(activity.application_id, activity.assets.small_image);
-        if (image) {
-          element.src = image;
-          element.parentElement.style.display = null;
-        }
-      }
+    if (activity.party?.size) {
+      const [min, max] = activity.party.size;
+      state += " (" + min + " of " + max + ")";
+    }
 
-      if (activity.id === "spotify:1") {
-        if (activity.details) {
-          const element = document.getElementById("profile-activity-name");
-          element.innerText = activity.details;
-        }
+    if (name) {
+      nameElement.innerText = name;
+      show(nameElement);
+    } else hide(nameElement);
 
-        if (activity.state) {
-          const element = document.getElementById("profile-activity-details");
-          element.innerText = "by " + activity.state;
-        }
+    if (details) {
+      detailsElement.innerText = details;
+      show(detailsElement);
+    } else hide(detailsElement);
 
-        if (activity.assets.large_text) {
-          const element = document.getElementById("profile-activity-state");
-          element.innerText = "on " + activity.assets.large_text;
-        }
+    if (state) {
+      stateElement.innerText = state;
+      show(stateElement);
+    } else hide(stateElement);
 
-        if (activity.timestamps) {
-          const bar = document.getElementById("profile-activity-bar");
-          const slider = document.getElementById("profile-activity-bar-slider");
+    if (largeImage) {
+      largeImageElement.src = largeImage;
+      show(largeImageElement);
+    } else hide(largeImageElement);
 
-          const completed = Date.now() - activity.timestamps.start;
-          const total = activity.timestamps.end - activity.timestamps.start;
+    if (smallImage) {
+      smallImageElement.src = smallImage;
+      show(smallImageElement);
+    } else hide(smallImageElement);
 
-          slider.style.width = (completed / total) * 100 + "%";
-          bar.style.display = null;
-        }
-      } else {
-        if (activity.name) {
-          const element = document.getElementById("profile-activity-name");
-          element.innerText = activity.name;
-        }
+    if (barCompleted && barTotal) {
+      barElement.style.width = (barCompleted / barTotal) * 100 + "%";
+      show(barContainerElement);
+    } else hide(barContainerElement);
 
-        if (activity.details) {
-          const element = document.getElementById("profile-activity-details");
-          element.innerText = activity.details;
-        }
-
-        if (activity.state) {
-          const element = document.getElementById("profile-activity-state");
-          if (activity.party?.size) {
-            const [min, max] = activity.party.size;
-            element.innerText = activity.state + " (" + min + " of " + max + ")";
-          } else {
-            element.innerText = activity.state;
-          }
-        }
-      }
-
-      const element = document.getElementById("profile-activity");
-      element.style.display = null;
-    });
+    show(activityElement);
+  };
 });
 
 // move.js
@@ -300,6 +315,11 @@ async function move(direction) {
   }
 
   isPending = false;
+}
+
+// show.js
+function show(element) {
+  element.style.display = null;
 }
 
 // touchend.js

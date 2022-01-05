@@ -1,11 +1,9 @@
-const { token, guild, user } = require("./config.json");
+const { token, guild, user, port } = require("./config.json");
 
-const { createServer } = require("http");
 const WebSocket = require("ws");
-
-console.log("Connecting...");
 const ws = new WebSocket("wss://gateway.discord.gg/?v=9");
 
+let server;
 let presence;
 let sequence = 0;
 
@@ -34,6 +32,8 @@ ws.on("message", packet => {
           if (packet.d.user.id === user) {
             console.log("Presence updated");
             presence = packet.d;
+
+            for (const ws of server.clients) ws.send(JSON.stringify(presence));
           }
           break;
 
@@ -41,11 +41,8 @@ ws.on("message", packet => {
           console.log("Received presence, starting server...");
           presence = packet.d.presences.find(presence => presence.user.id === user);
 
-          createServer((req, res) => {
-            res.setHeader("Content-Type", "application/json");
-            res.setHeader("Access-Control-Allow-Origin", "*");
-            res.end(JSON.stringify(presence));
-          }).listen(3001, () => console.log("Server started"));
+          server = new WebSocket.Server({ port });
+          server.on("connection", ws => ws.send(JSON.stringify(presence)));
           break;
       }
       break;
