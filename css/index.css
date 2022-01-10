@@ -24,8 +24,6 @@ body {
 
   overflow: hidden;
   position: relative;
-  user-select: none;
-  overflow-anchor: none;
 
   color: white;
   background-color: var(--primary);

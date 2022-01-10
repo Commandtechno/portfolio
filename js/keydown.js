@@ -1,21 +1,34 @@
 window.addEventListener("keydown", event => {
   switch (event.key) {
-    case K.Up:
+    case "ArrowUp":
+    case "w":
+    case "w":
+      event.preventDefault();
       move(D.Up);
       break;
 
-    case K.Down:
+    case "ArrowDown":
+    case "S":
+    case "s":
+      event.preventDefault();
       move(D.Down);
       break;
 
-    case K.Left:
+    case "ArrowLeft":
+    case "A":
+    case "a":
+      event.preventDefault();
       move(D.Left);
       break;
 
-    case K.Right:
+    case "ArrowRight":
+    case "D":
+    case "d":
+      event.preventDefault();
       move(D.Right);
       break;
 
+    case "K":
     case "k":
       if (event.ctrlKey) {
         event.preventDefault();

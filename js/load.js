@@ -1,3 +1,26 @@
+console.log("hello inspect elementer, thank you for looking at my website");
+console.log(
+  "if you are testing my website on mobile, i reccomend opening a new tab since chrome switching to mobile keeps the element context from desktop and messes it up lol"
+);
+
+(url => {
+  const image = new Image();
+
+  image.onload = function () {
+    var style = [
+      "font-size: 1px;",
+      "line-height: " + (this.height % 2) + "px;",
+      "padding: " + this.height * 0.5 + "px " + this.width * 0.5 + "px;",
+      "background-size: " + this.width + "px " + this.height + "px;",
+      "background: no-repeat url(" + url + ");"
+    ].join(" ");
+
+    console.log("%c ", style);
+  };
+
+  image.src = url;
+})("https://cdn.discordapp.com/attachments/825265084270903306/928844248915251260/attachment.gif");
+
 window.addEventListener("load", () => {
   const tab = new URL(window.location).searchParams.get("tab");
 
@@ -19,14 +42,11 @@ window.addEventListener("load", () => {
       break;
   }
 
-  // const images = document.getElementsByTagName("img");
-  // for (const image of images) {
-  //   if (!image.alt) alert("Missing alt attribute on image: " + image.src);
-  //   tippy(image, {
-  //     content: image.alt
-  //     // placement: image.getAttribute("tooltip-placement") || "top"
-  //   });
-  // }
+  for (const element of document.querySelectorAll("[alt]")) {
+    const alt = element.getAttribute("alt");
+    element.title = alt;
+    element.ariaLabel = alt;
+  }
 
   const submit = document.getElementById("form-submit");
   submit.onclick = event => {
@@ -55,28 +75,48 @@ window.addEventListener("load", () => {
 
   ws.onmessage = message => {
     const presence = JSON.parse(message.data);
-    console.log(presence);
+    const isStreaming = presence.activities.some(activity => activity.type === A.Streaming);
 
-    statusElement.src = "assets/status/" + presence.status + ".png";
-    show(statusContainerElement);
+    if (isStreaming) {
+      statusElement.src = "assets/status/streaming.svg";
+      tooltip(statusContainerElement, "Streaming");
+      show(statusContainerElement);
+    } else
+      switch (presence.status) {
+        case "online":
+          statusElement.src = "assets/status/online.svg";
+          tooltip(statusElement, "Online");
+          show(statusContainerElement);
+          break;
 
-    const activity = presence.activities.find(activity => activity.type !== 4);
+        case "dnd":
+          statusElement.src = "assets/status/dnd.svg";
+          tooltip(statusElement, "Do Not Disturb");
+          show(statusContainerElement);
+          break;
+
+        case "idle":
+          statusElement.src = "assets/status/idle.svg";
+          tooltip(statusElement, "Idle");
+          show(statusContainerElement);
+          break;
+
+        case "offline":
+          statusElement.src = "assets/status/offline.svg";
+          tooltip(statusElement, "Offline");
+          show(statusContainerElement);
+          break;
+      }
+
+    const activity = presence.activities.find(activity => activity.type !== A.Custom);
     if (!activity) {
       hide(activityElement);
       return;
     }
 
     let { name, details, state } = activity;
-    let largeImage;
-    let smallImage;
     let barCompleted;
     let barTotal;
-
-    if (activity.assets.large_image)
-      largeImage = getAssetURL(activity.application_id, activity.assets.large_image);
-
-    if (activity.assets.small_image)
-      smallImage = getAssetURL(activity.application_id, activity.assets.small_image);
 
     if (activity.id === "spotify:1") {
       activityElement.href = "https://open.spotify.com/track/" + activity.sync_id;
@@ -97,7 +137,8 @@ window.addEventListener("load", () => {
 
     if (activity.party?.size) {
       const [min, max] = activity.party.size;
-      state += " (" + min + " of " + max + ")";
+      if (state) state += " (" + min + " of " + max + ")";
+      else state = "(" + min + " of " + max + ")";
     }
 
     if (name) {
@@ -115,20 +156,22 @@ window.addEventListener("load", () => {
       show(stateElement);
     } else hide(stateElement);
 
-    if (largeImage) {
-      largeImageElement.src = largeImage;
-      show(largeImageElement);
-    } else hide(largeImageElement);
-
-    if (smallImage) {
-      smallImageElement.src = smallImage;
-      show(smallImageContainerElement);
-    } else hide(smallImageContainerElement);
-
     if (barCompleted && barTotal) {
       barElement.style.width = (barCompleted / barTotal) * 100 + "%";
       show(barContainerElement);
     } else hide(barContainerElement);
+
+    if (activity.assets.large_image) {
+      largeImageElement.src = getAssetURL(activity.application_id, activity.assets.large_image);
+      if (activity.assets.large_text) tooltip(largeImageElement, activity.assets.large_text);
+      show(largeImageElement);
+    } else hide(largeImageElement);
+
+    if (activity.assets.large_image && activity.assets.small_image) {
+      smallImageElement.src = getAssetURL(activity.application_id, activity.assets.small_image);
+      if (activity.assets.small_text) tooltip(smallImageElement, activity.assets.small_text);
+      show(smallImageContainerElement);
+    } else hide(smallImageContainerElement);
 
     show(activityElement);
   };

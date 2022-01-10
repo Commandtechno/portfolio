@@ -1,37 +1,35 @@
 // anim.js
 function anim(actions) {
   return Promise.all(
-    actions.map(([state, [x, y]]) => {
+    actions.map(([state, [targetX, targetY]]) => {
       const element = document.getElementById(state);
-      const animation = {
-        left: `${x}vw`,
-        top: `${y}vh`
-      };
-
       let shouldHide = false;
-      if (x === P.Center[0] && y === P.Center[1]) {
-        show(element);
-      } else {
-        shouldHide = true;
-      }
+
+      if (targetX === P.Center[0] && targetY === P.Center[1]) element.style.visibility = null;
+      else shouldHide = true;
+
+      element.style.left = targetX + "vw";
+      element.style.top = targetY + "vh";
 
       return new Promise(resolve =>
-        $(element).animate(animation, () => {
-          if (shouldHide) hide(element);
+        setTimeout(() => {
+          if (shouldHide) element.style.visibility = "hidden";
           resolve();
-        })
+        }, 500)
       );
     })
   );
 }
 
 // constants.js
-// keys
-const K = {
-  Up: "ArrowUp",
-  Down: "ArrowDown",
-  Left: "ArrowLeft",
-  Right: "ArrowRight"
+// activity types
+const A = {
+  Game: 0,
+  Streaming: 1,
+  Listening: 2,
+  Watching: 3,
+  Custom: 4,
+  Competing: 5
 };
 
 // directions
@@ -95,22 +93,35 @@ function hide(element) {
 // keydown.js
 window.addEventListener("keydown", event => {
   switch (event.key) {
-    case K.Up:
+    case "ArrowUp":
+    case "w":
+    case "w":
+      event.preventDefault();
       move(D.Up);
       break;
 
-    case K.Down:
+    case "ArrowDown":
+    case "S":
+    case "s":
+      event.preventDefault();
       move(D.Down);
       break;
 
-    case K.Left:
+    case "ArrowLeft":
+    case "A":
+    case "a":
+      event.preventDefault();
       move(D.Left);
       break;
 
-    case K.Right:
+    case "ArrowRight":
+    case "D":
+    case "d":
+      event.preventDefault();
       move(D.Right);
       break;
 
+    case "K":
     case "k":
       if (event.ctrlKey) {
         event.preventDefault();
@@ -124,6 +135,29 @@ window.addEventListener("keydown", event => {
 });
 
 // load.js
+console.log("hello inspect elementer, thank you for looking at my website");
+console.log(
+  "if you are testing my website on mobile, i reccomend opening a new tab since chrome switching to mobile keeps the element context from desktop and messes it up lol"
+);
+
+(url => {
+  const image = new Image();
+
+  image.onload = function () {
+    var style = [
+      "font-size: 1px;",
+      "line-height: " + (this.height % 2) + "px;",
+      "padding: " + this.height * 0.5 + "px " + this.width * 0.5 + "px;",
+      "background-size: " + this.width + "px " + this.height + "px;",
+      "background: no-repeat url(" + url + ");"
+    ].join(" ");
+
+    console.log("%c ", style);
+  };
+
+  image.src = url;
+})("https://cdn.discordapp.com/attachments/825265084270903306/928844248915251260/attachment.gif");
+
 window.addEventListener("load", () => {
   const tab = new URL(window.location).searchParams.get("tab");
 
@@ -145,14 +179,11 @@ window.addEventListener("load", () => {
       break;
   }
 
-  // const images = document.getElementsByTagName("img");
-  // for (const image of images) {
-  //   if (!image.alt) alert("Missing alt attribute on image: " + image.src);
-  //   tippy(image, {
-  //     content: image.alt
-  //     // placement: image.getAttribute("tooltip-placement") || "top"
-  //   });
-  // }
+  for (const element of document.querySelectorAll("[alt]")) {
+    const alt = element.getAttribute("alt");
+    element.title = alt;
+    element.ariaLabel = alt;
+  }
 
   const submit = document.getElementById("form-submit");
   submit.onclick = event => {
@@ -181,28 +212,48 @@ window.addEventListener("load", () => {
 
   ws.onmessage = message => {
     const presence = JSON.parse(message.data);
-    console.log(presence);
+    const isStreaming = presence.activities.some(activity => activity.type === A.Streaming);
 
-    statusElement.src = "assets/status/" + presence.status + ".png";
-    show(statusContainerElement);
+    if (isStreaming) {
+      statusElement.src = "assets/status/streaming.svg";
+      tooltip(statusContainerElement, "Streaming");
+      show(statusContainerElement);
+    } else
+      switch (presence.status) {
+        case "online":
+          statusElement.src = "assets/status/online.svg";
+          tooltip(statusElement, "Online");
+          show(statusContainerElement);
+          break;
 
-    const activity = presence.activities.find(activity => activity.type !== 4);
+        case "dnd":
+          statusElement.src = "assets/status/dnd.svg";
+          tooltip(statusElement, "Do Not Disturb");
+          show(statusContainerElement);
+          break;
+
+        case "idle":
+          statusElement.src = "assets/status/idle.svg";
+          tooltip(statusElement, "Idle");
+          show(statusContainerElement);
+          break;
+
+        case "offline":
+          statusElement.src = "assets/status/offline.svg";
+          tooltip(statusElement, "Offline");
+          show(statusContainerElement);
+          break;
+      }
+
+    const activity = presence.activities.find(activity => activity.type !== A.Custom);
     if (!activity) {
       hide(activityElement);
       return;
     }
 
     let { name, details, state } = activity;
-    let largeImage;
-    let smallImage;
     let barCompleted;
     let barTotal;
-
-    if (activity.assets.large_image)
-      largeImage = getAssetURL(activity.application_id, activity.assets.large_image);
-
-    if (activity.assets.small_image)
-      smallImage = getAssetURL(activity.application_id, activity.assets.small_image);
 
     if (activity.id === "spotify:1") {
       activityElement.href = "https://open.spotify.com/track/" + activity.sync_id;
@@ -223,7 +274,8 @@ window.addEventListener("load", () => {
 
     if (activity.party?.size) {
       const [min, max] = activity.party.size;
-      state += " (" + min + " of " + max + ")";
+      if (state) state += " (" + min + " of " + max + ")";
+      else state = "(" + min + " of " + max + ")";
     }
 
     if (name) {
@@ -241,20 +293,22 @@ window.addEventListener("load", () => {
       show(stateElement);
     } else hide(stateElement);
 
-    if (largeImage) {
-      largeImageElement.src = largeImage;
-      show(largeImageElement);
-    } else hide(largeImageElement);
-
-    if (smallImage) {
-      smallImageElement.src = smallImage;
-      show(smallImageContainerElement);
-    } else hide(smallImageContainerElement);
-
     if (barCompleted && barTotal) {
       barElement.style.width = (barCompleted / barTotal) * 100 + "%";
       show(barContainerElement);
     } else hide(barContainerElement);
+
+    if (activity.assets.large_image) {
+      largeImageElement.src = getAssetURL(activity.application_id, activity.assets.large_image);
+      if (activity.assets.large_text) tooltip(largeImageElement, activity.assets.large_text);
+      show(largeImageElement);
+    } else hide(largeImageElement);
+
+    if (activity.assets.large_image && activity.assets.small_image) {
+      smallImageElement.src = getAssetURL(activity.application_id, activity.assets.small_image);
+      if (activity.assets.small_text) tooltip(smallImageElement, activity.assets.small_text);
+      show(smallImageContainerElement);
+    } else hide(smallImageContainerElement);
 
     show(activityElement);
   };
@@ -349,9 +403,17 @@ async function move(direction) {
   isPending = false;
 }
 
+
 // show.js
 function show(element) {
   element.style.display = null;
+}
+
+// tooltip.js
+function tooltip(element, content) {
+  element.alt = content;
+  element.title = content;
+  element.ariaLabel = content;
 }
 
 // touchend.js
@@ -376,9 +438,19 @@ window.addEventListener("touchend", event => {
 // touchmove.js
 window.addEventListener(
   "touchmove",
-  event => event.target === document.body && event.preventDefault(),
+  event => {
+    let element = event.target;
+    while (element.parentElement) {
+      if (element === document.body) break;
+      if (element.scrollHeight > element.clientHeight) return;
+      element = element.parentElement;
+    }
+
+    event.preventDefault();
+  },
   { passive: false }
 );
+
 
 // touchstart.js
 window.addEventListener("touchstart", event => {

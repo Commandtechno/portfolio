@@ -1,24 +1,20 @@
 function anim(actions) {
   return Promise.all(
-    actions.map(([state, [x, y]]) => {
+    actions.map(([state, [targetX, targetY]]) => {
       const element = document.getElementById(state);
-      const animation = {
-        left: `${x}vw`,
-        top: `${y}vh`
-      };
-
       let shouldHide = false;
-      if (x === P.Center[0] && y === P.Center[1]) {
-        show(element);
-      } else {
-        shouldHide = true;
-      }
+
+      if (targetX === P.Center[0] && targetY === P.Center[1]) element.style.visibility = null;
+      else shouldHide = true;
+
+      element.style.left = targetX + "vw";
+      element.style.top = targetY + "vh";
 
       return new Promise(resolve =>
-        $(element).animate(animation, () => {
-          if (shouldHide) hide(element);
+        setTimeout(() => {
+          if (shouldHide) element.style.visibility = "hidden";
           resolve();
-        })
+        }, 500)
       );
     })
   );
