@@ -26,7 +26,7 @@ avatar and status thing
   bottom: -15px;
   padding: 10px;
 
-  background-color: #2b2b2b;
+  background-color: var(--primary);
 }
 
 #profile-avatar-status {
@@ -45,7 +45,7 @@ activity
   min-width: 50%;
   border-radius: 15px;
 
-  background-color: rgb(35, 35, 35);
+  background-color: var(--secondary);
 }
 
 /* 
@@ -70,7 +70,7 @@ images and stuff
   bottom: -10px;
   padding: 5px;
 
-  background-color: rgb(35, 35, 35);
+  background-color: var(--secondary);
 }
 
 #profile-activity-small-image {
@@ -97,7 +97,7 @@ spotify progress bar thing
   margin-top: 10px;
   border-radius: 3px;
 
-  background-color: darkgray;
+  background-color: var(--secondary-light);
 }
 
 #profile-activity-bar {
@@ -106,7 +106,7 @@ spotify progress bar thing
   max-width: 100%;
   border-radius: 3px;
 
-  background-color: white;
+  background-color: var(--primary-light);
 }
 
 /* 

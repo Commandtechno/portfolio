@@ -1,9 +1,13 @@
 :root {
-  --primary: rgb(43, 43, 43);
-  --secondary: rgb(35, 35, 35);
+  /* --primary: rgb(25, 25, 25);
+  --secondary: rgb(20, 20, 20);
 
-  --primary-light: rgb(175, 175, 175);
-  --secondary-light: rgb(105, 105, 105);
+  --primary-light: rgb(250, 250, 250);
+  --secondary-light: rgb(150, 150, 150); */
+  --primary: rgb(250, 250, 250);
+  --secondary: rgb(225, 225, 225);
+  --primary-light: rgb(25, 25, 25);
+  --secondary-light: rgb(100, 100, 100);
 }
 
 * {
@@ -19,8 +23,8 @@
 }
 
 a {
-  color: white;
   text-decoration: none;
+  color: var(--primary-light);
 }
 
 body {
@@ -29,7 +33,7 @@ body {
   overflow: hidden;
   position: relative;
 
-  color: white;
+  color: var(--primary-light);
   background-color: var(--primary);
 }
 
@@ -38,9 +42,8 @@ body {
 /* {circle} */
 /* {hover} */
 
-/* {outer-container} */
-/* {inner-container} */
 /* {section} */
+/* {container} */
 
 /* {profile} */
 /* {social} */

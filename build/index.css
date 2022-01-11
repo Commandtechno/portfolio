@@ -1,9 +1,13 @@
 :root {
-  --primary: rgb(43, 43, 43);
-  --secondary: rgb(35, 35, 35);
+  /* --primary: rgb(25, 25, 25);
+  --secondary: rgb(20, 20, 20);
 
-  --primary-light: rgb(175, 175, 175);
-  --secondary-light: rgb(105, 105, 105);
+  --primary-light: rgb(250, 250, 250);
+  --secondary-light: rgb(150, 150, 150); */
+  --primary: rgb(250, 250, 250);
+  --secondary: rgb(225, 225, 225);
+  --primary-light: rgb(25, 25, 25);
+  --secondary-light: rgb(100, 100, 100);
 }
 
 * {
@@ -19,8 +23,8 @@
 }
 
 a {
-  color: white;
   text-decoration: none;
+  color: var(--primary-light);
 }
 
 body {
@@ -29,7 +33,7 @@ body {
   overflow: hidden;
   position: relative;
 
-  color: white;
+  color: var(--primary-light);
   background-color: var(--primary);
 }
 
@@ -67,34 +71,6 @@ body {
 }
 
 
-.outer-container {
-  display: flex;
-  justify-content: center;
-
-  width: 80vw;
-  max-width: 800px;
-
-  padding-left: 5vmin;
-  padding-right: 5vmin;
-  padding-top: 5vmin;
-  padding-bottom: 5vmin;
-}
-.inner-container {
-  display: flex;
-  overflow-y: auto;
-  flex-direction: column;
-
-  gap: 25px;
-  max-height: 80vh;
-
-  padding-left: 5vmin;
-  padding-right: 5vmin;
-  padding-top: 5vmin;
-  padding-bottom: 5vmin;
-
-  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.25);
-  border-radius: 25px;
-}
 .section {
   width: 100vw;
   height: 100vh;
@@ -107,6 +83,21 @@ body {
   transition: top 0.5s ease-in-out, left 0.5s ease-in-out;
 }
 
+.container {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+
+  gap: 25px;
+  max-width: 800px;
+  max-height: 80vh;
+
+  margin: 5vmin;
+  padding: 5vmin;
+
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+}
 
 #profile {
   gap: 25px;
@@ -136,7 +127,7 @@ avatar and status thing
   bottom: -15px;
   padding: 10px;
 
-  background-color: #2b2b2b;
+  background-color: var(--primary);
 }
 
 #profile-avatar-status {
@@ -155,7 +146,7 @@ activity
   min-width: 50%;
   border-radius: 15px;
 
-  background-color: rgb(35, 35, 35);
+  background-color: var(--secondary);
 }
 
 /* 
@@ -180,7 +171,7 @@ images and stuff
   bottom: -10px;
   padding: 5px;
 
-  background-color: rgb(35, 35, 35);
+  background-color: var(--secondary);
 }
 
 #profile-activity-small-image {
@@ -207,7 +198,7 @@ spotify progress bar thing
   margin-top: 10px;
   border-radius: 3px;
 
-  background-color: darkgray;
+  background-color: var(--secondary-light);
 }
 
 #profile-activity-bar {
@@ -216,7 +207,7 @@ spotify progress bar thing
   max-width: 100%;
   border-radius: 3px;
 
-  background-color: white;
+  background-color: var(--primary-light);
 }
 
 /* 

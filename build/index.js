@@ -238,7 +238,7 @@ window.addEventListener("load", () => {
   const barContainerElement = document.getElementById("profile-activity-bar-container");
   const barElement = document.getElementById("profile-activity-bar");
 
-  const ws = new WebSocket("wss://" + location.host);
+  const ws = new WebSocket("wss://commandtechno.com");
   let interval;
 
   ws.onmessage = message => {
@@ -347,6 +347,7 @@ window.addEventListener("load", () => {
 window.addEventListener("wheel", event => {
   if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
     for (const element of event.path) {
+      console.log(element);
       if (isRoot(element)) break;
       if (element.scrollWidth > element.clientWidth) return;
     }
@@ -355,6 +356,7 @@ window.addEventListener("wheel", event => {
     else if (event.deltaX < 0) move(D.Left);
   } else {
     for (const element of event.path) {
+      console.log(element, element.scrollHeight, element.clientHeight);
       if (isRoot(element)) break;
       if (element.scrollHeight > element.clientHeight) return;
     }
