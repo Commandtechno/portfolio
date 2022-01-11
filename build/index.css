@@ -234,7 +234,7 @@ its big so no mobile
 
 @media screen and (max-width: 600px) {
   #social-desktop {
-    display: none;
+    display: none !important;
   }
 
   #social-mobile {
