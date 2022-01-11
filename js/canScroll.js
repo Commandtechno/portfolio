@@ -1,4 +1,4 @@
-const nonScrollable = new Set(["profile", "profile-avatar-container"]);
+const nonScrollable = new Set(["profile", "profile-avatar-container", "social-desktop"]);
 
 function canScrollX(element) {
   if (nonScrollable.has(element.id)) return false;
