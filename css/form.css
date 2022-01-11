@@ -1,7 +1,6 @@
 .form-input {
   border: none;
 
-  width: 100%;
   padding: 10px;
   border-radius: 10px;
 
@@ -24,6 +23,7 @@
 
 #form-submit {
   border: none;
+  cursor: pointer;
   align-self: flex-end;
 
   width: 300px;
@@ -34,16 +34,9 @@
   background-color: var(--secondary);
 }
 
-#form-submit:hover {
-  cursor: pointer;
-}
-
 #form-submit:disabled {
-  color: var(--secondary-accent);
-}
-
-#form-submit:disabled:hover {
   cursor: not-allowed;
+  color: var(--secondary-accent);
 }
 
 @media screen and (max-width: 600px) {

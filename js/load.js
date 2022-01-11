@@ -139,8 +139,6 @@ window.addEventListener("load", () => {
 
     if (activity.id === "spotify:1") {
       activityElement.setAttribute("href", "https://open.spotify.com/track/" + activity.sync_id);
-      activityElement.classList.add("hover");
-
       if (activity.details) name = activity.details;
       if (activity.state) details = "by " + activity.state;
       if (activity.assets.large_text) state = "on " + activity.assets.large_text;
@@ -154,10 +152,7 @@ window.addEventListener("load", () => {
           barElement.style.width = (barCompleted / barTotal) * 100 + "%";
         }, 1000);
       }
-    } else {
-      activityElement.removeAttribute("href");
-      activityElement.classList.remove("hover");
-    }
+    } else activityElement.removeAttribute("href");
 
     if (activity.party?.size) {
       const [min, max] = activity.party.size;
