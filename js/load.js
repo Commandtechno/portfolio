@@ -2,24 +2,7 @@ console.log("hello inspect elementer, thank you for looking at my website");
 console.log(
   "if you are testing my website on mobile, i reccomend opening a new tab since chrome switching to mobile keeps the element context from desktop and messes it up lol"
 );
-
-(url => {
-  const image = new Image();
-
-  image.onload = function () {
-    var style = [
-      "font-size: 1px;",
-      "line-height: " + (this.height % 2) + "px;",
-      "padding: " + this.height * 0.5 + "px " + this.width * 0.5 + "px;",
-      "background-size: " + this.width + "px " + this.height + "px;",
-      "background: no-repeat url(" + url + ");"
-    ].join(" ");
-
-    console.log("%c ", style);
-  };
-
-  image.src = url;
-})("https://cdn.discordapp.com/attachments/825265084270903306/928844248915251260/attachment.gif");
+console.log("ill add more stuff here but pog ok bye");
 
 window.addEventListener("load", () => {
   const tab = new URL(window.location).searchParams.get("tab");
