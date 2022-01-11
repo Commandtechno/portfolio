@@ -29,18 +29,302 @@ body {
   background-color: var(--primary);
 }
 
-/* emoji */
-/* badge */
-/* circle */
-/* hover */
+.emoji {
+  width: 25px;
+  height: 25px;
 
-/* outer-container */
-/* inner-container */
-/* section */
+  object-fit: contain;
+  vertical-align: middle;
+}
+.badge {
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
 
-/* card */
-/* form */
-/* profile */
-/* social */
-/* social-desktop */
-/* social-mobile */
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 600px) {
+  .badge {
+    display: none;
+  }
+}
+.circle {
+  border-radius: 50%;
+}
+.hover {
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.hover:hover {
+  transform: scale(1.05);
+  box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+
+.outer-container {
+  display: flex;
+  justify-content: center;
+
+  width: 80vw;
+  max-width: 800px;
+
+  padding-left: 5vmin;
+  padding-right: 5vmin;
+  padding-top: 5vmin;
+  padding-bottom: 5vmin;
+}
+.inner-container {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+
+  gap: 25px;
+  max-height: 80vh;
+
+  padding-left: 5vmin;
+  padding-right: 5vmin;
+  padding-top: 5vmin;
+  padding-bottom: 5vmin;
+
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 25%);
+  border-radius: 25px;
+}
+
+.inner-container::-webkit-scrollbar {
+  display: none;
+}
+.section {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+
+  transition: top 0.5s ease-in-out, left 0.5s ease-in-out;
+}
+
+
+#profile {
+  gap: 25px;
+  height: 128px;
+  display: flex;
+}
+
+/*
+avatar and status thing
+*/
+
+#profile-avatar-container {
+  position: relative;
+}
+
+#profile-avatar {
+  height: 100%;
+  border-radius: 15px;
+}
+
+#profile-avatar-status-container {
+  position: absolute;
+
+  width: 35px;
+  height: 35px;
+  right: -15px;
+  bottom: -15px;
+  padding: 10px;
+
+  background-color: #2b2b2b;
+}
+
+#profile-avatar-status {
+  height: 100%;
+}
+
+/* 
+activity
+*/
+
+#profile-activity {
+  display: flex;
+
+  gap: 15px;
+  padding: 15px;
+  min-width: 50%;
+  border-radius: 15px;
+
+  background-color: rgb(35, 35, 35);
+}
+
+/* 
+images and stuff
+*/
+
+#profile-activity-assets {
+  position: relative;
+}
+
+#profile-activity-large-image {
+  height: 100%;
+  border-radius: 15px;
+}
+
+#profile-activity-small-image-container {
+  position: absolute;
+
+  width: 35px;
+  height: 35px;
+  right: -10px;
+  bottom: -10px;
+  padding: 5px;
+
+  background-color: rgb(35, 35, 35);
+}
+
+#profile-activity-small-image {
+  height: 100%;
+}
+
+/* 
+the text
+*/
+
+#profile-activity-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/*
+spotify progress bar thing
+*/
+
+#profile-activity-bar-container {
+  height: 6px;
+  margin-top: 10px;
+  border-radius: 3px;
+
+  background-color: darkgray;
+}
+
+#profile-activity-bar {
+  height: 6px;
+  min-width: 6px;
+  max-width: 100%;
+  border-radius: 3px;
+
+  background-color: white;
+}
+
+/* 
+its big so no mobile
+*/
+
+@media screen and (max-width: 600px) {
+  #profile-activity {
+    display: none;
+  }
+}
+#social-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  #social-desktop {
+    display: none;
+  }
+
+  #social-mobile {
+    display: grid;
+  }
+}
+#social-desktop {
+  gap: 25px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.social-desktop-container {
+  width: 20%;
+  padding: 15px;
+  border-radius: 10px;
+  aspect-ratio: 1/1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-desktop-icon {
+  max-width: 100%;
+  max-height: 100%;
+  pointer-events: none;
+}
+#social-mobile-container {
+  gap: 5px;
+  display: flex;
+}
+.card {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.card-icon {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+.form-input {
+  border: none;
+
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+
+  color: var(--primary-light);
+  background-color: var(--secondary);
+}
+
+.form-input::placeholder {
+  color: var(--secondary-light);
+}
+
+#form-content {
+  resize: none;
+  height: 100%;
+}
+
+#form-submit {
+  border: none;
+  align-self: flex-end;
+
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+
+  color: var(--primary-light);
+  background-color: var(--secondary);
+}
+
+#form-submit:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  #form-submit {
+    width: 100%;
+  }
+}
