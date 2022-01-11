@@ -251,20 +251,20 @@ window.addEventListener("load", () => {
           document.getElementById("form-content").value = "";
 
           submit.style.backgroundColor = "#439543";
-          submit.style.color = "var(--primary)";
+          submit.style.color = "white";
           submit.innerText = "Message Sent!";
           submit.disabled = false;
         } else
           res.text().then(text => {
             submit.style.backgroundColor = "#ed4444";
-            submit.style.color = "var(--primary)";
+            submit.style.color = "white";
             submit.innerText = text;
             submit.disabled = false;
           });
       })
       .catch(() => {
         submit.style.backgroundColor = "#ed4444";
-        submit.style.color = "var(--primary)";
+        submit.style.color = "white";
         submit.innerText = "Unknown Error";
         submit.disabled = false;
       });

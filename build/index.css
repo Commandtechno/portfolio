@@ -1,13 +1,13 @@
 :root {
-  /* --primary: rgb(25, 25, 25);
+  --primary: rgb(25, 25, 25);
   --secondary: rgb(20, 20, 20);
 
-  --primary-light: rgb(250, 250, 250);
-  --secondary-light: rgb(150, 150, 150); */
-  --primary: rgb(250, 250, 250);
+  --primary-accent: rgb(250, 250, 250);
+  --secondary-accent: rgb(150, 150, 150);
+  /* --primary: rgb(250, 250, 250);
   --secondary: rgb(225, 225, 225);
-  --primary-light: rgb(25, 25, 25);
-  --secondary-light: rgb(100, 100, 100);
+  --primary-accent: rgb(25, 25, 25);
+  --secondary-accent: rgb(100, 100, 100); */
 }
 
 * {
@@ -24,7 +24,7 @@
 
 a {
   text-decoration: none;
-  color: var(--primary-light);
+  color: var(--primary-accent);
 }
 
 body {
@@ -33,7 +33,7 @@ body {
   overflow: hidden;
   position: relative;
 
-  color: var(--primary-light);
+  color: var(--primary-accent);
   background-color: var(--primary);
 }
 
@@ -197,7 +197,7 @@ spotify progress bar thing
   margin-top: 10px;
   border-radius: 3px;
 
-  background-color: var(--secondary-light);
+  background-color: var(--secondary-accent);
 }
 
 #profile-activity-bar {
@@ -206,7 +206,7 @@ spotify progress bar thing
   max-width: 100%;
   border-radius: 3px;
 
-  background-color: var(--primary-light);
+  background-color: var(--primary-accent);
 }
 
 /* 
@@ -284,12 +284,12 @@ its big so no mobile
   padding: 10px;
   border-radius: 10px;
 
-  color: var(--primary-light);
+  color: var(--primary-accent);
   background-color: var(--secondary);
 }
 
 .form-input::placeholder {
-  color: var(--secondary-light);
+  color: var(--secondary-accent);
 }
 
 #form-content {
@@ -309,7 +309,7 @@ its big so no mobile
   padding: 10px;
   border-radius: 10px;
 
-  color: var(--primary-light);
+  color: var(--primary-accent);
   background-color: var(--secondary);
 }
 
@@ -318,7 +318,7 @@ its big so no mobile
 }
 
 #form-submit:disabled {
-  color: var(--secondary-light);
+  color: var(--secondary-accent);
 }
 
 #form-submit:disabled:hover {
