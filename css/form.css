@@ -38,6 +38,14 @@
   cursor: pointer;
 }
 
+#form-submit:disabled {
+  color: var(--secondary-light);
+}
+
+#form-submit:disabled:hover {
+  cursor: not-allowed;
+}
+
 @media screen and (max-width: 600px) {
   #form-submit {
     width: 100%;

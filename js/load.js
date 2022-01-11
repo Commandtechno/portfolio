@@ -32,11 +32,43 @@ window.addEventListener("load", () => {
   }
 
   const submit = document.getElementById("form-submit");
-  submit.onclick = event => {
+  submit.onclick = () => {
+    submit.style.backgroundColor = null;
+    submit.style.color = null;
+    submit.innerText = "Sending...";
+    submit.disabled = true;
+
     const email = document.getElementById("form-email").value;
     const subject = document.getElementById("form-subject").value;
     const content = document.getElementById("form-content").value;
-    console.log({ email, subject, content });
+    fetch("/contact", {
+      method: "POST",
+      body: JSON.stringify({ email, subject, content }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => {
+        if (res.ok) {
+          document.getElementById("form-email").value = "";
+          document.getElementById("form-subject").value = "";
+          document.getElementById("form-content").value = "";
+          submit.innerText = "Message Sent!";
+          submit.disabled = false;
+        } else
+          res.text().then(text => {
+            submit.style.backgroundColor = "#439543";
+            submit.style.color = "var(--primary)";
+            submit.innerText = text;
+            submit.disabled = false;
+          });
+      })
+      .catch(() => {
+        submit.style.backgroundColor = "#ed4444";
+        submit.style.color = "var(--primary)";
+        submit.innerText = "Unknown Error";
+        submit.disabled = false;
+      });
   };
 
   const statusContainerElement = document.getElementById("profile-avatar-status-container");
@@ -53,11 +85,10 @@ window.addEventListener("load", () => {
   const barContainerElement = document.getElementById("profile-activity-bar-container");
   const barElement = document.getElementById("profile-activity-bar");
 
-  const ws = new WebSocket("wss://commandtechno.com");
+  const ws = new WebSocket("wss://" + window.location.host);
   let interval;
 
-  ws.onclose = console.log;
-
+  setInterval(() => ws.send(""), 1000);
   ws.onmessage = message => {
     const presence = JSON.parse(message.data);
     const isStreaming = presence.activities.some(activity => activity.type === A.Streaming);
@@ -104,7 +135,7 @@ window.addEventListener("load", () => {
     let barTotal;
 
     if (activity.id === "spotify:1") {
-      activityElement.href = "https://open.spotify.com/track/" + activity.sync_id;
+      activityElement.setAttribute("href", "https://open.spotify.com/track/" + activity.sync_id);
       activityElement.classList.add("hover");
 
       if (activity.details) name = activity.details;
