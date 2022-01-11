@@ -1,0 +1,471 @@
+<head>
+  <meta content="width=device-width,height=device-height,initial-scale=1" name=viewport>
+  <style>
+    :root {
+      --primary: rgb(43, 43, 43);
+      --secondary: rgb(35, 35, 35);
+      --primary-light: rgb(175, 175, 175);
+      --secondary-light: rgb(105, 105, 105)
+    }
+
+    * {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-style: normal;
+      font-family: "Robot Mono", monospace
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+      color: #fff;
+      background-color: var(--primary)
+    }
+
+    .emoji {
+      width: 25px;
+      height: 25px;
+      object-fit: contain;
+      vertical-align: middle
+    }
+
+    .badge {
+      width: 25px;
+      height: 25px;
+      border-radius: 5px;
+      object-fit: contain;
+      vertical-align: middle
+    }
+
+    @media screen and (max-width:600px) {
+      .badge {
+        display: none
+      }
+    }
+
+    .circle {
+      border-radius: 50%
+    }
+
+    .hover {
+      transition: transform .5s ease, box-shadow .5s ease
+    }
+
+    .hover:hover {
+      transform: scale(1.05);
+      box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .5)
+    }
+
+    .outer-container {
+      display: flex;
+      justify-content: center;
+      width: 80vw;
+      max-width: 800px;
+      padding-left: 5vmin;
+      padding-right: 5vmin;
+      padding-top: 5vmin;
+      padding-bottom: 5vmin
+    }
+
+    .inner-container {
+      display: flex;
+      overflow-y: auto;
+      flex-direction: column;
+      gap: 25px;
+      max-height: 80vh;
+      padding-left: 5vmin;
+      padding-right: 5vmin;
+      padding-top: 5vmin;
+      padding-bottom: 5vmin;
+      box-shadow: 5px 5px 15px 5px rgba(0, 0%, 0%, 25%);
+      border-radius: 25px
+    }
+
+    .inner-container::-webkit-scrollbar {
+      display: none
+    }
+
+    .section {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      position: absolute;
+      align-items: center;
+      justify-content: center;
+      transition: top .5s ease-in-out, left .5s ease-in-out
+    }
+
+    #profile {
+      gap: 25px;
+      height: 128px;
+      display: flex
+    }
+
+    #profile-avatar-container {
+      position: relative
+    }
+
+    #profile-avatar {
+      height: 100%;
+      border-radius: 15px
+    }
+
+    #profile-avatar-status-container {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      right: -15px;
+      bottom: -15px;
+      padding: 10px;
+      background-color: #2b2b2b
+    }
+
+    #profile-avatar-status {
+      height: 100%
+    }
+
+    #profile-activity {
+      display: flex;
+      gap: 15px;
+      padding: 15px;
+      min-width: 50%;
+      border-radius: 15px;
+      background-color: #232323
+    }
+
+    #profile-activity-assets {
+      position: relative
+    }
+
+    #profile-activity-large-image {
+      height: 100%;
+      border-radius: 15px
+    }
+
+    #profile-activity-small-image-container {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      right: -10px;
+      bottom: -10px;
+      padding: 5px;
+      background-color: #232323
+    }
+
+    #profile-activity-small-image {
+      height: 100%
+    }
+
+    #profile-activity-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    #profile-activity-bar-container {
+      height: 6px;
+      margin-top: 10px;
+      border-radius: 3px;
+      background-color: #a9a9a9
+    }
+
+    #profile-activity-bar {
+      height: 6px;
+      min-width: 6px;
+      max-width: 100%;
+      border-radius: 3px;
+      background-color: #fff
+    }
+
+    @media screen and (max-width:600px) {
+      #profile-activity {
+        display: none
+      }
+    }
+
+    #social-mobile {
+      display: none
+    }
+
+    @media screen and (max-width:600px) {
+      #social-desktop {
+        display: none
+      }
+
+      #social-mobile {
+        display: grid
+      }
+    }
+
+    #social-desktop {
+      gap: 25px;
+      display: flex;
+      justify-content: center
+    }
+
+    .social-desktop-container {
+      width: 20%;
+      padding: 15px;
+      border-radius: 10px;
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .social-desktop-icon {
+      max-width: 100%;
+      max-height: 100%;
+      pointer-events: none
+    }
+
+    #social-mobile-container {
+      gap: 5px;
+      display: flex
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      border-radius: 15px
+    }
+
+    .card-icon {
+      width: 75px;
+      height: 75px;
+      object-fit: contain
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column
+    }
+
+    .form-input {
+      border: none;
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      color: var(--primary-light);
+      background-color: var(--secondary)
+    }
+
+    .form-input::placeholder {
+      color: var(--secondary-light)
+    }
+
+    #form-content {
+      resize: none;
+      height: 100%
+    }
+
+    #form-submit {
+      border: none;
+      align-self: flex-end;
+      width: 300px;
+      padding: 10px;
+      border-radius: 10px;
+      color: var(--primary-light);
+      background-color: var(--secondary)
+    }
+
+    #form-submit:hover {
+      cursor: pointer
+    }
+
+    @media screen and (max-width:600px) {
+      #form-submit {
+        width: 100%
+      }
+    }
+  </style>
+  <script>const A = { Game: 0, Streaming: 1, Listening: 2, Watching: 3, Custom: 4, Competing: 5 }, D = { Up: "up", Down: "down", Left: "left", Right: "right" }, S = { Center: "center", Top: "top", Bottom: "bottom", Left: "left", Right: "right" }, P = { Center: [0, 0], Top: [0, -100], Bottom: [0, 100], Left: [-100, 0], Right: [100, 0] }; let state = "center", arrows = !0, isPending = !1, startTouch; function show(e) { e.style.display = null } function hide(e) { e.style.display = "none" } function anim(e) { return Promise.all(e.map(([e, [t, a]]) => { const s = document.getElementById(e); let n = !1; return t === P.Center[0] && a === P.Center[1] ? s.style.visibility = null : n = !0, s.style.left = t + "vw", s.style.top = a + "vh", new Promise(e => setTimeout(() => { n && (s.style.visibility = "hidden"), e() }, 500)) })) } async function move(e) { if (!isPending) { switch (isPending = !0, e) { case D.Up: switch (state) { case S.Center: state = S.Top, await anim([[S.Center, P.Bottom], [S.Top, P.Center]]); break; case S.Bottom: state = S.Center, await anim([[S.Center, P.Center], [S.Bottom, P.Bottom]]) }break; case D.Down: switch (state) { case S.Center: state = S.Bottom, await anim([[S.Center, P.Top], [S.Bottom, P.Center]]); break; case S.Top: state = S.Center, await anim([[S.Center, P.Center], [S.Top, P.Top]]) }break; case D.Left: switch (state) { case S.Center: state = S.Left, await anim([[S.Center, P.Right], [S.Left, P.Center]]); break; case S.Right: state = S.Center, await anim([[S.Center, P.Center], [S.Right, P.Right]]) }break; case D.Right: switch (state) { case S.Center: state = S.Right, await anim([[S.Center, P.Left], [S.Right, P.Center]]); break; case S.Left: state = S.Center, await anim([[S.Center, P.Center], [S.Left, P.Left]]) } }isPending = !1 } } function tooltip(e, t) { e.alt = t, e.title = t, e.ariaLabel = t } function getAssetURL(e, t) { if (!t) return null; if (t.includes(":")) { var [a, s] = t.split(":"); switch (a) { case "mp": return "https://media.discordapp.net/" + s; case "spotify": return "https://i.scdn.co/image/" + s; case "youtube": return `https://i.ytimg.com/vi/${s}/hqdefault_live.jpg`; case "twitch": return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${s}.png`; default: return null } } return "https://cdn.discordapp.com/app-assets/" + e + "/" + t } console.log("hello inspect elementer, thank you for looking at my website"), console.log("if you are testing my website on mobile, i reccomend opening a new tab since chrome switching to mobile keeps the element context from desktop and messes it up lol"), console.log("ill add more stuff here but pog ok bye"), window.addEventListener("load", () => { switch (new URL(window.location).searchParams.get("tab")) { case "socials": move(D.Up); break; case "contact": move(D.Down); break; case "gfx": move(D.Left); break; case "dev": move(D.Right) }for (const i of document.querySelectorAll("[alt]")) { var e = i.getAttribute("alt"); i.title = e, i.ariaLabel = e } const t = document.getElementById("form-submit"); t.onclick = e => { var t = document.getElementById("form-email").value, a = document.getElementById("form-subject").value, s = document.getElementById("form-content").value; console.log({ email: t, subject: a, content: s }) }; const a = document.getElementById("profile-avatar-status-container"), s = document.getElementById("profile-avatar-status"), l = document.getElementById("profile-activity"), c = document.getElementById("profile-activity-large-image"), m = document.getElementById("profile-activity-small-image-container"), d = document.getElementById("profile-activity-small-image"), g = document.getElementById("profile-activity-name"), h = document.getElementById("profile-activity-details"), p = document.getElementById("profile-activity-state"), u = document.getElementById("profile-activity-bar-container"), f = document.getElementById("profile-activity-bar"), n = new WebSocket("wss://" + location.host); let w; n.onmessage = i => { const e = JSON.parse(i.data); if (e.activities.some(e => e.type === A.Streaming)) s.src = "assets/status/streaming.svg", tooltip(a, "Streaming"), show(a); else switch (e.status) { case "online": s.src = "assets/status/online.svg", tooltip(s, "Online"), show(a); break; case "dnd": s.src = "assets/status/dnd.svg", tooltip(s, "Do Not Disturb"), show(a); break; case "idle": s.src = "assets/status/idle.svg", tooltip(s, "Idle"), show(a); break; case "offline": s.src = "assets/status/offline.svg", tooltip(s, "Offline"), show(a) }var o, r = e.activities.find(e => e.type !== A.Custom); if (r) { let { name: e, details: t, state: a } = r, s, n; "spotify:1" === r.id ? (l.href = "https://open.spotify.com/track/" + r.sync_id, r.details && (e = r.details), r.state && (t = "by " + r.state), r.assets.large_text && (a = "on " + r.assets.large_text), r.timestamps && (s = Date.now() - r.timestamps.start, n = r.timestamps.end - r.timestamps.start, clearInterval(w), w = setInterval(() => { s += 1e3, f.style.width = s / n * 100 + "%" }, 1e3))) : l.removeAttribute("href"), r.party?.size && ([o, i] = r.party.size, a ? a += " (" + o + " of " + i + ")" : a = "(" + o + " of " + i + ")"), e ? (g.innerText = e, show(g)) : hide(g), t ? (h.innerText = t, show(h)) : hide(h), a ? (p.innerText = a, show(p)) : hide(p), s && n ? (f.style.width = s / n * 100 + "%", show(u)) : hide(u), r.assets.large_image ? (c.src = getAssetURL(r.application_id, r.assets.large_image), r.assets.large_text && tooltip(c, r.assets.large_text), show(c)) : hide(c), r.assets.large_image && r.assets.small_image ? (d.src = getAssetURL(r.application_id, r.assets.small_image), r.assets.small_text && tooltip(d, r.assets.small_text), show(m)) : hide(m), show(l) } else hide(l) } }), window.addEventListener("wheel", ({ deltaX: e, deltaY: t }) => { Math.abs(e) > Math.abs(t) ? 0 < e ? move(D.Right) : e < 0 && move(D.Left) : 0 < t ? move(D.Down) : t < 0 && move(D.Up) }), window.addEventListener("keydown", e => { switch (e.key) { case "ArrowUp": case "w": case "w": e.preventDefault(), move(D.Up); break; case "ArrowDown": case "S": case "s": e.preventDefault(), move(D.Down); break; case "ArrowLeft": case "A": case "a": e.preventDefault(), move(D.Left); break; case "ArrowRight": case "D": case "d": e.preventDefault(), move(D.Right); break; case "K": case "k": e.ctrlKey && (e.preventDefault(), document.getElementById("profile-avatar").src = "assets/gaming.png", document.getElementById("profile").parentElement.children[1].innerText = "Boop Dog", document.getElementById("profile").parentElement.children[2].innerText = "Hello there. I'm a gamer and gamer. I'm interested in all things gaming, and gaming! Here you will find my gamings, and the various things I have gamed on.") } }), window.addEventListener("touchstart", e => { startTouch || ([e] = e.touches, startTouch = { x: e.clientX, y: e.clientY }) }), window.addEventListener("touchmove", e => { let t = e.target; for (; t.parentElement && t !== document.body;) { if (t.scrollHeight > t.clientHeight) return; t = t.parentElement } e.preventDefault() }, { passive: !1 }), window.addEventListener("touchend", e => { var t; startTouch && ([t] = e.changedTouches, e = t.clientX - startTouch.x, t = t.clientY - startTouch.y, Math.abs(e) > Math.abs(t) ? 0 < e ? move(D.Left) : e < 0 && move(D.Right) : 0 < t ? move(D.Up) : t < 0 && move(D.Down), startTouch = null) })</script>
+</head>
+
+<body>
+  <div class=section style=left:0;top:0 id=center>
+    <div class=outer-container>
+      <div class=inner-container>
+        <div id=profile>
+          <div id=profile-avatar-container> <img src=assets/avatar.gif alt="My avatar" id=profile-avatar>
+            <div class=circle style=display:none id=profile-avatar-status-container> <img class=circle
+                src=assets/status/offline.svg id=profile-avatar-status> </div>
+          </div> <a rel="noopener noreferrer" style=display:none target=_blank id=profile-activity>
+            <div id=profile-activity-assets> <img style=display:none id=profile-activity-large-image>
+              <div class=circle style=display:none id=profile-activity-small-image-container> <img class=circle
+                  id=profile-activity-small-image> </div>
+            </div>
+            <div id=profile-activity-content>
+              <h3 id=profile-activity-name></h3>
+              <p id=profile-activity-details></p>
+              <p id=profile-activity-state></p>
+              <div id=profile-activity-bar-container style=display:none>
+                <div id=profile-activity-bar></div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <h1>Commandtechno</h1>
+        <p> <img class=emoji src=assets/emojis/wave.svg alt="Wave emoji"> Hello there. I'm a developer and graphics
+          designer. I'm interested in all things tech, and community management! Here you will find my projects, and the
+          various things I have worked on. </p>
+        <div id=social-desktop> <a alt="Commandtechno on GitHub" class="hover social-desktop-container"
+            href=https://github.com/Commandtechno rel="noopener noreferrer" style=background-color:rgba(0,0,0,.25)
+            target=_blank> <img class=social-desktop-icon src=assets/socials/github.svg alt="GitHub Logo"> </a> <a
+            alt="Commandtechno#0841 on Discord" class="hover social-desktop-container"
+            href=https://discord.com/users/296776625432035328 rel="noopener noreferrer"
+            style=background-color:rgba(88,101,242,.25) target=_blank> <img class=social-desktop-icon
+              src=assets/socials/discord.svg alt="Discord Logo"> </a> <a alt="Penguii on YouTube"
+            class="hover social-desktop-container" href=https://youtube.com/Commandtechno rel="noopener noreferrer"
+            style=background-color:rgba(236,31,31,.25) target=_blank> <img class=social-desktop-icon
+              src=assets/socials/youtube.svg alt="YouTube Logo"> </a> <a alt="Commandtechno on Twitch"
+            class="hover social-desktop-container" href=https://twitch.tv/Commandtechno rel="noopener noreferrer"
+            style=background-color:rgba(154,31,236,.25) target=_blank> <img class=social-desktop-icon
+              src=assets/socials/twitch.svg alt="Twitch Logo"> </a> <a alt="u/Commandtechno on Reddit"
+            class="hover social-desktop-container" href=https://reddit.com/u/Commandtechno rel="noopener noreferrer"
+            style=background-color:rgba(255,81,0,.25) target=_blank> <img class=social-desktop-icon
+              src=assets/socials/reddit.svg alt="Reddit Logo"> </a> <a alt="Commandtechno on Spotify"
+            class="hover social-desktop-container" href=https://open.spotify.com/user/goysc6kienrd64c1g1vbevz6h
+            rel="noopener noreferrer" style=background-color:rgba(31,236,31,.25) target=_blank> <img
+              class=social-desktop-icon src=assets/socials/spotify.svg alt="Spotify Logo"> </a> </div>
+        <p id=social-mobile> <a alt="Commandtechno on GitHub" class=social-mobile-container
+            href=https://github.com/Commandtechno> <img class=emoji src=assets/socials/github.svg alt="GitHub Logo">
+            <b>Commandtechno</b> </a> <a alt="Commandtechno#0841 on Discord" class=social-mobile-container
+            href=https://discord.com/users/296776625432035328> <img class=emoji src=assets/socials/discord.svg
+              alt="Discord Logo"> <b>Commandtechno#0841</b> </a> <a alt="Penguii on YouTube"
+            class=social-mobile-container href=https://youtube.com/Commandtechno> <img class=emoji
+              src=assets/socials/youtube.svg alt="YouTube Logo"> <b>Penguii</b> </a> <a alt="Commandtechno on Twitch"
+            class=social-mobile-container href=https://twitch.tv/Commandtechno> <img class=emoji
+              src=assets/socials/twitch.svg alt="Twitch Logo"> <b>Commandtechno</b> </a> <a
+            alt="u/Commandtechno on Reddit" class=social-mobile-container href=https://reddit.com/u/Commandtechno> <img
+              class=emoji src=assets/socials/reddit.svg alt="Reddit Logo"> <b>u/Commandtechno</b> </a> <a
+            alt="Commandtechno on Spotify" class=social-mobile-container
+            href=https://open.spotify.com/user/goysc6kienrd64c1g1vbevz6h> <img class=emoji
+              src=assets/socials/spotify.svg alt="Spotify Logo"> <b>Commandtechno</b> </a>
+      </div>
+    </div>
+  </div>
+  <div class=section style=top:-100vh;left:0;visibility:hidden id=top>
+    <div class=outer-container>
+      <div class=inner-container>top? coming soon?</div>
+    </div>
+  </div>
+  <div class=section style=top:100vh;left:0;visibility:hidden id=bottom>
+    <div class=outer-container style=width:100%;height:50%>
+      <div class=inner-container style=width:100%>
+        <h1>Contact</h1> <input alt="Contact form email" class=form-input id=form-email placeholder=Email> <input
+          alt="Contact form subject" class=form-input id=form-subject placeholder=Subject> <textarea
+          alt="Contact form content" class=form-input id=form-content placeholder=Content></textarea> <button
+          alt="Submit contact form" class=hover id=form-submit>Submit!</button>
+      </div>
+    </div>
+  </div>
+  <div class=section style=left:-100vw;top:0;visibility:hidden id=left>
+    <div class=outer-container>
+      <div class=inner-container>
+        <h1>Graphics Design</h1> <a alt="Quantum Society Discord server" class="hover card"
+          href=https://discord.gg/qsociety rel="noopener noreferrer" style=background-color:rgba(29,91,138,.25)
+          target=_blank> <img class="circle card-icon" src=assets/projects/quantum-society.gif
+            alt="Quantum Society Icon">
+          <div class=card-content>
+            <h3>Quantum Society</h3>
+            <p> My Discord server, all art in it including the penguin emotes (<img class=emoji
+                src=assets/emojis/penguin.png alt="Penguin Emoji"> <img class=emoji src=assets/emojis/penguin-heart.png
+                alt="Penguin Heart Emoji"> <img class=emoji src=assets/emojis/penguin-spin.gif alt="Penguin Spin Emoji">
+              <img class=emoji src=assets/emojis/penguin-party.gif alt="Penguin Party Emoji"> <img class=emoji
+                src=assets/emojis/penguin-vibe.gif alt="Penguin Vibe Emoji">) </p>
+          </div>
+        </a> <a alt="PlayStation Discord server" class="hover card" href=https://discord.gg/ps rel="noopener noreferrer"
+          style=background-color:rgba(8,15,138,.25) target=_blank> <img class="circle card-icon"
+            src=assets/projects/playstation.gif alt="PlayStation Discord Icon">
+          <div class=card-content>
+            <h3>PlayStation Discord</h3>
+            <p>The icon for the community run PlayStation Discord server</p>
+          </div>
+        </a> <a alt="Sol Sanctum Discord server" class="hover card" href=https://discord.gg/ian
+          rel="noopener noreferrer" style=background-color:rgba(171,55,206,.25) target=_blank> <img
+            class="circle card-icon" src=assets/projects/ian.gif alt="Sol Sanctum Discord Icon">
+          <div class=card-content>
+            <h3>Sol Sanctum Discord</h3>
+            <p>The icon and some stickers for the Sol Sanctum Discord server</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class=section style=left:100vw;top:0;visibility:hidden id=right>
+    <div class=outer-container>
+      <div class=inner-container>
+        <h1>Development</h1> <a alt="Quantum Utilities Discord bot" class="hover card" href=https://discord.gg/qsociety
+          rel="noopener noreferrer" style=background-color:rgba(29,91,138,.25) target=_blank> <img
+            class="circle card-icon" src=assets/projects/quantum-utilities.png alt="Quantum Utilities Icon">
+          <div class=card-content>
+            <h3> Quantum Utilities <img class=badge src=assets/badges/javascript.svg alt="Made with JavaScript"> <img
+                class=badge src=assets/badges/postgresql.svg alt="Made with PostgreSQL"> </h3>
+            <p>The main Discord bot for Quantum Society that has a bunch of random things</p>
+          </div>
+        </a> <a alt="Quantum Music Discord bot" class="hover card" href=https://discord.gg/qsociety
+          rel="noopener noreferrer" style=background-color:rgba(29,91,138,.25) target=_blank> <img
+            class="circle card-icon" src=assets/projects/quantum-music.png alt="Quantum Music Icon">
+          <div class=card-content>
+            <h3> Quantum Music <img class=badge src=assets/badges/typescript.svg alt="Made with TypeScript"> <img
+                class=badge src=assets/badges/redis.svg alt="Made with Redis"> </h3>
+            <p>A high quality music bot for Quantum Society which offers music from many services</p>
+          </div>
+        </a> <a alt="Quantum Staff Discord bot" class="hover card" href=https://discord.gg/qsociety
+          rel="noopener noreferrer" style=background-color:rgba(29,91,138,.25) target=_blank> <img
+            class="circle card-icon" src=assets/projects/quantum-staff.png alt="Quantum Staff Icon">
+          <div class=card-content>
+            <h3> Quantum Staff <img class=badge src=assets/badges/typescript.svg alt="Made with TypeScript"> </h3>
+            <p>A modmail and tickets bot for Quantum Society's staff and management</p>
+          </div>
+        </a> <a alt="Otter generator 9000 Discord bot" class="hover card"
+          href=https://otter.bruhmomentlol.repl.co/invite rel="noopener noreferrer"
+          style=background-color:rgba(168,142,129,.25) target=_blank> <img class="circle card-icon"
+            src=assets/projects/otter.svg alt="Big Otter Icon">
+          <div class=card-content>
+            <h3> Otter Generator 9000 <img class=badge src=assets/badges/javascript.svg alt="Made with JavaScript">
+            </h3>
+            <p> A Discord bot that generates random otter images! <img class=emoji src=assets/emojis/otter.svg
+                alt="Otter Emoji"> </p>
+          </div>
+        </a> <a alt="My personal portfolio" class="hover card" href=https://commandtechno.com rel="noopener noreferrer"
+          style=background-color:rgba(98,42,202,.25) target=_blank> <img class="circle card-icon" src=assets/avatar.gif
+            alt="Portfolio Icon">
+          <div class=card-content>
+            <h3> My Portfolio <img class=badge src=assets/badges/html.svg alt="Made with HTML"> <img class=badge
+                src=assets/badges/css.svg alt="Made with CSS"> <img class=badge src=assets/badges/javascript.svg
+                alt="Made with JavaScript"> </h3>
+            <p>This website where I put all my stuff</p>
+          </div>
+        </a> <a alt="Discord snowflake deconstructor tool" class="hover card" href=https://commandtechno.com/snowflake
+          rel="noopener noreferrer" style=background-color:rgba(35,218,231,.25) target=_blank> <img
+            class="circle card-icon" src=assets/projects/snowflake.svg alt="Snowflake Deconstructor Icon">
+          <div class=card-content>
+            <h3> Snowflake Deconstructor <img class=badge src=assets/badges/html.svg alt="Made with HTML"> <img
+                class=badge src=assets/badges/css.svg alt="Made with CSS"> <img class=badge
+                src=assets/badges/javascript.svg alt="Made with JavaScript"> </h3>
+            <p>Deconstructs Discord snowflakes into a timestamp</p>
+          </div>
+        </a> <a alt="Code sharing website" class="hover card" href=https://commandtechno.com/paste
+          rel="noopener noreferrer" style=background-color:rgba(85,85,85,.25) target=_blank> <img
+            class="circle card-icon" src=assets/projects/paste.svg alt="Code Sharer Icon">
+          <div class=card-content>
+            <h3> Code Sharer <img class=badge src=assets/badges/html.svg alt="Made with HTML"> <img class=badge
+                src=assets/badges/css.svg alt="Made with CSS"> <img class=badge src=assets/badges/javascript.svg
+                alt="Made with JavaScript"> </h3>
+            <p>Allows you to upload code, and share it with a URL (its basically hastebin)</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
