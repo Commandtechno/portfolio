@@ -56,6 +56,8 @@ window.addEventListener("load", () => {
   const ws = new WebSocket("wss://commandtechno.com");
   let interval;
 
+  ws.onclose = console.log;
+
   ws.onmessage = message => {
     const presence = JSON.parse(message.data);
     const isStreaming = presence.activities.some(activity => activity.type === A.Streaming);
@@ -103,6 +105,8 @@ window.addEventListener("load", () => {
 
     if (activity.id === "spotify:1") {
       activityElement.href = "https://open.spotify.com/track/" + activity.sync_id;
+      activityElement.classList.add("hover");
+
       if (activity.details) name = activity.details;
       if (activity.state) details = "by " + activity.state;
       if (activity.assets.large_text) state = "on " + activity.assets.large_text;
@@ -116,7 +120,10 @@ window.addEventListener("load", () => {
           barElement.style.width = (barCompleted / barTotal) * 100 + "%";
         }, 1000);
       }
-    } else activityElement.removeAttribute("href");
+    } else {
+      activityElement.removeAttribute("href");
+      activityElement.classList.remove("hover");
+    }
 
     if (activity.party?.size) {
       const [min, max] = activity.party.size;

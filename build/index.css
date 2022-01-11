@@ -67,9 +67,8 @@ body {
 
 .hover:hover {
   transform: scale(1.05);
-  box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.5);
 }
-
 
 .section {
   width: 100vw;
@@ -241,7 +240,7 @@ its big so no mobile
 
 .social-desktop-container {
   width: 20%;
-  padding: 15px;
+  padding: 20px;
   border-radius: 10px;
   aspect-ratio: 1/1;
 
@@ -296,6 +295,10 @@ its big so no mobile
 #form-content {
   resize: none;
   height: 100%;
+}
+
+#form-error {
+  align-self: flex-end;
 }
 
 #form-submit {

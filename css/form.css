@@ -18,6 +18,10 @@
   height: 100%;
 }
 
+#form-error {
+  align-self: flex-end;
+}
+
 #form-submit {
   border: none;
   align-self: flex-end;

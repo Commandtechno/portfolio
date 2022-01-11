@@ -6,9 +6,14 @@ window.addEventListener("touchstart", event => {
   let scrollLeft;
   for (const element of event.path) {
     if (isRoot(element)) break;
-    if (element.scrollHeight > element.clientHeight) {
-      scrollTop = element.scrollTop;
+
+    if (canScrollX(element)) {
       scrollLeft = element.scrollLeft;
+      if (scrollTop) break;
+    }
+
+    if (canScrollY(element)) {
+      scrollTop = element.scrollTop;
       break;
     }
   }

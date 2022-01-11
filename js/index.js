@@ -45,6 +45,7 @@ let startTouch = null;
 // {move}
 // {tooltip}
 // {getAssetURL}
+// {canScroll}
 // {isRoot}
 
 // {load}

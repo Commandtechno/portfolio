@@ -179,6 +179,17 @@ function getAssetURL(application, asset) {
 
   return "https://cdn.discordapp.com/app-assets/" + application + "/" + asset;
 }
+const nonScrollable = new Set(["profile", "profile-avatar-container"]);
+
+function canScrollX(element) {
+  if (nonScrollable.has(element.id)) return false;
+  return element.scrollWidth > element.clientWidth;
+}
+
+function canScrollY(element) {
+  if (nonScrollable.has(element.id)) return false;
+  return element.scrollHeight > element.clientHeight;
+}
 function isRoot(element) {
   return element === document.body || element === document.documentElement;
 }
@@ -241,6 +252,8 @@ window.addEventListener("load", () => {
   const ws = new WebSocket("wss://commandtechno.com");
   let interval;
 
+  ws.onclose = console.log;
+
   ws.onmessage = message => {
     const presence = JSON.parse(message.data);
     const isStreaming = presence.activities.some(activity => activity.type === A.Streaming);
@@ -288,6 +301,8 @@ window.addEventListener("load", () => {
 
     if (activity.id === "spotify:1") {
       activityElement.href = "https://open.spotify.com/track/" + activity.sync_id;
+      activityElement.classList.add("hover");
+
       if (activity.details) name = activity.details;
       if (activity.state) details = "by " + activity.state;
       if (activity.assets.large_text) state = "on " + activity.assets.large_text;
@@ -301,7 +316,10 @@ window.addEventListener("load", () => {
           barElement.style.width = (barCompleted / barTotal) * 100 + "%";
         }, 1000);
       }
-    } else activityElement.removeAttribute("href");
+    } else {
+      activityElement.removeAttribute("href");
+      activityElement.classList.remove("hover");
+    }
 
     if (activity.party?.size) {
       const [min, max] = activity.party.size;
@@ -346,19 +364,17 @@ window.addEventListener("load", () => {
 });
 window.addEventListener("wheel", event => {
   if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
-    for (const element of event.path) {
-      console.log(element);
+    for (const element of event.path || event.composedPath()) {
       if (isRoot(element)) break;
-      if (element.scrollWidth > element.clientWidth) return;
+      if (canScrollX(element)) return;
     }
 
     if (event.deltaX > 0) move(D.Right);
     else if (event.deltaX < 0) move(D.Left);
   } else {
     for (const element of event.path) {
-      console.log(element, element.scrollHeight, element.clientHeight);
       if (isRoot(element)) break;
-      if (element.scrollHeight > element.clientHeight) return;
+      if (canScrollY(element)) return;
     }
 
     if (event.deltaY > 0) move(D.Down);
@@ -405,9 +421,14 @@ window.addEventListener("touchstart", event => {
   let scrollLeft;
   for (const element of event.path) {
     if (isRoot(element)) break;
-    if (element.scrollHeight > element.clientHeight) {
-      scrollTop = element.scrollTop;
+
+    if (canScrollX(element)) {
       scrollLeft = element.scrollLeft;
+      if (scrollTop) break;
+    }
+
+    if (canScrollY(element)) {
+      scrollTop = element.scrollTop;
       break;
     }
   }
@@ -431,15 +452,16 @@ window.addEventListener(
     if (!startTouch) return;
     for (const element of event.path) {
       if (isRoot(element)) break;
-      if (element.scrollHeight > element.clientHeight) {
-        const deltaY = startTouch.y - event.touches[0].clientY;
-        element.scrollTop = startTouch.scrollTop + deltaY;
+
+      if (canScrollX(element)) {
+        const deltaX = startTouch.x - event.touches[0].clientX;
+        element.scrollLeft = startTouch.scrollLeft + deltaX;
         break;
       }
 
-      if (element.scrollWidth > element.clientWidth) {
-        const deltaX = startTouch.x - event.touches[0].clientX;
-        element.scrollLeft = startTouch.scrollLeft + deltaX;
+      if (canScrollY(element)) {
+        const deltaY = startTouch.y - event.touches[0].clientY;
+        element.scrollTop = startTouch.scrollTop + deltaY;
         break;
       }
     }
@@ -456,7 +478,7 @@ window.addEventListener("touchend", event => {
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
     for (const element of event.path) {
       if (isRoot(element)) break;
-      if (element.scrollWidth > element.clientWidth) {
+      if (canScrollX(element)) {
         if (startTouch.initalScrollLeft === 0 && element.scrollTop === 0) move(D.Left);
         if (
           startTouch.initalScrollLeft === element.scrollWidth - element.clientWidth &&
@@ -474,7 +496,7 @@ window.addEventListener("touchend", event => {
   } else {
     for (const element of event.path) {
       if (isRoot(element)) break;
-      if (element.scrollHeight > element.clientHeight) {
+      if (canScrollY(element)) {
         if (startTouch.initialScrollTop === 0 && element.scrollTop === 0) move(D.Up);
         if (
           startTouch.initialScrollTop === element.scrollHeight - element.clientHeight &&
