@@ -7,6 +7,7 @@
 // {tooltip}
 // {getAssetURL}
 
+// {load}
 // {wheel}
 // {keydown}
 // {touchstart}
