@@ -46,6 +46,7 @@ let startTouch = null;
 // {tooltip}
 // {getAssetURL}
 // {canScroll}
+// {setTab}
 // {isRoot}
 
 // {load}

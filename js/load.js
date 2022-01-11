@@ -2,25 +2,24 @@ console.log("hello inspect elementer, thank you for looking at my website");
 console.log(
   "if you are testing my website on mobile, i reccomend opening a new tab since chrome switching to mobile keeps the element context from desktop and messes it up lol"
 );
-console.log("ill add more stuff here but pog ok bye");
+console.log("press . on the page to view the source code");
 
 window.addEventListener("load", () => {
-  const tab = new URL(window.location).searchParams.get("tab");
-
+  const tab = window.location.href.replace(window.location.origin, "");
   switch (tab) {
-    case "socials":
+    case "/#top":
       move(D.Up);
       break;
 
-    case "contact":
+    case "/#contact":
       move(D.Down);
       break;
 
-    case "gfx":
+    case "/#gfx":
       move(D.Left);
       break;
 
-    case "dev":
+    case "/#dev":
       move(D.Right);
       break;
   }
@@ -91,7 +90,7 @@ window.addEventListener("load", () => {
   const ws = new WebSocket("wss://" + window.location.host);
   let interval;
 
-  setInterval(() => ws.send(""), 1000);
+  setInterval(() => ws.send(""), 5000);
   ws.onmessage = message => {
     const presence = JSON.parse(message.data);
     const isStreaming = presence.activities.some(activity => activity.type === A.Streaming);

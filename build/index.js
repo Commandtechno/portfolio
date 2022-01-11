@@ -75,6 +75,7 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Top;
+          setTab("top");
           await anim([
             [S.Center, P.Bottom],
             [S.Top, P.Center]
@@ -83,6 +84,7 @@ async function move(direction) {
 
         case S.Bottom:
           state = S.Center;
+          setTab();
           await anim([
             [S.Center, P.Center],
             [S.Bottom, P.Bottom]
@@ -95,6 +97,7 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Bottom;
+          setTab("contact");
           await anim([
             [S.Center, P.Top],
             [S.Bottom, P.Center]
@@ -103,6 +106,7 @@ async function move(direction) {
 
         case S.Top:
           state = S.Center;
+          setTab();
           await anim([
             [S.Center, P.Center],
             [S.Top, P.Top]
@@ -115,6 +119,7 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Left;
+          setTab("gfx");
           await anim([
             [S.Center, P.Right],
             [S.Left, P.Center]
@@ -123,6 +128,7 @@ async function move(direction) {
 
         case S.Right:
           state = S.Center;
+          setTab();
           await anim([
             [S.Center, P.Center],
             [S.Right, P.Right]
@@ -135,6 +141,7 @@ async function move(direction) {
       switch (state) {
         case S.Center:
           state = S.Right;
+          setTab("dev");
           await anim([
             [S.Center, P.Left],
             [S.Right, P.Center]
@@ -143,6 +150,7 @@ async function move(direction) {
 
         case S.Left:
           state = S.Center;
+          setTab();
           await anim([
             [S.Center, P.Center],
             [S.Left, P.Left]
@@ -153,7 +161,6 @@ async function move(direction) {
 
   isPending = false;
 }
-
 function tooltip(element, content) {
   element.alt = content;
   element.title = content;
@@ -190,6 +197,9 @@ function canScrollY(element) {
   if (nonScrollable.has(element.id)) return false;
   return element.scrollHeight > element.clientHeight;
 }
+function setTab(tab) {
+  window.history.replaceState({}, "", tab ? "#" + tab : window.location.pathname);
+}
 function isRoot(element) {
   return element === document.body || element === document.documentElement;
 }
@@ -198,25 +208,24 @@ console.log("hello inspect elementer, thank you for looking at my website");
 console.log(
   "if you are testing my website on mobile, i reccomend opening a new tab since chrome switching to mobile keeps the element context from desktop and messes it up lol"
 );
-console.log("ill add more stuff here but pog ok bye");
+console.log("press . on the page to view the source code");
 
 window.addEventListener("load", () => {
-  const tab = new URL(window.location).searchParams.get("tab");
-
+  const tab = window.location.href.replace(window.location.origin, "");
   switch (tab) {
-    case "socials":
+    case "/#top":
       move(D.Up);
       break;
 
-    case "contact":
+    case "/#contact":
       move(D.Down);
       break;
 
-    case "gfx":
+    case "/#gfx":
       move(D.Left);
       break;
 
-    case "dev":
+    case "/#dev":
       move(D.Right);
       break;
   }
@@ -287,7 +296,7 @@ window.addEventListener("load", () => {
   const ws = new WebSocket("wss://" + window.location.host);
   let interval;
 
-  setInterval(() => ws.send(""), 1000);
+  setInterval(() => ws.send(""), 5000);
   ws.onmessage = message => {
     const presence = JSON.parse(message.data);
     const isStreaming = presence.activities.some(activity => activity.type === A.Streaming);
@@ -439,6 +448,10 @@ window.addEventListener("keydown", event => {
     case "d":
       event.preventDefault();
       move(D.Right);
+      break;
+
+    case ".":
+      window.location.href = "https://github.dev/commandtechno/portfolio";
       break;
   }
 });
