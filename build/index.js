@@ -207,7 +207,7 @@ window.addEventListener("load", () => {
   const barContainerElement = document.getElementById("profile-activity-bar-container");
   const barElement = document.getElementById("profile-activity-bar");
 
-  const ws = new WebSocket("ws://localhost:3001");
+  const ws = new WebSocket("wss://" + location.host);
   let interval;
 
   ws.onmessage = message => {
