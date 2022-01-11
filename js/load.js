@@ -53,11 +53,14 @@ window.addEventListener("load", () => {
           document.getElementById("form-email").value = "";
           document.getElementById("form-subject").value = "";
           document.getElementById("form-content").value = "";
+
+          submit.style.backgroundColor = "#439543";
+          submit.style.color = "var(--primary)";
           submit.innerText = "Message Sent!";
           submit.disabled = false;
         } else
           res.text().then(text => {
-            submit.style.backgroundColor = "#439543";
+            submit.style.backgroundColor = "#ed4444";
             submit.style.color = "var(--primary)";
             submit.innerText = text;
             submit.disabled = false;
