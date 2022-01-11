@@ -37,7 +37,7 @@ const P = {
 let state = "center";
 let arrows = true;
 let isPending = false;
-let startTouch;
+let startTouch = null;
 
 function show(element) {
   element.style.display = null;
@@ -178,6 +178,9 @@ function getAssetURL(application, asset) {
   }
 
   return "https://cdn.discordapp.com/app-assets/" + application + "/" + asset;
+}
+function isRoot(element) {
+  return element === document.body || element === document.documentElement;
 }
 
 console.log("hello inspect elementer, thank you for looking at my website");
@@ -341,16 +344,27 @@ window.addEventListener("load", () => {
     show(activityElement);
   };
 });
-window.addEventListener("wheel", ({ deltaX, deltaY }) => {
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    if (deltaX > 0) move(D.Right);
-    else if (deltaX < 0) move(D.Left);
+window.addEventListener("wheel", event => {
+  if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+    for (const element of event.path) {
+      if (isRoot(element)) break;
+      if (element.scrollWidth > element.clientWidth) return;
+    }
+
+    if (event.deltaX > 0) move(D.Right);
+    else if (event.deltaX < 0) move(D.Left);
   } else {
-    if (deltaY > 0) move(D.Down);
-    else if (deltaY < 0) move(D.Up);
+    for (const element of event.path) {
+      if (isRoot(element)) break;
+      if (element.scrollHeight > element.clientHeight) return;
+    }
+
+    if (event.deltaY > 0) move(D.Down);
+    else if (event.deltaY < 0) move(D.Up);
   }
 });
 window.addEventListener("keydown", event => {
+  if (event.target !== document.body && event.target !== document.body) return;
   switch (event.key) {
     case "ArrowUp":
     case "w":
@@ -379,17 +393,6 @@ window.addEventListener("keydown", event => {
       event.preventDefault();
       move(D.Right);
       break;
-
-    case "K":
-    case "k":
-      if (event.ctrlKey) {
-        event.preventDefault();
-        document.getElementById("profile-avatar").src = "assets/gaming.png";
-        document.getElementById("profile").parentElement.children[1].innerText = "Boop Dog";
-        document.getElementById("profile").parentElement.children[2].innerText =
-          "Hello there. I'm a gamer and gamer. I'm interested in all things gaming, and gaming! Here you will find my gamings, and the various things I have gamed on.";
-      }
-      break;
   }
 });
 window.addEventListener("touchstart", event => {
@@ -397,10 +400,12 @@ window.addEventListener("touchstart", event => {
   const [touch] = event.touches;
 
   let scrollTop;
+  let scrollLeft;
   for (const element of event.path) {
-    if (element === document.body) break;
+    if (isRoot(element)) break;
     if (element.scrollHeight > element.clientHeight) {
       scrollTop = element.scrollTop;
+      scrollLeft = element.scrollLeft;
       break;
     }
   }
@@ -408,18 +413,31 @@ window.addEventListener("touchstart", event => {
   startTouch = {
     x: touch.clientX,
     y: touch.clientY,
-    scrollTop
+
+    scrollTop,
+    scrollLeft,
+
+    initialScrollTop: scrollTop,
+    initialScrollLeft: scrollLeft
   };
 });
 window.addEventListener(
   "touchmove",
   event => {
     event.preventDefault();
+
+    if (!startTouch) return;
     for (const element of event.path) {
-      if (element === document.body) break;
+      if (isRoot(element)) break;
       if (element.scrollHeight > element.clientHeight) {
         const deltaY = startTouch.y - event.touches[0].clientY;
         element.scrollTop = startTouch.scrollTop + deltaY;
+        break;
+      }
+
+      if (element.scrollWidth > element.clientWidth) {
+        const deltaX = startTouch.x - event.touches[0].clientX;
+        element.scrollLeft = startTouch.scrollLeft + deltaX;
         break;
       }
     }
@@ -434,9 +452,39 @@ window.addEventListener("touchend", event => {
   const deltaY = touch.clientY - startTouch.y;
 
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    for (const element of event.path) {
+      if (isRoot(element)) break;
+      if (element.scrollWidth > element.clientWidth) {
+        if (startTouch.initalScrollLeft === 0 && element.scrollTop === 0) move(D.Left);
+        if (
+          startTouch.initalScrollLeft === element.scrollWidth - element.clientWidth &&
+          element.initalScrollLeft === element.scrollWidth - element.clientWidth
+        )
+          move(D.Right);
+
+        startTouch = null;
+        return;
+      }
+    }
+
     if (deltaX > 0) move(D.Left);
     else if (deltaX < 0) move(D.Right);
   } else {
+    for (const element of event.path) {
+      if (isRoot(element)) break;
+      if (element.scrollHeight > element.clientHeight) {
+        if (startTouch.initialScrollTop === 0 && element.scrollTop === 0) move(D.Up);
+        if (
+          startTouch.initialScrollTop === element.scrollHeight - element.clientHeight &&
+          element.scrollTop === element.scrollHeight - element.clientHeight
+        )
+          move(D.Down);
+
+        startTouch = null;
+        return;
+      }
+    }
+
     if (deltaY > 0) move(D.Up);
     else if (deltaY < 0) move(D.Down);
   }

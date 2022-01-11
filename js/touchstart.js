@@ -3,10 +3,12 @@ window.addEventListener("touchstart", event => {
   const [touch] = event.touches;
 
   let scrollTop;
+  let scrollLeft;
   for (const element of event.path) {
-    if (element === document.body) break;
+    if (isRoot(element)) break;
     if (element.scrollHeight > element.clientHeight) {
       scrollTop = element.scrollTop;
+      scrollLeft = element.scrollLeft;
       break;
     }
   }
@@ -14,6 +16,11 @@ window.addEventListener("touchstart", event => {
   startTouch = {
     x: touch.clientX,
     y: touch.clientY,
-    scrollTop
+
+    scrollTop,
+    scrollLeft,
+
+    initialScrollTop: scrollTop,
+    initialScrollLeft: scrollLeft
   };
 });

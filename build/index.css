@@ -14,6 +14,10 @@
   font-family: "Robot Mono", monospace;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 a {
   color: white;
   text-decoration: none;
@@ -90,10 +94,6 @@ body {
 
   box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.25);
   border-radius: 25px;
-}
-
-.inner-container::-webkit-scrollbar {
-  display: none;
 }
 .section {
   width: 100vw;

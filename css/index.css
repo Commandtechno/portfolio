@@ -14,6 +14,10 @@
   font-family: "Robot Mono", monospace;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 a {
   color: white;
   text-decoration: none;

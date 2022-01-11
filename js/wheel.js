@@ -1,9 +1,19 @@
-window.addEventListener("wheel", ({ deltaX, deltaY }) => {
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    if (deltaX > 0) move(D.Right);
-    else if (deltaX < 0) move(D.Left);
+window.addEventListener("wheel", event => {
+  if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+    for (const element of event.path) {
+      if (isRoot(element)) break;
+      if (element.scrollWidth > element.clientWidth) return;
+    }
+
+    if (event.deltaX > 0) move(D.Right);
+    else if (event.deltaX < 0) move(D.Left);
   } else {
-    if (deltaY > 0) move(D.Down);
-    else if (deltaY < 0) move(D.Up);
+    for (const element of event.path) {
+      if (isRoot(element)) break;
+      if (element.scrollHeight > element.clientHeight) return;
+    }
+
+    if (event.deltaY > 0) move(D.Down);
+    else if (event.deltaY < 0) move(D.Up);
   }
 });
