@@ -268,6 +268,8 @@ its big so no mobile
 }
 #guide {
   text-align: center;
+  margin-left: 5vmin;
+  margin-right: 5vmin;
 }
 .card {
   display: flex;
