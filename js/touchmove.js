@@ -4,9 +4,8 @@ window.addEventListener(
     event.preventDefault();
 
     if (!startTouch) return;
-    for (const element of event.path) {
+    for (const element of event.path || event.composedPath()) {
       if (isRoot(element)) break;
-
       if (canScrollX(element)) {
         const deltaX = startTouch.x - event.touches[0].clientX;
         element.scrollLeft = startTouch.scrollLeft + deltaX;

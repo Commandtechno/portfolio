@@ -6,7 +6,7 @@ window.addEventListener("touchend", event => {
   const deltaY = touch.clientY - startTouch.y;
 
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    for (const element of event.path) {
+    for (const element of event.path || event.composedPath()) {
       if (isRoot(element)) break;
       if (canScrollX(element)) {
         if (startTouch.initalScrollLeft === 0 && element.scrollTop === 0) move(D.Left);
@@ -24,7 +24,7 @@ window.addEventListener("touchend", event => {
     if (deltaX > 0) move(D.Left);
     else if (deltaX < 0) move(D.Right);
   } else {
-    for (const element of event.path) {
+    for (const element of event.path || event.composedPath()) {
       if (isRoot(element)) break;
       if (canScrollY(element)) {
         if (startTouch.initialScrollTop === 0 && element.scrollTop === 0) move(D.Up);

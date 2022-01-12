@@ -8,7 +8,7 @@ window.addEventListener("wheel", event => {
     if (event.deltaX > 10) move(D.Right);
     else if (event.deltaX < -10) move(D.Left);
   } else {
-    for (const element of event.path) {
+    for (const element of event.path || event.composedPath()) {
       if (isRoot(element)) break;
       if (canScrollY(element)) return;
     }
