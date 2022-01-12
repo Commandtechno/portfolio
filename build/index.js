@@ -410,7 +410,7 @@ window.addEventListener("wheel", event => {
     if (event.deltaX > 10) move(D.Right);
     else if (event.deltaX < -10) move(D.Left);
   } else {
-    for (const element of event.path) {
+    for (const element of event.path || event.composedPath()) {
       if (isRoot(element)) break;
       if (canScrollY(element)) return;
     }
@@ -461,9 +461,8 @@ window.addEventListener("touchstart", event => {
 
   let scrollTop;
   let scrollLeft;
-  for (const element of event.path) {
+  for (const element of event.path || event.composedPath()) {
     if (isRoot(element)) break;
-
     if (canScrollX(element)) {
       scrollLeft = element.scrollLeft;
       if (scrollTop) break;
@@ -492,9 +491,8 @@ window.addEventListener(
     event.preventDefault();
 
     if (!startTouch) return;
-    for (const element of event.path) {
+    for (const element of event.path || event.composedPath()) {
       if (isRoot(element)) break;
-
       if (canScrollX(element)) {
         const deltaX = startTouch.x - event.touches[0].clientX;
         element.scrollLeft = startTouch.scrollLeft + deltaX;
@@ -518,7 +516,7 @@ window.addEventListener("touchend", event => {
   const deltaY = touch.clientY - startTouch.y;
 
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    for (const element of event.path) {
+    for (const element of event.path || event.composedPath()) {
       if (isRoot(element)) break;
       if (canScrollX(element)) {
         if (startTouch.initalScrollLeft === 0 && element.scrollTop === 0) move(D.Left);
@@ -536,7 +534,7 @@ window.addEventListener("touchend", event => {
     if (deltaX > 0) move(D.Left);
     else if (deltaX < 0) move(D.Right);
   } else {
-    for (const element of event.path) {
+    for (const element of event.path || event.composedPath()) {
       if (isRoot(element)) break;
       if (canScrollY(element)) {
         if (startTouch.initialScrollTop === 0 && element.scrollTop === 0) move(D.Up);
