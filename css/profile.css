@@ -13,7 +13,6 @@ avatar and status thing
 }
 
 #profile-avatar {
-  height: 100%;
   border-radius: 15px;
 }
 
@@ -57,7 +56,6 @@ images and stuff
 }
 
 #profile-activity-large-image {
-  height: 100%;
   border-radius: 15px;
 }
 
