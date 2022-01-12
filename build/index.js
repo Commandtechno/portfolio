@@ -54,8 +54,8 @@ function anim(actions) {
       if (targetX === P.Center[0] && targetY === P.Center[1]) element.style.visibility = null;
       else shouldHide = true;
 
-      element.style.left = targetX + "vw";
-      element.style.top = targetY + "vh";
+      element.style.left = targetX + "%";
+      element.style.top = targetY + "%";
 
       return new Promise(resolve =>
         setTimeout(() => {

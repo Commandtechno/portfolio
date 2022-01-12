@@ -79,8 +79,8 @@ body {
 }
 
 .section {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   display: flex;
   position: absolute;
@@ -265,6 +265,9 @@ its big so no mobile
 #social-mobile-container {
   gap: 5px;
   display: flex;
+}
+#guide {
+  text-align: center;
 }
 .card {
   display: flex;
