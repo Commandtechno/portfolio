@@ -1,16 +1,22 @@
 {
-  "short_name": "Commandtechno",
   "name": "Commandtechno's personal website",
+  "short_name": "Commandtechno",
+  "description": "Hello there! I'm a developer and graphics designer. I'm interested in all things tech, and community management! Here you will find my projects, and the various things I have worked on.",
   "icons": [
     {
-      "src": "/assets/penguin.png",
+      "src": "/assets/penguin192.png",
       "type": "image/png",
-      "sizes": "128x128"
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/penguin512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
-  "start_url": "/",
-  "background_color": "#232323",
+  "display": "browser",
   "scope": "/",
+  "start_url": "/",
   "theme_color": "#3367D6",
-  "description": "Hello there! I'm a developer and graphics designer. I'm interested in all things tech, and community management! Here you will find my projects, and the various things I have worked on."
+  "background_color": "#232323"
 }
