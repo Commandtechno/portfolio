@@ -85,11 +85,11 @@ body {
   display: flex;
   position: absolute;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
 
   transition: top 0.5s ease-in-out, left 0.5s ease-in-out;
 }
-
 .container {
   display: flex;
   overflow-y: auto;
