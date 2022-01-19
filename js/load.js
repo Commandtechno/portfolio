@@ -10,21 +10,20 @@ window.addEventListener("load", () => {
     guide.innerText = "Swipe left, right, up, or down to navigate";
   else guide.innerText = "Use your arrow keys to navigate";
 
-  const tab = window.location.href.replace(window.location.origin, "");
-  switch (tab) {
-    case "/#top":
+  switch (window.location.hash) {
+    case "#top":
       move(D.Up);
       break;
 
-    case "/#contact":
+    case "#contact":
       move(D.Down);
       break;
 
-    case "/#gfx":
+    case "#gfx":
       move(D.Left);
       break;
 
-    case "/#dev":
+    case "#dev":
       move(D.Right);
       break;
   }
