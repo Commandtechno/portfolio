@@ -6,8 +6,7 @@ console.log("press . on the page to view the source code");
 
 window.addEventListener("load", () => {
   const guide = document.getElementById("guide");
-  if ("ontouchstart" in document.documentElement)
-    guide.innerText = "Swipe left, right, up, or down to navigate";
+  if ("ontouchstart" in window) guide.innerText = "Swipe left, right, up, or down to navigate";
   else guide.innerText = "Use your arrow keys to navigate";
 
   switch (window.location.hash) {
