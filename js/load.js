@@ -6,25 +6,23 @@ console.log("press . on the page to view the source code");
 
 window.addEventListener("load", () => {
   const guide = document.getElementById("guide");
-  if ("ontouchstart" in document.documentElement)
-    guide.innerText = "Swipe left, right, up, or down to navigate";
+  if ("ontouchstart" in window) guide.innerText = "Swipe left, right, up, or down to navigate";
   else guide.innerText = "Use your arrow keys to navigate";
 
-  const tab = window.location.href.replace(window.location.origin, "");
-  switch (tab) {
-    case "/#top":
+  switch (window.location.hash) {
+    case "#top":
       move(D.Up);
       break;
 
-    case "/#contact":
+    case "#contact":
       move(D.Down);
       break;
 
-    case "/#gfx":
+    case "#gfx":
       move(D.Left);
       break;
 
-    case "/#dev":
+    case "#dev":
       move(D.Right);
       break;
   }
