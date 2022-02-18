@@ -20,5 +20,5 @@ function getAssetURL(application, asset) {
     }
   }
 
-  return "https://cdn.discordapp.com/app-assets/" + application + "/" + asset;
+  return "https://cdn.discordapp.com/app-assets/" + application + "/" + asset + ".webp";
 }
