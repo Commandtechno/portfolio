@@ -1,57 +1,39 @@
+/*
+  enums but not enums because they dont need to be enumerated
+*/
+
 // activity types
-const A = {
+export const ActivityType = {
   Game: 0,
   Streaming: 1,
   Listening: 2,
   Watching: 3,
   Custom: 4,
   Competing: 5
-};
+} as const;
 
 // directions
-const D = {
+export const Dir = {
   Up: "up",
   Down: "down",
   Left: "left",
   Right: "right"
-};
+} as const;
 
 // states
-const S = {
+export const State = {
   Center: "center",
   Top: "top",
   Bottom: "bottom",
   Left: "left",
   Right: "right"
-};
+} as const;
 
 // positions
-const P = {
+export const Pos = {
   Center: [0, 0],
   Top: [0, -100],
   Bottom: [0, 100],
   Left: [-100, 0],
   Right: [100, 0]
-};
-
-let state = "center";
-let arrows = true;
-let isPending = false;
-let startTouch = null;
-
-// {show}
-// {hide}
-// {anim}
-// {move}
-// {tooltip}
-// {getAssetURL}
-// {canScroll}
-// {setTab}
-// {isRoot}
-
-// {load}
-// {wheel}
-// {keydown}
-// {touchstart}
-// {touchmove}
-// {touchend}
+} as const;

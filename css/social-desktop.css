@@ -1,11 +1,11 @@
-#social-desktop {
+#social-desktop-container {
   gap: 25px;
 
   display: flex;
   justify-content: center;
 }
 
-.social-desktop-container {
+.social-desktop {
   width: 20%;
   padding: 20px;
   border-radius: 10px;

@@ -1,11 +1,11 @@
-const nonScrollable = new Set(["profile", "profile-avatar-container", "social-desktop"]);
+export const nonScrollable = new Set(["profile", "profile-avatar-container", "social-desktop"]);
 
-function canScrollX(element) {
+export function canScrollX(element: HTMLElement) {
   if (nonScrollable.has(element.id)) return false;
   return element.scrollWidth > element.clientWidth;
 }
 
-function canScrollY(element) {
+export function canScrollY(element: HTMLElement) {
   if (nonScrollable.has(element.id)) return false;
   return element.scrollHeight > element.clientHeight;
 }

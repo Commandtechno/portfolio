@@ -1,4 +1,21 @@
-/* @media (prefers-color-scheme: dark) { */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
+
+@import url(./emoji);
+@import url(./badge);
+@import url(./circle);
+@import url(./hover);
+
+@import url(./section);
+@import url(./container);
+
+@import url(./profile);
+@import url(./social);
+@import url(./social-desktop);
+@import url(./social-mobile);
+@import url(./guide);
+@import url(./card);
+@import url(./form);
+
 :root {
   --primary: rgb(35, 35, 35);
   --secondary: rgb(25, 25, 25);
@@ -6,24 +23,13 @@
   --primary-accent: rgb(250, 250, 250);
   --secondary-accent: rgb(150, 150, 150);
 }
-/* } */
-
-/* @media (prefers-color-scheme: light) {
-  :root {
-    --primary: rgb(250, 250, 250);
-    --secondary: rgb(225, 225, 225);
-
-    --primary-accent: rgb(25, 25, 25);
-    --secondary-accent: rgb(125, 125, 125);
-  }
-} */
 
 * {
   margin-top: 0;
   margin-bottom: 0;
 
   font-style: normal;
-  font-family: "Robot Mono", monospace;
+  font-family: "Roboto Mono", monospace;
 }
 
 *::-webkit-scrollbar {
@@ -50,28 +56,3 @@ body {
   color: var(--primary-accent);
   background-color: var(--primary);
 }
-
-/* {emoji} */
-/* {badge} */
-/* {circle} */
-/* {hover} */
-
-/* {section} */
-/* {container} */
-
-/* {profile} */
-/* {social} */
-/* {social-desktop} */
-/* {social-mobile} */
-/* {guide} */
-/* {card} */
-/* {form} */
-
-/* .theme-toggle {
-  padding: 10px;
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-} */

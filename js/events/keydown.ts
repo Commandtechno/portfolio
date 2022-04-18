@@ -1,32 +1,36 @@
+import { Dir } from "../constants";
+import { move } from "../util/move";
+
 window.addEventListener("keydown", event => {
-  if (event.target !== document.body && event.target !== document.body) return;
+  if (event.target !== document.body) return;
+
   switch (event.key) {
     case "ArrowUp":
-    case "w":
+    case "W":
     case "w":
       event.preventDefault();
-      move(D.Up);
+      move(Dir.Up);
       break;
 
     case "ArrowDown":
     case "S":
     case "s":
       event.preventDefault();
-      move(D.Down);
+      move(Dir.Down);
       break;
 
     case "ArrowLeft":
     case "A":
     case "a":
       event.preventDefault();
-      move(D.Left);
+      move(Dir.Left);
       break;
 
     case "ArrowRight":
     case "D":
     case "d":
       event.preventDefault();
-      move(D.Right);
+      move(Dir.Right);
       break;
 
     case ".":

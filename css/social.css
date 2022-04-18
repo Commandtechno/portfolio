@@ -1,13 +1,13 @@
-#social-mobile {
+#social-mobile-container {
   display: none;
 }
 
 @media screen and (max-width: 600px) {
-  #social-desktop {
+  #social-desktop-container {
     display: none !important;
   }
 
-  #social-mobile {
+  #social-mobile-container {
     display: grid;
   }
 }

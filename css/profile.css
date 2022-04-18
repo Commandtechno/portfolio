@@ -5,7 +5,7 @@
 }
 
 /*
-avatar and status thing
+  avatar and status thing
 */
 
 #profile-avatar-container {
@@ -33,7 +33,7 @@ avatar and status thing
 }
 
 /* 
-activity
+  activity
 */
 
 #profile-activity {
@@ -48,7 +48,7 @@ activity
 }
 
 /* 
-images and stuff
+  images and stuff
 */
 
 #profile-activity-assets {
@@ -76,7 +76,7 @@ images and stuff
 }
 
 /* 
-the text
+  the text
 */
 
 #profile-activity-content {
@@ -87,7 +87,7 @@ the text
 }
 
 /*
-spotify progress bar thing
+  spotify progress bar thing
 */
 
 #profile-activity-bar-container {
@@ -108,7 +108,7 @@ spotify progress bar thing
 }
 
 /* 
-its big so no mobile
+  its big so no mobile
 */
 
 @media screen and (max-width: 600px) {
