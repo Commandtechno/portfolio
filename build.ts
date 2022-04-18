@@ -1,9 +1,22 @@
-import { load } from "cheerio";
-import { readFileSync, writeFileSync } from "fs";
+import { existsSync, cpSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { execFileSync } from "child_process";
 import { resolve } from "path";
+import { load } from "cheerio";
+
+if (!existsSync(resolve(__dirname, "build"))) mkdirSync("build");
+if (!existsSync(resolve(__dirname, "build", "assets")))
+  cpSync(resolve(__dirname, "assets"), resolve(__dirname, "build", "assets"), { recursive: true });
 
 const input = readFileSync(resolve(__dirname, "html", "index.html"), "utf-8");
 const $ = load(input);
+
+function esbuild(file: string) {
+  return execFileSync(
+    resolve(__dirname, "node_modules", ".bin", "esbuild"),
+    [__dirname + file, "--bundle", "--minify"],
+    { encoding: "utf-8" }
+  );
+}
 
 $("*").each((i, el) => {
   const $el = $(el);
@@ -20,28 +33,14 @@ $("script[src]").each((i, el) => {
   const src = $el.attr("src");
   $el.removeAttr("src");
 
-  const script = readFileSync(resolve(__dirname, "build", src), "utf-8");
-  $el.text(script);
-});
-
-$("svg[src]").each((i, el) => {
-  const $el = $(el);
-  const src = $el.attr("src");
-  $el.removeAttr("src");
-
-  const $svg = load(readFileSync(resolve(__dirname, "build", src), "utf-8"));
-  for (const attr in $el.attr()) {
-    const val = $el.attr(attr);
-    $svg("svg").attr(attr, val);
-  }
-
-  $el.replaceWith($svg.html());
+  const output = esbuild(src);
+  $el.text(output);
 });
 
 $('link[href][rel="stylesheet"]').each((i, el) => {
   const $el = $(el);
   const href = $el.attr("href");
-  const style = readFileSync(resolve(__dirname, "build", href), "utf-8");
+  const style = esbuild(href);
   $el.replaceWith(`<style>${style}</style>`);
 });
 

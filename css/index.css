@@ -1,20 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
+@import "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap";
 
-@import url(./emoji);
-@import url(./badge);
-@import url(./circle);
-@import url(./hover);
+@import "./emoji.css";
+@import "./badge";
+@import "./circle";
+@import "./hover";
 
-@import url(./section);
-@import url(./container);
+@import "./section";
+@import "./container";
 
-@import url(./profile);
-@import url(./social);
-@import url(./social-desktop);
-@import url(./social-mobile);
-@import url(./guide);
-@import url(./card);
-@import url(./form);
+@import "./profile";
+@import "./social";
+@import "./social-desktop";
+@import "./social-mobile";
+@import "./guide";
+@import "./card";
+@import "./form";
 
 :root {
   --primary: rgb(35, 35, 35);

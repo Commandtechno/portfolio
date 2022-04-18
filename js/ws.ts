@@ -18,12 +18,13 @@ export function connect() {
   const barContainerElement = $<HTMLDivElement>("profile-activity-bar-container");
   const barElement = $<HTMLDivElement>("profile-activity-bar");
 
-  const ws = new WebSocket("wss://" + window.location.host);
+  const ws = new WebSocket("wss://commandtechno.com");
   let ping = setInterval(() => ws.send(""), 5000);
   let interval: ReturnType<typeof setInterval>;
 
   ws.addEventListener("message", message => {
     const presence = JSON.parse(message.data);
+    console.log(presence);
     const isStreaming = presence.activities.some(
       activity => activity.type === ActivityType.Streaming
     );
