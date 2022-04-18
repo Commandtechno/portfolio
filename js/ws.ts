@@ -1,9 +1,15 @@
 import { ActivityType } from "./constants";
-import { $ } from "./util/$";
 import { getAssetURL } from "./util/getAssetURL";
+import { tooltip } from "./util/tooltip";
 import { hide } from "./util/hide";
 import { show } from "./util/show";
-import { tooltip } from "./util/tooltip";
+import { $ } from "./util/$";
+
+const streaming = require("../assets/status/streaming.svg");
+const online = require("../assets/status/online.svg");
+const dnd = require("../assets/status/dnd.svg");
+const idle = require("../assets/status/idle.svg");
+const offline = require("../assets/status/offline.svg");
 
 export function connect() {
   const statusContainerElement = $<HTMLDivElement>("profile-avatar-status-container");
@@ -30,31 +36,31 @@ export function connect() {
     );
 
     if (isStreaming) {
-      statusElement.src = "assets/status/streaming.svg";
+      statusElement.src = streaming;
       tooltip(statusContainerElement, "Streaming");
       show(statusContainerElement);
     } else
       switch (presence.status) {
         case "online":
-          statusElement.src = "assets/status/online.svg";
+          statusElement.src = online;
           tooltip(statusElement, "Online");
           show(statusContainerElement);
           break;
 
         case "dnd":
-          statusElement.src = "assets/status/dnd.svg";
+          statusElement.src = dnd;
           tooltip(statusElement, "Do Not Disturb");
           show(statusContainerElement);
           break;
 
         case "idle":
-          statusElement.src = "assets/status/idle.svg";
+          statusElement.src = idle;
           tooltip(statusElement, "Idle");
           show(statusContainerElement);
           break;
 
         case "offline":
-          statusElement.src = "assets/status/offline.svg";
+          statusElement.src = offline;
           tooltip(statusElement, "Offline");
           show(statusContainerElement);
           break;

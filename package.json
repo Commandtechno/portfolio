@@ -1,13 +1,16 @@
 {
   "scripts": {
-    "build": "ts-node --transpile-only build.ts"
+    "build": "npm run prebuild && parcel build ./temp.html --dist-dir build && npm run postbuild",
+    "prebuild": "ts-node --transpile-only ./scripts/prebuild.ts",
+    "postbuild": "ts-node --transpile-only ./scripts/postbuild.ts"
   },
   "devDependencies": {
     "@parcel/packager-raw-url": "^2.4.1",
     "@parcel/transformer-webmanifest": "^2.4.1",
+    "@types/node": "^17.0.25",
+    "cheerio": "^1.0.0-rc.10",
+    "parcel": "^2.4.1",
+    "sharp": "^0.29.3",
     "ts-node": "^10.7.0"
-  },
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.10"
   }
 }
