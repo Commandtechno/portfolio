@@ -4,9 +4,10 @@ import { move } from "../util/move";
 import { connect } from "../ws";
 
 window.addEventListener("load", () => {
-  const guide = document.getElementById("guide");
-  if ("ontouchstart" in window) guide.innerText = "Swipe left, right, up, or down to navigate";
-  else guide.innerText = "Use your arrow keys to navigate";
+  $<HTMLParagraphElement>("guide").innerText =
+    "ontouchstart" in window
+      ? "Swipe left, right, up, or down to navigate"
+      : "Use your arrow keys to navigate";
 
   switch (window.location.hash) {
     case "#top":
