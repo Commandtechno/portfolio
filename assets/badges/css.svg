@@ -1,7 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-	<path fill="#264de4" d="M71.357 460.819L30.272 0h451.456l-41.129 460.746L255.724 512z"/>
-	<path fill="#2965f1" d="M405.388 431.408l35.148-393.73H256v435.146z"/>
-	<path fill="#ebebeb" d="M124.46 208.59l5.065 56.517H256V208.59zM119.419 150.715H256V94.197H114.281zM256 355.372l-.248.066-62.944-16.996-4.023-45.076h-56.736l7.919 88.741 115.772 32.14.26-.073z"/>
-	<path fill="#fff" d="M255.805 208.59v56.517H325.4l-6.56 73.299-63.035 17.013v58.8l115.864-32.112.85-9.549 13.28-148.792 1.38-15.176 10.203-114.393H255.805v56.518h79.639L330.3 208.59z"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 451.5 512" style="enable-background:new 0 0 451.5 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#264DE4;}
+	.st1{fill:#2965F1;}
+	.st2{fill:#EBEBEB;}
+	.st3{fill:#FFFFFF;}
+</style>
+<path class="st0" d="M41.1,460.8L0,0h451.5l-41.1,460.7L225.5,512L41.1,460.8z"/>
+<path class="st1" d="M375.1,431.4l35.1-393.7H225.7v435.1L375.1,431.4z"/>
+<path class="st2" d="M94.2,208.6l5.1,56.5h126.5v-56.5H94.2z M89.1,150.7h136.6V94.2H84L89.1,150.7z M225.7,355.4l-0.2,0.1l-62.9-17
+	l-4-45.1h-56.7l7.9,88.7l115.8,32.1l0.3-0.1L225.7,355.4z"/>
+<path class="st3" d="M225.5,208.6v56.5h69.6l-6.6,73.3l-63,17v58.8l115.9-32.1l0.9-9.5l13.3-148.8l1.4-15.2l10.2-114.4H225.5v56.5
+	h79.6l-5.1,57.9H225.5z"/>
 </svg>

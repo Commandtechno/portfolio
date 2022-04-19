@@ -1,20 +1,21 @@
 @import "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap";
 
+@import "./section.css";
+@import "./container.css";
+
+@import "./profile.css";
+@import "./guide.css";
+@import "./blog.css";
+@import "./card.css";
+@import "./form.css";
+@import "./social.css";
+@import "./social-desktop.css";
+@import "./social-mobile.css";
+
 @import "./emoji.css";
-@import "./badge";
-@import "./circle";
-@import "./hover";
-
-@import "./section";
-@import "./container";
-
-@import "./profile";
-@import "./social";
-@import "./social-desktop";
-@import "./social-mobile";
-@import "./guide";
-@import "./card";
-@import "./form";
+@import "./badge.css";
+@import "./circle.css";
+@import "./hover.css";
 
 :root {
   --primary: rgb(35, 35, 35);

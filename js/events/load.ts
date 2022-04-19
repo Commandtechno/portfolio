@@ -1,7 +1,8 @@
+import { connect } from "../ws";
+import { blog } from "../blog";
+import { move } from "../util/move";
 import { Dir } from "../constants";
 import { $ } from "../util/$";
-import { move } from "../util/move";
-import { connect } from "../ws";
 
 window.addEventListener("load", () => {
   $<HTMLParagraphElement>("guide").innerText =
@@ -71,5 +72,6 @@ window.addEventListener("load", () => {
     }
   });
 
+  blog();
   connect();
 });

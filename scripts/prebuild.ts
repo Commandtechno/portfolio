@@ -16,4 +16,4 @@ $("*").each((_, el) => {
 });
 
 const output = $.html();
-writeFileSync("temp.html", output, "utf-8");
+writeFileSync("index.html", output, "utf-8");

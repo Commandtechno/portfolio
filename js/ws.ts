@@ -30,7 +30,6 @@ export function connect() {
 
   ws.addEventListener("message", message => {
     const presence = JSON.parse(message.data);
-    console.log(presence);
     const isStreaming = presence.activities.some(
       activity => activity.type === ActivityType.Streaming
     );
