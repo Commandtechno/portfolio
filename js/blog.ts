@@ -3,10 +3,14 @@ import { $ } from "./util/$";
 interface Post {
   title: string;
   slug: string;
-  cover: string;
   icon: {
     emoji: string;
     url: string;
+  };
+  cover: {
+    small: string;
+    medium: string;
+    large: string;
   };
 
   created: string;
@@ -31,7 +35,7 @@ export async function blog() {
 
     const postCoverElement = document.createElement("img");
     postCoverElement.className = "post-cover";
-    postCoverElement.src = "blog/" + post.cover;
+    postCoverElement.src = "blog/" + post.cover.medium;
     postElement.appendChild(postCoverElement);
 
     const postInfoElement = document.createElement("div");
