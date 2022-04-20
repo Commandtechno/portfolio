@@ -15,6 +15,7 @@ export function connect() {
   const statusContainerElement = $<HTMLDivElement>("profile-avatar-status-container");
   const statusElement = $<HTMLImageElement>("profile-avatar-status");
   const activityElement = $<HTMLDivElement>("profile-activity");
+  const assetsElement = $<HTMLDivElement>("profile-activity-assets");
   const largeImageElement = $<HTMLImageElement>("profile-activity-large-image");
   const smallImageContainerElement = $<HTMLDivElement>("profile-activity-small-image-container");
   const smallImageElement = $<HTMLImageElement>("profile-activity-small-image");
@@ -77,7 +78,10 @@ export function connect() {
 
     // spotify
     if (activity.id === "spotify:1") {
-      activityElement.setAttribute("href", "https://open.spotify.com/track/" + activity.sync_id);
+      if (activity.sync_id)
+        activityElement.setAttribute("href", "https://open.spotify.com/track/" + activity.sync_id);
+      else activityElement.removeAttribute("href");
+
       if (activity.details) name = activity.details;
       if (activity.state) details = "by " + activity.state;
       if (activity.assets.large_text) state = "on " + activity.assets.large_text;
@@ -120,16 +124,22 @@ export function connect() {
     } else hide(barContainerElement);
 
     if (activity.assets.large_image) {
+      show(assetsElement);
+
       largeImageElement.src = getAssetURL(activity.application_id, activity.assets.large_image);
       if (activity.assets.large_text) tooltip(largeImageElement, activity.assets.large_text);
       show(largeImageElement);
-    } else hide(largeImageElement);
 
-    if (activity.assets.large_image && activity.assets.small_image) {
-      smallImageElement.src = getAssetURL(activity.application_id, activity.assets.small_image);
-      if (activity.assets.small_text) tooltip(smallImageElement, activity.assets.small_text);
-      show(smallImageContainerElement);
-    } else hide(smallImageContainerElement);
+      if (activity.assets.small_image) {
+        smallImageElement.src = getAssetURL(activity.application_id, activity.assets.small_image);
+        if (activity.assets.small_text) tooltip(smallImageElement, activity.assets.small_text);
+        show(smallImageContainerElement);
+      } else hide(smallImageContainerElement);
+    } else {
+      hide(assetsElement);
+      hide(largeImageElement);
+      hide(smallImageContainerElement);
+    }
 
     show(activityElement);
   });

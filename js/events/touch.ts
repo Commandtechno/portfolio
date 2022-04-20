@@ -40,8 +40,7 @@ window.addEventListener(
 
 window.addEventListener("touchstart", event => {
   if (startTouch) return;
-  const [touch] = event.touches;
-
+  const touch = event.touches.item(0);
   let scrollTop: number;
   let scrollLeft: number;
 
@@ -72,8 +71,7 @@ window.addEventListener("touchstart", event => {
 
 window.addEventListener("touchend", event => {
   if (!startTouch) return;
-  const [touch] = event.changedTouches;
-
+  const touch = event.changedTouches.item(0);
   const deltaX = touch.clientX - startTouch.x;
   const deltaY = touch.clientY - startTouch.y;
 
