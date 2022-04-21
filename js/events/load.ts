@@ -11,7 +11,7 @@ window.addEventListener("load", () => {
       : "Use your arrow keys to navigate";
 
   switch (window.location.hash) {
-    case "#top":
+    case "#blog":
       move(Dir.Up);
       break;
 

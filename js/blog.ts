@@ -24,6 +24,14 @@ interface Post {
   published: boolean;
 }
 
+function prefetch({ target }) {
+  const link = document.createElement("link");
+  link.rel = "prefetch";
+  link.href = target.href;
+  document.head.appendChild(link);
+  target.removeEventListener("mouseenter", prefetch);
+}
+
 export async function blog() {
   const postListElement = $<HTMLDivElement>("post-list");
   const posts: Post[] = await fetch("/blog/latest.json").then(res => res.json());
@@ -35,7 +43,8 @@ export async function blog() {
 
     const postCoverElement = document.createElement("img");
     postCoverElement.className = "post-cover";
-    postCoverElement.src = "blog/" + post.cover.medium;
+    postCoverElement.srcset = `blog/${post.cover.small} 1x, blog/${post.cover.medium} 2x, blog/${post.cover.large} 3x`;
+    postCoverElement.src = `blog/${post.cover.small}`;
     postElement.appendChild(postCoverElement);
 
     const postInfoElement = document.createElement("div");
@@ -46,7 +55,7 @@ export async function blog() {
 
     const postIconElement = document.createElement("img");
     postIconElement.className = "post-icon emoji";
-    postIconElement.src = "blog/" + post.icon.url;
+    postIconElement.src = `blog/${post.icon.url}`;
 
     postTitleElement.appendChild(postIconElement);
     postTitleElement.append(post.title);
@@ -60,6 +69,7 @@ export async function blog() {
     }
 
     postElement.appendChild(postInfoElement);
+    postElement.addEventListener("mouseenter", prefetch);
 
     // for (const tag of post.tags) {
     //   const tagElement = $<HTMLDivElement>("post-tag");

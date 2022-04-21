@@ -1,5 +1,5 @@
 #social-desktop-container {
-  gap: 25px;
+  gap: 3%;
 
   display: flex;
   justify-content: center;
@@ -7,7 +7,7 @@
 
 .social-desktop {
   width: 20%;
-  padding: 20px;
+  padding: 3%;
   border-radius: 10px;
   aspect-ratio: 1/1;
 
