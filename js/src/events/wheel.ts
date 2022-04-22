@@ -5,7 +5,7 @@ import { Dir } from "../constants";
 
 window.addEventListener("wheel", event => {
   if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
-    for (const element of event.composedPath()) {
+    for (const element of event.composedPath() as HTMLElement[]) {
       if (isRoot(element)) break;
       if (canScrollX(element)) return;
     }
@@ -13,7 +13,7 @@ window.addEventListener("wheel", event => {
     if (event.deltaX > 10) move(Dir.Right);
     else if (event.deltaX < -10) move(Dir.Left);
   } else {
-    for (const element of event.composedPath()) {
+    for (const element of event.composedPath() as HTMLElement[]) {
       if (isRoot(element)) break;
       if (canScrollY(element)) return;
     }

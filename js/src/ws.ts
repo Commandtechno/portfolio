@@ -4,13 +4,14 @@ import { tooltip } from "./util/tooltip";
 import { hide } from "./util/hide";
 import { show } from "./util/show";
 import { $ } from "./util/$";
+
 import { Activity } from "./components/Activity";
 
-const streaming = require("../assets/status/streaming.svg");
-const online = require("../assets/status/online.svg");
-const dnd = require("../assets/status/dnd.svg");
-const idle = require("../assets/status/idle.svg");
-const offline = require("../assets/status/offline.svg");
+const streaming = require("../../assets/status/streaming.svg");
+const online = require("../../assets/status/online.svg");
+const dnd = require("../../assets/status/dnd.svg");
+const idle = require("../../assets/status/idle.svg");
+const offline = require("../../assets/status/offline.svg");
 
 let currentElement: HTMLElement;
 
