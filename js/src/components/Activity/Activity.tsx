@@ -1,32 +1,7 @@
-import { jsx } from "../jsx";
+import { getAssetURL } from "../../util/getAssetURL";
+import { jsx } from "../../jsx";
 
-import { getAssetURL } from "../util/getAssetURL";
-import { ProgressBar } from "./ProgressBar";
-
-interface ActivityProps {
-  application_id: string;
-  type: number;
-  timestamps: {
-    start: number;
-    end: number;
-  };
-  state: string;
-  sync_id: string;
-  party: {
-    id: string;
-    size: [number, number];
-  };
-  name: string;
-  id: string;
-  details: string;
-  created_at: number;
-  assets: {
-    large_image: string;
-    large_text: string;
-    small_image: string;
-    small_text: string;
-  };
-}
+import { ActivityProps, ProgressBar } from ".";
 
 export function Activity(activity: ActivityProps) {
   let { name, details, state } = activity;
@@ -71,8 +46,8 @@ export function Activity(activity: ActivityProps) {
         <div id="profile-activity-assets">
           <img
             id="profile-activity-large-image"
-            width="98"
-            height="98"
+            width={98}
+            height={98}
             src={getAssetURL(activity.application_id, activity.assets.large_image)}
           />
           {activity.assets.small_image && (

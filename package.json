@@ -1,8 +1,7 @@
 {
   "scripts": {
-    "dev": "npm run prebuild && parcel ./index.html --dist-dir build && npm run postbuild",
     "build": "npm run prebuild && parcel build ./index.html --dist-dir build && npm run postbuild",
-    "prebuild": "ts-node --transpile-only ./scripts/prebuild.ts",
+    "prebuild": "cd js && tsc && cd .. && ts-node --transpile-only ./scripts/prebuild.ts",
     "postbuild": "ts-node --transpile-only ./scripts/postbuild.ts"
   },
   "devDependencies": {
@@ -12,6 +11,7 @@
     "cheerio": "^1.0.0-rc.10",
     "parcel": "^2.4.1",
     "sharp": "^0.29.3",
-    "ts-node": "^10.7.0"
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
   }
 }

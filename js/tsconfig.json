@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "jsx",
+
+    "outDir": "build",
+    "module": "ESNext",
+    "moduleResolution": "Node"
+  },
+  "files": ["src/index.ts"]
+}

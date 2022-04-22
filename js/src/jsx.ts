@@ -1,3 +1,12 @@
+declare global {
+  namespace JSX {
+    type Element = HTMLElement;
+    type IntrinsicElements = {
+      [K in keyof HTMLElementTagNameMap]: Partial<HTMLElementTagNameMap[K]>;
+    };
+  }
+}
+
 export function jsx(
   component: keyof HTMLElementTagNameMap,
   props: { [key: string]: string },

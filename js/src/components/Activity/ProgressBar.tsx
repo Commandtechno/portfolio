@@ -1,4 +1,4 @@
-import { jsx } from "../jsx";
+import { jsx } from "../../jsx";
 
 let currentTimer: ReturnType<typeof setInterval>;
 
