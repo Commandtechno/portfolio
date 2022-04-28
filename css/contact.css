@@ -1,5 +1,6 @@
 #contact {
   width: 100%;
-  height: 50%;
+  height: 75%;
+  max-height: 800px;
   box-sizing: border-box;
 }

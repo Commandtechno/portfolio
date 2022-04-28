@@ -12,8 +12,13 @@ export function Activity(activity: ActivityProps) {
   let progressBar;
 
   if (activity.id === "spotify:1") {
-    if (activity.sync_id)
+    if (activity.sync_id) {
+      Container = "a";
+      ContainerProps.rel = "noopener noreferrer";
+      ContainerProps.target = "_blank";
+      ContainerProps.alt = activity.details + " on Spotify";
       ContainerProps.href = "https://open.spotify.com/track/" + activity.sync_id;
+    }
 
     if (activity.details) name = activity.details;
     if (activity.state) details = "by " + activity.state;

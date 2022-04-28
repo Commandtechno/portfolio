@@ -14,7 +14,7 @@ export async function move(direction: typeof Dir[keyof typeof Dir]) {
       switch (state) {
         case State.Center:
           state = State.Top;
-          setTab("top");
+          setTab("blog");
           await animate([
             [State.Center, Pos.Bottom],
             [State.Top, Pos.Center]
