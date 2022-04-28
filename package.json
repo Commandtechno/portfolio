@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "npm run prebuild && parcel build ./index.html --dist-dir build && npm run postbuild",
+    "build": "parcel build ./index.html --dist-dir build",
     "prebuild": "cd js && tsc && cd .. && ts-node --transpile-only ./scripts/prebuild.ts",
     "postbuild": "ts-node --transpile-only ./scripts/postbuild.ts"
   },
