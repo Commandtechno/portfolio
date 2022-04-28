@@ -51,8 +51,6 @@ export function Activity(activity: ActivityProps) {
         <div id="profile-activity-assets">
           <img
             id="profile-activity-large-image"
-            width={98}
-            height={98}
             src={getAssetURL(activity.application_id, activity.assets.large_image)}
           />
           {activity.assets.small_image && (
@@ -67,9 +65,9 @@ export function Activity(activity: ActivityProps) {
         </div>
       )}
       <div id="profile-activity-content">
-        <h3 id="profile-activity-name">{name}</h3>
-        <p id="profile-activity-details">{details}</p>
-        <p id="profile-activity-state">{state}</p>
+        <h2 id="profile-activity-name">{name}</h2>
+        <h3 id="profile-activity-details">{details}</h3>
+        <h3 id="profile-activity-state">{state}</h3>
         {progressBar}
       </div>
     </Container>

@@ -7,7 +7,7 @@
 .post {
   height: fit-content;
   border-radius: 10px;
-  background-color: var(--secondary);
+  background-color: var(--dark-secondary);
 }
 
 .post-cover {
@@ -30,7 +30,7 @@
 
 .post-description {
   font-size: 14px;
-  color: var(--secondary-accent);
+  color: var(--light-secondary);
 
   display: -webkit-box;
   overflow: hidden;

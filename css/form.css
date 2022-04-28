@@ -4,12 +4,12 @@
   padding: 10px;
   border-radius: 10px;
 
-  color: var(--primary-accent);
-  background-color: var(--secondary);
+  color: var(--light-primary);
+  background-color: var(--dark-secondary);
 }
 
 .form-input::placeholder {
-  color: var(--secondary-accent);
+  color: var(--light-tertiary);
 }
 
 #form-content {
@@ -29,13 +29,13 @@
   padding: 10px;
   border-radius: 10px;
 
-  color: var(--primary-accent);
-  background-color: var(--secondary);
+  color: var(--light-primary);
+  background-color: var(--dark-secondary);
 }
 
 #form-submit:disabled {
   cursor: not-allowed;
-  color: var(--secondary-accent);
+  color: var(--light-tertiary);
 }
 
 @media screen and (max-width: 600px) {

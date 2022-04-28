@@ -20,11 +20,12 @@
 @import "./hover.css";
 
 :root {
-  --primary: rgb(35, 35, 35);
-  --secondary: rgb(25, 25, 25);
+  --dark-primary: rgb(35, 35, 35);
+  --dark-secondary: rgb(25, 25, 25);
 
-  --primary-accent: rgb(250, 250, 250);
-  --secondary-accent: rgb(150, 150, 150);
+  --light-primary: rgb(250, 250, 250);
+  --light-secondary: rgb(200, 200, 200);
+  --light-tertiary: rgb(150, 150, 150);
 }
 
 * {
@@ -41,7 +42,7 @@
 
 a {
   text-decoration: none;
-  color: var(--primary-accent);
+  color: var(--light-primary);
 }
 
 html,
@@ -56,6 +57,6 @@ body {
   overflow: hidden;
   position: relative;
 
-  color: var(--primary-accent);
-  background-color: var(--primary);
+  color: var(--light-primary);
+  background-color: var(--dark-primary);
 }
