@@ -4,22 +4,11 @@ import { jsx } from "../../jsx";
 import { ActivityProps, ProgressBar } from ".";
 
 export function Activity(activity: ActivityProps) {
-  let { name, details, state } = activity;
-
-  let Container = "div";
-  let ContainerProps: { [key: string]: string } = { id: "profile-activity" };
-
+  let { url, name, details, state } = activity;
   let progressBar;
 
-  if (activity.id === "spotify:1") {
-    if (activity.sync_id) {
-      Container = "a";
-      ContainerProps.rel = "noopener noreferrer";
-      ContainerProps.target = "_blank";
-      ContainerProps.alt = activity.details + " on Spotify";
-      ContainerProps.href = "https://open.spotify.com/track/" + activity.sync_id;
-    }
-
+  if (activity.id.startsWith("spotify")) {
+    if (activity.sync_id) url = "https://open.spotify.com/track/" + activity.sync_id;
     if (activity.details) name = activity.details;
     if (activity.state) details = "by " + activity.state;
     if (activity.assets.large_text) state = "on " + activity.assets.large_text;
@@ -45,20 +34,33 @@ export function Activity(activity: ActivityProps) {
     else state = "(" + min + " of " + max + ")";
   }
 
+  let Container = url ? "a" : "div";
+  let ContainerProps: JSX.IntrinsicElements[keyof JSX.IntrinsicElements] = url && {
+    href: url,
+    rel: "noopener norefferer",
+    target: "_blank"
+  };
+
   return (
-    <Container {...ContainerProps}>
+    <Container id="profile-activity" {...ContainerProps}>
       {activity.assets.large_image && (
         <div id="profile-activity-assets">
           <img
             id="profile-activity-large-image"
+            alt={activity.assets.large_text}
             src={getAssetURL(activity.application_id, activity.assets.large_image)}
+            width={120}
+            height={120}
           />
           {activity.assets.small_image && (
             <div id="profile-activity-small-image-container" className="circle">
               <img
                 id="profile-activity-small-image"
                 className="circle"
+                alt={activity.assets.small_text}
                 src={getAssetURL(activity.application_id, activity.assets.small_image)}
+                width={40}
+                height={40}
               />
             </div>
           )}

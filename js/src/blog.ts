@@ -1,14 +1,6 @@
-import { $ } from "./util/$";
-
 import { Post, PostProps } from "./components/Post";
-
-function prefetch({ target }) {
-  const link = document.createElement("link");
-  link.rel = "prefetch";
-  link.href = target.href;
-  document.head.appendChild(link);
-  target.removeEventListener("mouseenter", prefetch);
-}
+import { prefetch } from "./util/prefetch";
+import { $ } from "./util/$";
 
 export async function blog() {
   const postListElement = $<HTMLDivElement>("post-list");
@@ -16,6 +8,7 @@ export async function blog() {
 
   for (const post of posts) {
     const postElement = Post(post);
+    postElement.addEventListener("mouseenter", prefetch, { once: true });
     postListElement.append(postElement);
   }
 }

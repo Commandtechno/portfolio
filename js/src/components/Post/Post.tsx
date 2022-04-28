@@ -13,7 +13,7 @@ export function Post(post: PostProps) {
       <div className="post-info">
         <h3 className="post-title">
           <img className="post-icon emoji" src={`blog/${post.icon.url}`} />
-          code blocks
+          {post.title}
         </h3>
         <p className="post-description">{post.description}</p>
         <div className="post-tags">

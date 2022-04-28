@@ -7,13 +7,15 @@ declare global {
   }
 }
 
-export function jsx(
-  component: keyof HTMLElementTagNameMap,
-  props: { [key: string]: string },
+export function jsx<T extends keyof JSX.IntrinsicElements>(
+  tag: T,
+  props: Partial<HTMLElementTagNameMap[T]>,
   ...children: (string | Node)[]
-) {
-  const element = document.createElement(component);
+): HTMLElementTagNameMap[T] {
+  const element = document.createElement<T>(tag);
   for (const prop in props) element[prop] = props[prop];
   element.append(...children.filter(child => child));
   return element;
 }
+
+jsx("a", { href: "commandtechno.com" });

@@ -1,5 +1,4 @@
 import { ActivityType } from "./constants";
-import { getAssetURL } from "./util/getAssetURL";
 import { tooltip } from "./util/tooltip";
 import { hide } from "./util/hide";
 import { show } from "./util/show";
@@ -20,15 +19,6 @@ export function connect() {
   const statusContainerElement = $<HTMLDivElement>("profile-avatar-status-container");
   const statusElement = $<HTMLImageElement>("profile-avatar-status");
   const activityElement = $<HTMLDivElement>("profile-activity");
-  // const assetsElement = $<HTMLDivElement>("profile-activity-assets");
-  // const largeImageElement = $<HTMLImageElement>("profile-activity-large-image");
-  // const smallImageContainerElement = $<HTMLDivElement>("profile-activity-small-image-container");
-  // const smallImageElement = $<HTMLImageElement>("profile-activity-small-image");
-  // const nameElement = $<HTMLDivElement>("profile-activity-name");
-  // const detailsElement = $<HTMLDivElement>("profile-activity-details");
-  // const stateElement = $<HTMLDivElement>("profile-activity-state");
-  // const barContainerElement = $<HTMLDivElement>("profile-activity-bar-container");
-  // const barElement = $<HTMLDivElement>("profile-activity-bar");
 
   const ws = new WebSocket("wss://commandtechno.com");
   let ping = setInterval(() => ws.send(""), 5000);
