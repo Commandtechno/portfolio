@@ -20,7 +20,7 @@ export function connect() {
   const statusElement = $<HTMLImageElement>("profile-avatar-status");
   const activityElement = $<HTMLDivElement>("profile-activity");
 
-  const ws = new WebSocket("wss://commandtechno.com");
+  const ws = new WebSocket("wss://" + window.location.host);
   let ping = setInterval(() => ws.send(""), 5000);
   let interval: ReturnType<typeof setInterval>;
 

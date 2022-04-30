@@ -3,10 +3,10 @@
 
 <head>
   <style>
-    @import "/css/index.css";
+    @import "css/index.css";
   </style>
   <script type="module">
-    import '/js/build/index.js'
+    import './js/build/index.js'
   </script>
 
   <title>Commandtechno</title>
@@ -25,22 +25,22 @@
 
 <body>
   <main id="center" class="section" style="left: 0%; top: 0%">
-    <div id="about" class="container">{about}</div>
+    <div id="about" import="./about" class="container">{about}</div>
     <div id="guide-container">
       <p id="guide"></p>
     </div>
   </main>
   <section id="top" class="section" style="top: -100%; left: 0%; visibility: hidden">
-    <div id="blog" class="container">{blog}</div>
+    <div id="blog" import="./blog" class="container"></div>
   </section>
   <section id="bottom" class="section" style="top: 100%; left: 0%; visibility: hidden">
-    <div id="contact" class="container">{contact}</div>
+    <div id="contact" import="./contact" class="container"></div>
   </section>
   <section id="left" class="section" style="left: -100%; top: 0%; visibility: hidden">
-    <div id="gfx" class="container">{gfx}</div>
+    <div id="gfx" import="./gfx" class="container"></div>
   </section>
   <section id="right" class="section" style="left: 100%; top: 0%; visibility: hidden">
-    <div id="dev" class="container">{dev}</div>
+    <div id="dev" import="./dev" class="container"></div>
   </section>
 </body>
 
