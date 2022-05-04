@@ -3,16 +3,14 @@
 @import "./section.css";
 @import "./container.css";
 
+@import "./blog.css";
 @import "./contact.css";
 
-@import "./profile.css";
-@import "./guide.css";
-@import "./blog.css";
-@import "./card.css";
 @import "./form.css";
+@import "./card.css";
+@import "./guide.css";
+@import "./profile.css";
 @import "./social.css";
-@import "./social-desktop.css";
-@import "./social-mobile.css";
 
 @import "./emoji.css";
 @import "./badge.css";
@@ -40,11 +38,6 @@
   display: none;
 }
 
-a {
-  text-decoration: none;
-  color: var(--light-primary);
-}
-
 html,
 body {
   margin: 0;
@@ -56,4 +49,9 @@ body {
 body {
   color: var(--light-primary);
   background-color: var(--dark-primary);
+}
+
+a {
+  text-decoration: none;
+  color: var(--light-primary);
 }

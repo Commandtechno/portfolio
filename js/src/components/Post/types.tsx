@@ -1,5 +1,7 @@
 export interface PostProps {
-  title: string;
+  created: string;
+  updated: string;
+
   slug: string;
   icon: {
     emoji: string;
@@ -11,8 +13,7 @@ export interface PostProps {
     large: string;
   };
 
-  created: string;
-  updated: string;
+  title: string;
   description?: string;
   tags: {
     name: string;

@@ -1,6 +1,5 @@
-#social-mobile-container {
-  display: none;
-}
+@import "./social-desktop.css";
+@import "./social-mobile.css";
 
 @media screen and (max-width: 600px) {
   #social-desktop-container {

@@ -1,3 +1,7 @@
+#social-mobile-container {
+  display: none;
+}
+
 .social-mobile {
   overflow: hidden;
   white-space: nowrap;
