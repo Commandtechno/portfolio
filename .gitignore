@@ -1,3 +1,4 @@
 build
+prebuild
 node_modules
 .parcel-cache

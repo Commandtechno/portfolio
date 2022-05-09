@@ -1,8 +1,0 @@
-{
-  "extends": "@parcel/config-default",
-  "transformers": {
-    "*.{png,jpg,jpeg,webp,gif,tiff,avif,heic,heif}": [
-      "@parcel/transformer-image"
-    ]
-  }
-}

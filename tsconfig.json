@@ -3,9 +3,9 @@
     "jsx": "react",
     "jsxFactory": "jsx",
 
-    "outDir": "build",
+    "outDir": "prebuild/js",
     "module": "ESNext",
     "moduleResolution": "Node"
   },
-  "files": ["src/index.ts"]
+  "files": ["js/index.ts"]
 }
