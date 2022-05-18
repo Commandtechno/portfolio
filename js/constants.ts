@@ -14,19 +14,19 @@ export const ActivityType = {
 
 // directions
 export const Dir = {
-  Up: "up",
-  Down: "down",
-  Left: "left",
-  Right: "right"
+  Up: 0,
+  Down: 1,
+  Left: 2,
+  Right: 3
 } as const;
 
 // states
 export const State = {
-  Center: "center",
-  Top: "top",
-  Bottom: "bottom",
-  Left: "left",
-  Right: "right"
+  Center: 0,
+  Top: 1,
+  Bottom: 2,
+  Left: 3,
+  Right: 4
 } as const;
 
 // positions

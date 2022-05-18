@@ -1,6 +1,9 @@
-window.history.scrollRestoration = "manual";
-
 import "./events/keydown";
-import "./events/load";
 import "./events/touch";
 import "./events/wheel";
+
+import "./extra/blog";
+import "./extra/contact";
+import "./extra/guide";
+import "./extra/router";
+import "./extra/ws";

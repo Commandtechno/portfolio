@@ -1,7 +1,7 @@
-import { Dir } from "../constants";
 import { canScrollX, canScrollY } from "../util/canScroll";
 import { isRoot } from "../util/isRoot";
 import { move } from "../util/move";
+import { Dir } from "../constants";
 
 let startTouch: {
   x: number;

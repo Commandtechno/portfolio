@@ -1,9 +1,16 @@
 import { Dir, Pos, State } from "../constants";
 import { animate } from "./animate";
 import { setTab } from "./setTab";
+import { $ } from "./$";
 
 let state: typeof State[keyof typeof State] = State.Center;
 let isPending = false;
+
+const CENTER = $<HTMLDivElement>("center");
+const TOP = $<HTMLDivElement>("top");
+const BOTTOM = $<HTMLDivElement>("bottom");
+const LEFT = $<HTMLDivElement>("left");
+const RIGHT = $<HTMLDivElement>("right");
 
 export async function move(direction: typeof Dir[keyof typeof Dir]) {
   if (isPending) return;
@@ -16,8 +23,8 @@ export async function move(direction: typeof Dir[keyof typeof Dir]) {
           state = State.Top;
           setTab("blog");
           await animate([
-            [State.Center, Pos.Bottom],
-            [State.Top, Pos.Center]
+            [CENTER, Pos.Bottom],
+            [TOP, Pos.Center]
           ]);
           break;
 
@@ -25,8 +32,8 @@ export async function move(direction: typeof Dir[keyof typeof Dir]) {
           state = State.Center;
           setTab();
           await animate([
-            [State.Center, Pos.Center],
-            [State.Bottom, Pos.Bottom]
+            [CENTER, Pos.Center],
+            [BOTTOM, Pos.Bottom]
           ]);
           break;
       }
@@ -38,8 +45,8 @@ export async function move(direction: typeof Dir[keyof typeof Dir]) {
           state = State.Bottom;
           setTab("contact");
           await animate([
-            [State.Center, Pos.Top],
-            [State.Bottom, Pos.Center]
+            [CENTER, Pos.Top],
+            [BOTTOM, Pos.Center]
           ]);
           break;
 
@@ -47,8 +54,8 @@ export async function move(direction: typeof Dir[keyof typeof Dir]) {
           state = State.Center;
           setTab();
           await animate([
-            [State.Center, Pos.Center],
-            [State.Top, Pos.Top]
+            [CENTER, Pos.Center],
+            [TOP, Pos.Top]
           ]);
           break;
       }
@@ -60,8 +67,8 @@ export async function move(direction: typeof Dir[keyof typeof Dir]) {
           state = State.Left;
           setTab("gfx");
           await animate([
-            [State.Center, Pos.Right],
-            [State.Left, Pos.Center]
+            [CENTER, Pos.Right],
+            [LEFT, Pos.Center]
           ]);
           break;
 
@@ -69,8 +76,8 @@ export async function move(direction: typeof Dir[keyof typeof Dir]) {
           state = State.Center;
           setTab();
           await animate([
-            [State.Center, Pos.Center],
-            [State.Right, Pos.Right]
+            [CENTER, Pos.Center],
+            [RIGHT, Pos.Right]
           ]);
           break;
       }
@@ -82,8 +89,8 @@ export async function move(direction: typeof Dir[keyof typeof Dir]) {
           state = State.Right;
           setTab("dev");
           await animate([
-            [State.Center, Pos.Left],
-            [State.Right, Pos.Center]
+            [CENTER, Pos.Left],
+            [RIGHT, Pos.Center]
           ]);
           break;
 
@@ -91,8 +98,8 @@ export async function move(direction: typeof Dir[keyof typeof Dir]) {
           state = State.Center;
           setTab();
           await animate([
-            [State.Center, Pos.Center],
-            [State.Left, Pos.Left]
+            [CENTER, Pos.Center],
+            [LEFT, Pos.Left]
           ]);
           break;
       }

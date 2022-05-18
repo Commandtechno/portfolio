@@ -1,8 +1,8 @@
-import { Post, PostProps } from "./components/Post";
-import { prefetch } from "./util/prefetch";
-import { $ } from "./util/$";
+import { Post, PostProps } from "../components/Post";
+import { prefetch } from "../util/prefetch";
+import { $ } from "../util/$";
 
-export async function blog() {
+async function load() {
   const postListElement = $<HTMLDivElement>("post-list");
   const posts: PostProps[] = await fetch("/blog/latest.json").then(res => res.json());
 
@@ -12,3 +12,5 @@ export async function blog() {
     postListElement.append(postElement);
   }
 }
+
+load();

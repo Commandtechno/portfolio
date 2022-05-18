@@ -1,5 +1,5 @@
-import { Dir } from "../constants";
 import { move } from "../util/move";
+import { Dir } from "../constants";
 
 window.addEventListener("keydown", event => {
   if (event.target !== document.body) return;

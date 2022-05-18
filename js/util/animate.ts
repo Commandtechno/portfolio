@@ -1,15 +1,13 @@
-import { Pos, State } from "../constants";
-import { $ } from "./$";
+import { Pos } from "../constants";
 
-export type Action = [typeof State[keyof typeof State], typeof Pos[keyof typeof Pos]];
+type Action = [HTMLDivElement, typeof Pos[keyof typeof Pos]];
+
+const [centerX, centerY] = Pos.Center;
 
 export function animate(actions: Action[]) {
   return Promise.all(
-    actions.map(([state, [targetX, targetY]]) => {
-      const element = $<HTMLDivElement>(state);
+    actions.map(([element, [targetX, targetY]]) => {
       let shouldHide = false;
-
-      const [centerX, centerY] = Pos.Center;
       if (targetX === centerX && targetY === centerY) element.style.visibility = null;
       else shouldHide = true;
 

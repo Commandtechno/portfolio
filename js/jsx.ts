@@ -17,5 +17,3 @@ export function jsx<T extends keyof JSX.IntrinsicElements>(
   element.append(...children.filter(child => child));
   return element;
 }
-
-jsx("a", { href: "commandtechno.com" });
