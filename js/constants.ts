@@ -1,5 +1,5 @@
 /*
-  enums but not enums because they dont need to be enumerated
+  enums but not enums because they dont need to be enumerated 🗿
 */
 
 // activity types
