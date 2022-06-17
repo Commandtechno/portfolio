@@ -19,9 +19,10 @@ const statusElement = $<HTMLImageElement>("profile-avatar-status");
 let currentElement: HTMLElement;
 
 function connect() {
-  const ws = new WebSocket("wss://" + window.location.host);
-  let ping = setInterval(() => ws.send(""), 5000);
+  const secure = window.location.protocol === "https:";
+  const ws = new WebSocket(`${secure ? "wss" : "ws"}://${window.location.host}/presence`);
 
+  let ping = setInterval(() => ws.send(""), 5000);
   ws.addEventListener("message", message => {
     const presence = JSON.parse(message.data);
     const isStreaming = presence.activities.some(
