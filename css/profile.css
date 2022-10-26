@@ -1,11 +1,11 @@
 #profile {
   gap: 25px;
-  height: 128px;
+  height: 150px;
   display: flex;
 }
 
 /*
-avatar and status thing
+  avatar and status thing
 */
 
 #profile-avatar-container {
@@ -17,38 +17,38 @@ avatar and status thing
 }
 
 #profile-avatar-status-container {
-  position: absolute;
-
-  width: 35px;
-  height: 35px;
-  right: -15px;
-  bottom: -15px;
+  width: 50px;
+  height: 50px;
+  right: -20px;
+  bottom: -20px;
   padding: 10px;
 
-  background-color: var(--primary);
+  position: absolute;
+  flex-basis: 0;
+  background-color: var(--dark-primary);
 }
 
 #profile-avatar-status {
+  width: 100%;
   height: 100%;
 }
 
 /* 
-activity
+  activity
 */
 
 #profile-activity {
-  display: flex;
-
   gap: 15px;
+  width: 100%;
   padding: 15px;
-  min-width: 50%;
   border-radius: 15px;
 
-  background-color: var(--secondary);
+  display: flex;
+  background-color: var(--dark-secondary);
 }
 
 /* 
-images and stuff
+  images and stuff
 */
 
 #profile-activity-assets {
@@ -56,19 +56,18 @@ images and stuff
 }
 
 #profile-activity-large-image {
-  border-radius: 15px;
+  border-radius: 7.5px;
 }
 
 #profile-activity-small-image-container {
+  width: 40px;
+  height: 40px;
+  right: -16px;
+  bottom: -16px;
+  padding: 8px;
+
   position: absolute;
-
-  width: 35px;
-  height: 35px;
-  right: -10px;
-  bottom: -10px;
-  padding: 5px;
-
-  background-color: var(--secondary);
+  background-color: var(--dark-secondary);
 }
 
 #profile-activity-small-image {
@@ -76,18 +75,34 @@ images and stuff
 }
 
 /* 
-the text
+  the text
 */
 
 #profile-activity-content {
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  width: 0px;
+  flex-grow: 1;
+}
+
+#profile-activity-name,
+#profile-activity-details,
+#profile-activity-state {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#profile-activity-details,
+#profile-activity-state {
+  color: var(--light-secondary);
+  font-weight: normal;
 }
 
 /*
-spotify progress bar thing
+  spotify progress bar thing
 */
 
 #profile-activity-bar-container {
@@ -95,7 +110,7 @@ spotify progress bar thing
   margin-top: 10px;
   border-radius: 3px;
 
-  background-color: var(--secondary-accent);
+  background-color: var(--light-tertiary);
 }
 
 #profile-activity-bar {
@@ -104,11 +119,11 @@ spotify progress bar thing
   max-width: 100%;
   border-radius: 3px;
 
-  background-color: var(--primary-accent);
+  background-color: var(--light-primary);
 }
 
 /* 
-its big so no mobile
+  its big so no mobile
 */
 
 @media screen and (max-width: 600px) {

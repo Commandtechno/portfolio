@@ -1,0 +1,98 @@
+#post-list {
+  gap: 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.post {
+  height: fit-content;
+  border-radius: 10px;
+  background-color: var(--dark-secondary);
+}
+
+.post-cover {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 2/1;
+  border-radius: 10px;
+}
+
+.post-info {
+  gap: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-timestamp {
+  font-size: 12px;
+  color: var(--light-tertiary);
+}
+
+.post-icon {
+  margin-right: 5px;
+}
+
+.post-description {
+  font-size: 14px;
+  color: var(--light-secondary);
+
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.post-tag {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* https://github.com/NotionX/react-notion-x/blob/master/packages/react-notion-x/src/styles.css#L54 */
+
+.post-tag-blue {
+  background-color: rgba(0, 120, 223, 0.2);
+}
+
+.post-tag-orange {
+  background-color: rgba(245, 93, 0, 0.2);
+}
+
+.post-tag-green {
+  background-color: rgba(0, 135, 107, 0.2);
+}
+
+.post-tag-pink {
+  background-color: rgba(221, 0, 129, 0.2);
+}
+
+.post-tag-brown {
+  background-color: rgba(140, 46, 0, 0.2);
+}
+
+.post-tag-red {
+  background-color: rgba(255, 0, 26, 0.2);
+}
+
+.post-tag-yellow {
+  background-color: rgba(233, 168, 0, 0.2);
+}
+
+.post-tag-default {
+  background-color: rgba(206, 205, 202, 0.5);
+}
+
+.post-tag-purple {
+  background-color: rgba(103, 36, 222, 0.2);
+}
+
+.post-tag-gray {
+  background-color: rgba(155, 154, 151, 0.4);
+}

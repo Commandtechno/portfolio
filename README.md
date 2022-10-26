@@ -1,7 +1,9 @@
-# portfolio
+# Commandtechno's portfolio
 
-my portfolio yeah
+[![avatar](assets/avatar.gif)](https://commandtechno.com)
 
-https://commandtechno.com
+My portfolio built with HTML, CSS, TypeScript, and a custom JSX factory implementation
 
-todo: fix manifest
+You may use parts of this website's code in your own project, but please don't copy the website if you want to showcase your skills and not mine
+
+Thanks for stopping by, and feel free to open an issue or pull request!

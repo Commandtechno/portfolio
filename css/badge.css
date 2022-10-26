@@ -1,6 +1,6 @@
 .badge {
-  width: 25px;
   height: 25px;
+  max-width: 50px;
   border-radius: 5px;
 
   object-fit: contain;

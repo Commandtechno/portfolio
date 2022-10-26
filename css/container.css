@@ -1,15 +1,17 @@
 .container {
-  display: flex;
   overflow-y: auto;
+  word-break: break-word;
+
+  display: flex;
   flex-direction: column;
 
-  gap: 25px;
   max-width: 800px;
-  max-height: 80vh;
+  max-height: 80%;
 
-  margin: 5vmin;
-  padding: 5vmin;
-
-  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.25);
+  gap: 25px;
   border-radius: 25px;
+  padding: min(50px, 5vmin);
+
+  border: solid 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.25);
 }
