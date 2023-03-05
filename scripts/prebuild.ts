@@ -48,7 +48,7 @@ const images = await page.evaluate(async () => {
     const src = element.getAttribute("src");
     const ext = await extname(src);
     if (ext !== ".svg") {
-      const dest = src.replace(ext, `_${width}x${height}${ext}`);
+      const dest = src.replace(ext, `_${width}x${height}${ext === ".gif" ? ".gif" : ".webp"}`);
       images.push({ src, dest, width, height });
       element.src = dest;
     }
