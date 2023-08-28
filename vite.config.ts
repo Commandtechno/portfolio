@@ -39,7 +39,30 @@ export default defineConfig({
       }
     },
     {
-      name: "html-images",
+      name: "html-image-sizing",
+      transformIndexHtml: {
+        order: "pre",
+        handler: async (html, ctx) => {
+          const $ = parseHtml(ctx.filename, html);
+
+          $(".emoji, .badge").each((_, img) => {
+            const $img = $(img);
+            $img.attr("width", "25");
+            $img.attr("height", "25");
+          });
+
+          $(".card-icon").each((_, img) => {
+            const $img = $(img);
+            $img.attr("width", "75");
+            $img.attr("height", "75");
+          });
+
+          return $.html();
+        }
+      }
+    },
+    {
+      name: "html-image-optimization",
       apply: "build",
       transformIndexHtml: {
         order: "pre",
@@ -71,7 +94,6 @@ export default defineConfig({
           });
 
           for (const { src, dest, width, height } of images) {
-            console.log(src, dest);
             if (existsSync(dest)) continue;
             await mkdir(dirname(dest), { recursive: true });
             await sharp(join(ctx.filename, "..", src), { animated: true }).resize(width, height).toFile(dest);
