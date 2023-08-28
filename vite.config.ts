@@ -1,6 +1,7 @@
-import { dirname, extname, join, resolve } from "path";
+import { dirname, extname, join } from "path";
 import { existsSync, readFileSync } from "fs";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
+import { ViteMinifyPlugin } from "vite-plugin-minify";
 import { CheerioAPI, load } from "cheerio";
 import { defineConfig } from "vite";
 import { mkdir } from "fs/promises";
@@ -16,9 +17,13 @@ function parseHtml(key: string, content: string) {
 }
 
 export default defineConfig({
+  build: {
+    assetsInlineLimit: 0
+  },
   plugins: [
     // just svgs since we are doing images separately
     ViteImageOptimizer({ include: /\.svg$/ }),
+    ViteMinifyPlugin(),
     {
       name: "html-imports",
       transformIndexHtml: {
@@ -95,6 +100,7 @@ export default defineConfig({
 
           for (const { src, dest, width, height } of images) {
             if (existsSync(dest)) continue;
+            console.log("Optimizing image", src);
             await mkdir(dirname(dest), { recursive: true });
             await sharp(join(ctx.filename, "..", src), { animated: true }).resize(width, height).toFile(dest);
           }
