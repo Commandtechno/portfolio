@@ -2,16 +2,9 @@
 <html lang="en-US">
 
 <head>
-  <style>
-    @import "./css/styles.css";
-  </style>
-  <script type="module">
-    import './js/index.js'
-  </script>
-
   <title>Commandtechno</title>
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="manifest.json" />
 
   <meta name="og:site_name" content="commandtechno.com" />
   <meta name="title" content="Commandtechno's personal website" />
@@ -20,24 +13,37 @@
   <meta name="theme-color" content="#00F6F4" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="og:image" content="/assets/avatar.gif" />
+
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/index.ts"></script>
 </head>
 
 <body>
   <main id="center" class="section" style="left: 0%; top: 0%">
-    <div id="about" import="./about" class="container">{about}</div>
+    <div id="about" class="container">
+      <link rel="import" href="html/about.html">
+    </div>
     <p id="guide"></p>
   </main>
   <section id="top" class="section" style="top: -100%; left: 0%; visibility: hidden">
-    <div id="blog" import="./blog" class="container"></div>
+    <div id="blog" class="container">
+      <link rel="import" href="html/blog.html">
+    </div>
   </section>
   <section id="bottom" class="section" style="top: 100%; left: 0%; visibility: hidden">
-    <div id="contact" import="./contact" class="container"></div>
+    <div id="contact" class="container">
+      <link rel="import" href="html/contact.html">
+    </div>
   </section>
   <section id="left" class="section" style="left: -100%; top: 0%; visibility: hidden">
-    <div id="gfx" import="./gfx" class="container"></div>
+    <div id="gfx" class="container">
+      <link rel="import" href="html/gfx.html">
+    </div>
   </section>
   <section id="right" class="section" style="left: 100%; top: 0%; visibility: hidden">
-    <div id="dev" import="./dev" class="container"></div>
+    <div id="dev" class="container">
+      <link rel="import" href="./html/dev.html">
+    </div>
   </section>
 </body>
 
