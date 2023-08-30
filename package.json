@@ -1,8 +1,9 @@
 {
   "type": "module",
   "scripts": {
+    "dev": "vite",
     "build": "vite build",
-    "start": "vite"
+    "clean": "rm -r dist assets/dist"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
