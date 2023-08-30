@@ -6,11 +6,11 @@ import { $ } from "../util/$";
 
 import { Activity } from "../components/Activity";
 
-const streaming = require("../../assets/status/streaming.svg");
-const online = require("../../assets/status/online.svg");
-const dnd = require("../../assets/status/dnd.svg");
-const idle = require("../../assets/status/idle.svg");
-const offline = require("../../assets/status/offline.svg");
+import streaming from "../../assets/status/streaming.svg";
+import online from "../../assets/status/online.svg";
+import dnd from "../../assets/status/dnd.svg";
+import idle from "../../assets/status/idle.svg";
+import offline from "../../assets/status/offline.svg";
 
 const profileElement = $<HTMLDivElement>("profile");
 const statusContainerElement = $<HTMLDivElement>("profile-avatar-status-container");
@@ -25,9 +25,7 @@ function connect() {
   let ping = setInterval(() => ws.send(""), 5000);
   ws.addEventListener("message", message => {
     const presence = JSON.parse(message.data);
-    const isStreaming = presence.activities.some(
-      activity => activity.type === ActivityType.Streaming
-    );
+    const isStreaming = presence.activities.some(activity => activity.type === ActivityType.Streaming);
 
     if (isStreaming) {
       statusElement.src = streaming;
