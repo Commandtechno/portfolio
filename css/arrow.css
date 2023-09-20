@@ -4,8 +4,6 @@
 .arrow {
   cursor: pointer;
   position: absolute;
-  width: 60px;
-  height: 60px;
   z-index: 1;
   transition: opacity 0.2s ease-in-out;
 }
@@ -32,4 +30,10 @@
   top: 50%;
   right: 0;
   transform: translateY(-50%) rotate(90deg);
+}
+
+@media screen and (max-width: 1200px) {
+  .arrow {
+    display: none;
+  }
 }
