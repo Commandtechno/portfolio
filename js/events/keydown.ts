@@ -32,9 +32,5 @@ window.addEventListener("keydown", event => {
       event.preventDefault();
       move(Dir.Right);
       break;
-
-    case ".":
-      window.location.href = "https://github.dev/commandtechno/portfolio";
-      break;
   }
 });

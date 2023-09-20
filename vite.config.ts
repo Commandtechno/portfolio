@@ -9,8 +9,8 @@ import sharp from "sharp";
 
 const htmlCache = new Map<string, CheerioAPI>();
 
-function parseHtml(key: string, content: string) {
-  if (htmlCache.has(key)) return htmlCache.get(key) as CheerioAPI;
+function parseHtml(key: string, content: string, noCache: boolean) {
+  if (!noCache && htmlCache.has(key)) return htmlCache.get(key) as CheerioAPI;
   const $ = load(content);
   htmlCache.set(key, $);
   return $;
@@ -29,8 +29,7 @@ export default defineConfig({
       transformIndexHtml: {
         order: "pre",
         handler: async (html, ctx) => {
-          const $ = parseHtml(ctx.filename, html);
-
+          const $ = parseHtml(ctx.filename, html, !!ctx.server);
           $('link[rel="import"]').each((_, i) => {
             const fileName = $(i).attr("href");
             if (!fileName) return;
@@ -48,8 +47,7 @@ export default defineConfig({
       transformIndexHtml: {
         order: "pre",
         handler: async (html, ctx) => {
-          const $ = parseHtml(ctx.filename, html);
-
+          const $ = parseHtml(ctx.filename, html, !!ctx.server);
           $(".emoji, .badge").each((_, img) => {
             const $img = $(img);
             $img.attr("width", "25");
@@ -72,9 +70,9 @@ export default defineConfig({
       transformIndexHtml: {
         order: "pre",
         handler: async (html, ctx) => {
-          const $ = parseHtml(ctx.filename, html);
-
           const images = [] as { src: string; dest: string; width?: number; height?: number }[];
+
+          const $ = parseHtml(ctx.filename, html, !!ctx.server);
           $("img").each((_, img) => {
             const $img = $(img);
 

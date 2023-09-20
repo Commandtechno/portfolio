@@ -1,7 +1,5 @@
 import { ActivityType } from "../constants";
 import { tooltip } from "../util/tooltip";
-import { hide } from "../util/hide";
-import { show } from "../util/show";
 import { $ } from "../util/$";
 
 import { Activity } from "../components/Activity";
@@ -18,6 +16,14 @@ const statusElement = $<HTMLImageElement>("profile-avatar-status");
 
 let currentElement: HTMLElement;
 
+function show() {
+  statusContainerElement.style.display = null;
+}
+
+function hide() {
+  statusContainerElement.style.display = "none";
+}
+
 function connect() {
   const secure = window.location.protocol === "https:";
   const ws = new WebSocket(`${secure ? "wss" : "ws"}://${window.location.host}/presence`);
@@ -30,31 +36,31 @@ function connect() {
     if (isStreaming) {
       statusElement.src = streaming;
       tooltip(statusContainerElement, "Streaming");
-      show(statusContainerElement);
+      show();
     } else
       switch (presence.status) {
         case "online":
           statusElement.src = online;
           tooltip(statusElement, "Online");
-          show(statusContainerElement);
+          show();
           break;
 
         case "dnd":
           statusElement.src = dnd;
           tooltip(statusElement, "Do Not Disturb");
-          show(statusContainerElement);
+          show();
           break;
 
         case "idle":
           statusElement.src = idle;
           tooltip(statusElement, "Idle");
-          show(statusContainerElement);
+          show();
           break;
 
         case "offline":
           statusElement.src = offline;
           tooltip(statusElement, "Offline");
-          show(statusContainerElement);
+          show();
           break;
       }
 
@@ -72,8 +78,7 @@ function connect() {
 
   ws.addEventListener("close", () => {
     if (currentElement) currentElement.remove();
-    hide(statusContainerElement);
-
+    hide();
     clearInterval(ping);
     setTimeout(connect, 5000);
   });

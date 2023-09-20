@@ -1,0 +1,35 @@
+#arrow-container {
+}
+
+.arrow {
+  cursor: pointer;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  z-index: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#arrow-up {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#arrow-down {
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) rotate(180deg);
+}
+
+#arrow-left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) rotate(270deg);
+}
+
+#arrow-right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) rotate(90deg);
+}
