@@ -8,10 +8,14 @@
   max-width: 800px;
   max-height: 80%;
 
-  gap: 25px;
-  border-radius: 25px;
-  padding: min(50px, 5vmin);
+  gap: 20px;
+  border-radius: 20px;
+  padding: min(40px, 5vmin);
 
   border: solid 4px rgba(0, 0, 0, 0.25);
   box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.25);
+}
+
+#about {
+  gap: 10px;
 }
