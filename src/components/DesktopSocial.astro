@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon/components";
+import { toIconName } from "../util/toIconName";
+
+interface Props {
+  url: string;
+  name: string;
+  platform: string;
+  color: string;
+}
+
+const { url, name, platform, color } = Astro.props;
+---
+
+<a
+  class="social hover"
+  href={url}
+  title={`${name} on ${platform}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ backgroundColor: color }}
+>
+  <Icon title={`${platform} Logo`} class="icon" name={`socials/${toIconName(platform)}`} width={80} height={80} />
+</a>
+
+<style>
+  .social {
+    width: 20%;
+    padding: 3%;
+    border-radius: 10px;
+    aspect-ratio: 1/1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon {
+    max-width: 100%;
+    max-height: 100%;
+    pointer-events: none;
+  }
+</style>

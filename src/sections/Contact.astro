@@ -1,0 +1,112 @@
+<h1>Contact</h1>
+
+<input type="email" id="email" placeholder="Email" alt="Contact form email" maxlength="100" />
+<input type="text" id="subject" placeholder="Subject" alt="Contact form subject" maxlength="100" />
+<textarea id="content" placeholder="Content" maxlength="1000"></textarea>
+<button type="submit" id="submit" class="hover">Submit!</button>
+
+<style>
+  #contact {
+    width: 100%;
+    height: 75%;
+    max-height: 800px;
+    box-sizing: border-box;
+  }
+
+  input,
+  textarea {
+    border: none;
+
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 13.3333px;
+
+    color: var(--light-primary);
+    background-color: var(--dark-secondary);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--light-tertiary);
+  }
+
+  #content {
+    resize: none;
+    height: 100%;
+  }
+
+  #error {
+    align-self: flex-end;
+  }
+
+  #submit {
+    border: none;
+    align-self: flex-end;
+
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+
+    color: var(--light-primary);
+    background-color: var(--dark-secondary);
+  }
+
+  #submit:disabled {
+    cursor: not-allowed;
+    color: var(--light-tertiary);
+  }
+
+  @media screen and (max-width: 600px) {
+    #submit {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  import { $ } from "../util/$";
+
+  const $submit = $<HTMLButtonElement>("submit");
+  const $email = $<HTMLInputElement>("email");
+  const $subject = $<HTMLInputElement>("subject");
+  const $content = $<HTMLTextAreaElement>("content");
+
+  $submit.addEventListener("click", async () => {
+    const email = $email.value;
+    const subject = $subject.value;
+    const content = $content.value;
+
+    $submit.style.backgroundColor = "";
+    $submit.style.color = "";
+    $submit.innerText = "Sending...";
+    $submit.disabled = true;
+
+    try {
+      const res = await fetch("/contact", {
+        method: "POST",
+        body: JSON.stringify({ email, subject, content }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (!res.ok) {
+        throw await res.text();
+      }
+
+      $email.value = "";
+      $subject.value = "";
+      $content.value = "";
+
+      $submit.style.backgroundColor = "#439543";
+      $submit.style.color = "white";
+      $submit.innerText = "Message Sent!";
+      $submit.disabled = false;
+    } catch (err) {
+      $submit.style.backgroundColor = "#ed4444";
+      $submit.style.color = "white";
+      $submit.innerText = typeof err === "string" ? err : "Unknown Error";
+      $submit.disabled = false;
+    }
+  });
+</script>

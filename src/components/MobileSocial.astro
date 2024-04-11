@@ -1,0 +1,25 @@
+---
+import { Icon } from "astro-icon/components";
+import { toIconName } from "../util/toIconName";
+
+interface Props {
+  url: string;
+  name: string;
+  platform: string;
+}
+
+const { url, name, platform } = Astro.props;
+---
+
+<a class="social" href={url} title={`${name} on ${platform}`} target="_blank" rel="noopener noreferrer">
+  <Icon title={`${platform} Logo`} class="icon" name={`socials/${toIconName(platform)}`} width={24} height={24} />
+  <b>{name}</b>
+</a>
+
+<style>
+  .social {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+</style>

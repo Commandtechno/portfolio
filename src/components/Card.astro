@@ -1,0 +1,80 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { toIconName } from "../util/toIconName";
+
+interface Props {
+  title: string;
+  url: string;
+  color: string;
+  badges?: string[];
+  icon: ImageMetadata | string;
+}
+
+const { title, url, color, badges, icon } = Astro.props;
+---
+
+<a
+  class="card hover"
+  href={url}
+  title={title}
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ backgroundColor: color }}
+>
+  {
+    typeof icon === "string" ? (
+      <Icon class="icon" name={icon} width={75} height={75} />
+    ) : (
+      <Image class="icon" alt={`${title} icon`} src={icon} width={75} height={75} />
+    )
+  }
+  <div class="content">
+    <h3>
+      {title}{
+        badges?.map(badge => (
+          <Icon
+            class="badge"
+            title={`Made with ${badge}`}
+            name={`badges/${toIconName(badge)}`}
+            width={-1}
+            height={24}
+            color="black"
+          />
+        ))
+      }
+    </h3>
+    <p><slot /></p>
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .icon {
+    border-radius: 50%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .badge {
+    max-width: 48px;
+    margin-left: 4px;
+    border-radius: 4px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .badge {
+      display: none;
+    }
+  }
+</style>

@@ -1,12 +1,3 @@
 {
-  "compilerOptions": {
-    "jsx": "react",
-    "jsxFactory": "jsx",
-
-    "target": "ES2022",
-    "outDir": "prebuild/js",
-    "module": "ESNext",
-    "moduleResolution": "Node"
-  },
-  "files": ["js/index.ts"]
+  "extends": "astro/tsconfigs/strict"
 }

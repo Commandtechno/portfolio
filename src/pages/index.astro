@@ -1,0 +1,91 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import About from "../sections/About.astro";
+import Blog from "../sections/Blog.astro";
+import Contact from "../sections/Contact.astro";
+import Development from "../sections/Development.astro";
+import GraphicsDesign from "../sections/GraphicsDesign.astro";
+
+import Nav from "../components/Nav.astro";
+import Guide from "../components/Guide.astro";
+---
+
+<Layout>
+  <Nav />
+  <main id="center" class="section" style="left: 0%; top: 0%">
+    <div id="about" class="container">
+      <About />
+    </div>
+    <Guide />
+  </main>
+  <section id="top" class="section" style="top: -100%; left: 0%; visibility: hidden">
+    <div id="blog" class="container">
+      <Blog />
+    </div>
+  </section>
+  <section id="bottom" class="section" style="top: 100%; left: 0%; visibility: hidden">
+    <div id="contact" class="container">
+      <Contact />
+    </div>
+  </section>
+  <section id="left" class="section" style="left: -100%; top: 0%; visibility: hidden">
+    <div id="gfx" class="container">
+      <GraphicsDesign />
+    </div>
+  </section>
+  <section id="right" class="section" style="left: 100%; top: 0%; visibility: hidden">
+    <div id="dev" class="container">
+      <Development />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .section {
+    width: 100%;
+    height: 100%;
+
+    padding: min(50px, 5vmin);
+    box-sizing: border-box;
+
+    display: flex;
+    position: fixed;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    transition:
+      top 0.5s ease-in-out,
+      left 0.5s ease-in-out;
+  }
+
+  .container {
+    overflow-y: auto;
+    word-break: break-word;
+
+    display: flex;
+    flex-direction: column;
+
+    max-width: 800px;
+    max-height: 80%;
+
+    gap: 20px;
+    border-radius: 20px;
+    padding: min(40px, 5vmin);
+
+    border: solid 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  #about {
+    gap: 10px;
+  }
+
+  #contact {
+    width: 100%;
+    height: 75%;
+    max-height: 800px;
+    box-sizing: border-box;
+  }
+</style>
