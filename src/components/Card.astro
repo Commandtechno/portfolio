@@ -37,7 +37,7 @@ const { title, url, color, badges, icon } = Astro.props;
             class="badge"
             title={`Made with ${badge}`}
             name={`badges/${toIconName(badge)}`}
-            width={-1}
+            width={undefined}
             height={24}
             color="black"
           />

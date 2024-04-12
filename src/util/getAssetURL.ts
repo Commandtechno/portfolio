@@ -1,5 +1,4 @@
-export function getAssetURL(application: string, asset: string) {
-  if (!asset) return null;
+export function getAssetUrl(asset: string, applicationId?: string) {
   if (asset.includes(":")) {
     const [platform, id] = asset.split(":");
     switch (platform) {
@@ -20,5 +19,5 @@ export function getAssetURL(application: string, asset: string) {
     }
   }
 
-  return `https://cdn.discordapp.com/app-assets/${application}/${asset}.webp`;
+  return `https://cdn.discordapp.com/app-assets/${applicationId}/${asset}.webp`;
 }

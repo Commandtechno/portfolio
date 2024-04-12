@@ -1,5 +1,6 @@
 ---
 import avatar from "../assets/avatar.gif";
+import manifest from "../../public/manifest.json";
 ---
 
 <!doctype html>
@@ -10,14 +11,10 @@ import avatar from "../assets/avatar.gif";
     <link rel="manifest" href="manifest.json" />
 
     <meta name="og:site_name" content="commandtechno.com" />
-    <meta name="title" content="Commandtechno's portfolio" />
-    <meta
-      name="description"
-      content="Hello there! I'm a developer, designer, and high school student. I'm interested in everything tech and rock climbing! Here you will find the various projects I have worked on."
-    />
-
-    <meta name="theme-color" content="#00F6F4" />
     <meta name="og:image" content={avatar.src} />
+    <meta name="title" content={manifest.name} />
+    <meta name="description" content={manifest.description} />
+    <meta name="theme-color" content={manifest.theme_color} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -77,8 +74,8 @@ import avatar from "../assets/avatar.gif";
   .hover {
     cursor: pointer;
     transition:
-      transform 0.3s ease-in-out,
-      box-shadow 0.3s ease-in-out;
+      transform 0.25s ease-out,
+      box-shadow 0.25s ease-out;
   }
 
   .hover:hover {

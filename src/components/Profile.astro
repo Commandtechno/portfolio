@@ -7,31 +7,9 @@ import Avatar from "../assets/avatar.gif";
   <div id="profile-avatar-container">
     <Image alt="My avatar" id="profile-avatar" src={Avatar} width="150" height="150" />
   </div>
-  <a
-    id="profile-activity"
-    href="https://open.spotify.com/track/2tudvzsrR56uom6smgOcSf"
-    rel="noopener norefferer"
-    target="_blank"
-    ><div id="profile-activity-assets">
-      <img
-        id="profile-activity-large-image"
-        alt="WE DON'T TRUST YOU"
-        src="https://i.scdn.co/image/ab67616d0000b273a46b07c291e6dfdee13b3ee8"
-        width="120"
-        height="120"
-      />
-    </div><div id="profile-activity-content">
-      <h2 id="profile-activity-name">Like That</h2><h3 id="profile-activity-details">
-        by Future; Metro Boomin; Kendrick Lamar
-      </h3><h3 id="profile-activity-state">on WE DON'T TRUST YOU</h3><div id="profile-activity-bar-container">
-        <div id="profile-activity-bar" style="width: 33.4778%;"></div>
-      </div>
-    </div></a
-  >
 </div>
 
 <script>
-  import { imageConfig } from "astro:assets";
   import DoNotDisturb from "../assets/status/dnd.svg";
   import Idle from "../assets/status/idle.svg";
   import Online from "../assets/status/online.svg";
@@ -39,7 +17,8 @@ import Avatar from "../assets/avatar.gif";
 
   import { $ } from "../util/$";
   import { ActivityType } from "discord-api-types/v10";
-  import type { GatewayPresenceUpdateData } from "discord-api-types/v10";
+  import type { GatewayPresenceUpdateDispatchData } from "discord-api-types/v10";
+  import { getAssetUrl } from "../util/getAssetUrl";
 
   const $profile = $("profile");
   const $profileAvatarContainer = $("profile-avatar-container");
@@ -48,30 +27,27 @@ import Avatar from "../assets/avatar.gif";
   $profileAvatarStatusContainer.id = "profile-avatar-status-container";
   const $profileAvatarStatus = document.createElement("img");
   $profileAvatarStatus.id = "profile-avatar-status";
-  $profileAvatarContainer.appendChild($profileAvatarStatusContainer);
+  $profileAvatarStatusContainer.appendChild($profileAvatarStatus);
 
-  function mount(el: HTMLElement, parent: HTMLElement) {
-    if (!el.isConnected) parent.appendChild(el);
-  }
-
-  function unmount(el: HTMLElement) {
-    if (el.isConnected) el.remove();
-  }
+  let $currentProfileActivity: HTMLElement | null = null;
 
   function setStatus(status: string, src: string) {
     $profileAvatarStatus.src = src;
     $profileAvatarStatusContainer.title = status;
-    mount($profileAvatarStatusContainer, $profileAvatarContainer);
+    if (!$profileAvatarStatusContainer.isConnected) $profileAvatarContainer.appendChild($profileAvatarStatusContainer);
   }
 
   function connect() {
-    const secure = window.location.protocol === "https:";
-    const ws = new WebSocket(`wss://new.commandtechno.com/ws`);
+    const ws = new WebSocket(
+      import.meta.env.DEV
+        ? `wss://new.commandtechno.com/presence`
+        : `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/presence`
+    );
 
     let ping = setInterval(() => ws.send(""), 5000);
     ws.addEventListener("message", message => {
-      const presence = JSON.parse(message.data) as GatewayPresenceUpdateData;
-      const isStreaming = presence.activities.some(activity => activity.type === ActivityType.Streaming);
+      const presence = JSON.parse(message.data) as GatewayPresenceUpdateDispatchData;
+      const isStreaming = presence.activities?.some(activity => activity.type === ActivityType.Streaming);
 
       if (isStreaming) {
         setStatus("Streaming", Streaming.src);
@@ -90,24 +66,133 @@ import Avatar from "../assets/avatar.gif";
             break;
 
           case "offline":
-            unmount($profileAvatarStatusContainer);
+            $profileAvatarStatusContainer.remove();
             break;
         }
 
-      // const activity = presence.activities.find(activity => activity.type !== ActivityType.Custom);
-      // if (!activity) {
-      //   if (currentElement) currentElement.remove();
-      //   return;
-      // }
+      const activity = presence.activities?.find(activity => activity.type !== ActivityType.Custom);
+      if (!activity) {
+        $currentProfileActivity?.remove();
+        return;
+      }
 
-      // const element = Activity(activity);
-      // if (currentElement) currentElement.remove();
-      // profileElement.appendChild(element);
-      // currentElement = element;
+      let { url, name, details, state } = activity;
+      let $progressBar: HTMLDivElement | null = null;
+
+      if (activity.id.startsWith("spotify")) {
+        if (activity.sync_id) url = "https://open.spotify.com/track/" + activity.sync_id;
+        if (activity.details) name = activity.details;
+        if (activity.state) details = "by " + activity.state;
+        if (activity.assets?.large_text) state = "on " + activity.assets.large_text;
+        if (activity.timestamps?.start && activity.timestamps?.end) {
+          const { start, end } = activity.timestamps;
+          const progress = (Date.now() - start) / (end - start);
+          const $barContainer = document.createElement("div");
+          $barContainer.id = "profile-activity-bar-container";
+
+          const $bar = document.createElement("div");
+          $bar.id = "profile-activity-bar";
+          $bar.style.width = `${progress * 100}%`;
+          let interval = setInterval(() => {
+            if (!$progressBar?.isConnected) clearInterval(interval);
+            const progress = (Date.now() - start) / (end - start);
+            $bar.style.width = `${progress * 100}%`;
+          }, 1000);
+
+          $barContainer.appendChild($bar);
+          $progressBar = $barContainer;
+        }
+      }
+
+      let $profileActivity = url ? document.createElement("a") : document.createElement("div");
+      if (url) {
+        $profileActivity = document.createElement("a");
+        $profileActivity.href = url;
+        $profileActivity.rel = "noopener norefferer";
+        $profileActivity.target = "_blank";
+        $profileActivity.className = "hover";
+      } else {
+        $profileActivity = document.createElement("div");
+      }
+
+      $profileActivity.id = "profile-activity";
+
+      const largeImageUrl =
+        activity.assets?.large_image && getAssetUrl(activity.assets.large_image, activity.application_id);
+      if (largeImageUrl) {
+        const $profileActivityAssets = document.createElement("div");
+        $profileActivityAssets.id = "profile-activity-assets";
+
+        const $profileActivityLargeImage = document.createElement("img");
+        $profileActivityLargeImage.id = "profile-activity-large-image";
+        $profileActivityLargeImage.src = largeImageUrl;
+        $profileActivityLargeImage.width = 120;
+        $profileActivityLargeImage.height = 120;
+        if (activity.assets?.large_text) {
+          $profileActivityLargeImage.alt = activity.assets.large_text;
+          $profileActivityLargeImage.title = activity.assets.large_text;
+        }
+
+        $profileActivityAssets.appendChild($profileActivityLargeImage);
+
+        const smallImageUrl =
+          activity.assets?.small_image && getAssetUrl(activity.assets.small_image, activity.application_id);
+        if (smallImageUrl) {
+          const $profileActivitySmallImageContainer = document.createElement("div");
+          $profileActivitySmallImageContainer.id = "profile-activity-small-image-container";
+
+          const $profileActivitySmallImage = document.createElement("img");
+          $profileActivitySmallImage.id = "profile-activity-small-image";
+          $profileActivitySmallImage.src = smallImageUrl;
+          $profileActivitySmallImage.width = 40;
+          $profileActivitySmallImage.height = 40;
+          if (activity.assets?.small_text) {
+            $profileActivitySmallImage.alt = activity.assets.small_text;
+            $profileActivitySmallImage.title = activity.assets.small_text;
+          }
+
+          $profileActivitySmallImageContainer.appendChild($profileActivitySmallImage);
+          $profileActivityAssets.appendChild($profileActivitySmallImageContainer);
+        }
+
+        $profileActivity.appendChild($profileActivityAssets);
+      }
+
+      const $profileActivityContent = document.createElement("div");
+      $profileActivityContent.id = "profile-activity-content";
+
+      if (name) {
+        const $profileActivityName = document.createElement("h2");
+        $profileActivityName.id = "profile-activity-name";
+        $profileActivityName.textContent = name;
+        $profileActivityContent.appendChild($profileActivityName);
+      }
+
+      if (details) {
+        const $profileActivityDetails = document.createElement("h3");
+        $profileActivityDetails.id = "profile-activity-details";
+        $profileActivityDetails.textContent = details;
+        $profileActivityContent.appendChild($profileActivityDetails);
+      }
+
+      if (state) {
+        const $profileActivityState = document.createElement("h3");
+        $profileActivityState.id = "profile-activity-state";
+        $profileActivityState.textContent = state;
+        $profileActivityContent.appendChild($profileActivityState);
+      }
+
+      if ($progressBar) $profileActivityContent.appendChild($progressBar);
+      $profileActivity.appendChild($profileActivityContent);
+
+      if ($currentProfileActivity) $profile.replaceChild($profileActivity, $currentProfileActivity);
+      else $profile.appendChild($profileActivity);
+      $currentProfileActivity = $profileActivity;
     });
 
     ws.addEventListener("close", () => {
-      unmount($profileAvatarStatusContainer);
+      $profileAvatarStatusContainer.remove();
+      $profile;
       clearInterval(ping);
       setTimeout(connect, 5000);
     });
@@ -141,8 +226,8 @@ import Avatar from "../assets/avatar.gif";
     right: -20px;
     bottom: -20px;
     padding: 10px;
+    border-radius: 50%;
     position: absolute;
-    flex-basis: 0;
     background-color: var(--dark-primary);
   }
 
@@ -182,12 +267,14 @@ import Avatar from "../assets/avatar.gif";
     right: -16px;
     bottom: -16px;
     padding: 8px;
+    border-radius: 50%;
     position: absolute;
     background-color: var(--dark-secondary);
   }
 
   #profile-activity-small-image {
     height: 100%;
+    border-radius: 50%;
   }
 
   /* 
