@@ -1,0 +1,188 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<nav>
+  <Icon id="arrow-up" name="mdi:chevron-up" class="arrow" title="navigate up" width={60} height={60} />
+  <Icon id="arrow-down" name="mdi:chevron-up" class="arrow" title="navigate down" width={60} height={60} />
+  <Icon id="arrow-left" name="mdi:chevron-up" class="arrow" title="navigate left" width={60} height={60} />
+  <Icon id="arrow-right" name="mdi:chevron-up" class="arrow" title="navigate right" width={60} height={60} />
+</nav>
+
+<script>
+  import { move } from "../util/move";
+  import { Dir } from "../util/constants";
+  import { $ } from "../util/$";
+
+  // window hash
+
+  switch (window.location.hash) {
+    case "#blog":
+      move(Dir.Up);
+      break;
+
+    case "#contact":
+      move(Dir.Down);
+      break;
+
+    case "#gfx":
+      move(Dir.Left);
+      break;
+
+    case "#dev":
+      move(Dir.Right);
+      break;
+  }
+
+  // arrow keys
+
+  window.addEventListener("keydown", event => {
+    if (event.target !== document.body) return;
+
+    switch (event.key) {
+      case "ArrowUp":
+      case "W":
+      case "w":
+        event.preventDefault();
+        move(Dir.Up);
+        break;
+
+      case "ArrowDown":
+      case "S":
+      case "s":
+        event.preventDefault();
+        move(Dir.Down);
+        break;
+
+      case "ArrowLeft":
+      case "A":
+      case "a":
+        event.preventDefault();
+        move(Dir.Left);
+        break;
+
+      case "ArrowRight":
+      case "D":
+      case "d":
+        event.preventDefault();
+        move(Dir.Right);
+        break;
+    }
+  });
+
+  // swipe
+
+  interface StartTouch {
+    x: number;
+    y: number;
+    initialPath: {
+      element: Element;
+      scrollTop: number;
+      scrollLeft: number;
+    }[];
+  }
+
+  const startTouches: Record<number, StartTouch> = {};
+
+  window.addEventListener("touchstart", event => {
+    const touch = event.touches.item(0);
+    if (!touch) return;
+
+    const initialPath: StartTouch["initialPath"] = [];
+    for (const element of event.composedPath() as HTMLElement[])
+      initialPath.push({ element, scrollTop: element.scrollTop, scrollLeft: element.scrollLeft });
+
+    startTouches[touch.identifier] = {
+      x: touch.clientX,
+      y: touch.clientY,
+      initialPath
+    };
+  });
+
+  window.addEventListener("touchend", event => {
+    const touch = event.changedTouches.item(0);
+    if (!touch) return;
+
+    const startTouch = startTouches[touch.identifier];
+    if (!startTouch) return;
+
+    for (const { element, scrollTop, scrollLeft } of startTouch.initialPath)
+      if (element.scrollTop !== scrollTop || element.scrollLeft !== scrollLeft) return;
+
+    const deltaX = touch.clientX - startTouch.x;
+    const deltaY = touch.clientY - startTouch.y;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) move(Dir.Left);
+      else if (deltaX < 0) move(Dir.Right);
+    } else {
+      if (deltaY > 0) move(Dir.Up);
+      else if (deltaY < 0) move(Dir.Down);
+    }
+
+    delete startTouches[touch.identifier];
+  });
+
+  // mouse wheel
+
+  window.addEventListener("wheel", event => {
+    if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+      if (event.deltaX > 10) move(Dir.Right);
+      else if (event.deltaX < -10) move(Dir.Left);
+    } else {
+      if (event.deltaY > 10) move(Dir.Down);
+      else if (event.deltaY < -10) move(Dir.Up);
+    }
+  });
+
+  // arrow buttons
+
+  const $up = $<HTMLDivElement>("arrow-up");
+  const $down = $<HTMLDivElement>("arrow-down");
+  const $left = $<HTMLDivElement>("arrow-left");
+  const $right = $<HTMLDivElement>("arrow-right");
+
+  $up.addEventListener("click", () => move(Dir.Up));
+  $down.addEventListener("click", () => move(Dir.Down));
+  $left.addEventListener("click", () => move(Dir.Left));
+  $right.addEventListener("click", () => move(Dir.Right));
+</script>
+
+<style>
+  .arrow {
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  #arrow-up {
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #arrow-down {
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%) rotate(180deg);
+  }
+
+  #arrow-left {
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%) rotate(270deg);
+  }
+
+  #arrow-right {
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  @media screen and (max-width: 1200px) {
+    .arrow {
+      display: none;
+    }
+  }
+</style>

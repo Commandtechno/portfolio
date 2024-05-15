@@ -1,0 +1,50 @@
+---
+import DesktopSocial from "../components/DesktopSocial.astro";
+import MobileSocial from "../components/MobileSocial.astro";
+import { Icon } from "astro-icon/components";
+import Profile from "../components/Profile.astro";
+---
+
+<Profile />
+<h1>Techno</h1>
+<p>
+  <Icon name="twemoji:waving-hand" width={24} height={24} />
+  I'm a developer, designer, and high school student. I'm interested in everything tech and rock climbing! Here you will
+  find the various projects I have worked on.
+</p>
+
+<div id="social-desktop-container">
+  <DesktopSocial
+    url="https://github.com/Commandtechno"
+    name="Commandtechno"
+    platform="GitHub"
+    color="rgba(0, 0, 0, 1)"
+  />
+  <DesktopSocial
+    url="https://discord.com/users/296776625432035328"
+    name="@commandtechno"
+    platform="Discord"
+    color="rgb(72 80 171)"
+  />
+  <DesktopSocial
+    url="https://open.spotify.com/user/goysc6kienrd64c1g1vbevz6h"
+    name="Techno"
+    platform="Spotify"
+    color="rgb(30 145 70)"
+  />
+  <DesktopSocial
+    url="https://youtube.com/Commandtechno"
+    name="Commandtechno"
+    platform="YouTube"
+    color="rgb(155 42 42)"
+  />
+  <DesktopSocial url="https://twitch.tv/Commandtechno" name="Commandtechno" platform="Twitch" color="rgb(112 60 191)" />
+</div>
+
+<p id="social-mobile-container">
+  <MobileSocial url="https://github.com/Commandtechno" name="Commandtechno" platform="GitHub" />
+  <MobileSocial url="https://discord.com/users/296776625432035328" name="@commandtechno" platform="Discord" />
+  <MobileSocial url="https://open.spotify.com/user/goysc6kienrd64c1g1vbevz6h" name="Techno" platform="Spotify" />
+  <MobileSocial url="https://youtube.com/Commandtechno" name="Commandtechno" platform="YouTube" />
+  <MobileSocial url="https://twitch.tv/Commandtechno" name="Commandtechno" platform="Twitch" />
+</p>

@@ -1,0 +1,85 @@
+---
+import avatar from "../assets/avatar.gif";
+import manifest from "../../public/manifest.json";
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Commandtechno</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+    <link rel="manifest" href="manifest.json" />
+
+    <meta name="og:site_name" content="commandtechno.com" />
+    <meta name="og:image" content={avatar.src} />
+    <meta name="title" content={manifest.name} />
+    <meta name="description" content={manifest.description} />
+    <meta name="theme-color" content={manifest.theme_color} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --dark-primary: #1b1a27;
+    --dark-secondary: #17151f;
+
+    --light-primary: rgb(250, 250, 250);
+    --light-secondary: rgb(200, 200, 200);
+    --light-tertiary: rgb(150, 150, 150);
+  }
+
+  * {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    font-style: normal;
+    font-family: "Roboto Mono", monospace;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    color: var(--light-primary);
+    background-color: var(--dark-primary);
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--light-primary);
+  }
+
+  [data-icon],
+  .emoji {
+    vertical-align: sub;
+  }
+
+  .hover {
+    cursor: pointer;
+    transition:
+      transform 0.25s ease-out,
+      box-shadow 0.25s ease-out;
+  }
+
+  .hover:hover {
+    transform: scale(1.05);
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.25);
+  }
+</style>

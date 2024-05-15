@@ -1,0 +1,17 @@
+<p id="guide">Use your arrow keys to navigate</p>
+
+<style>
+  #guide {
+    margin-top: 25px;
+    text-align: center;
+  }
+</style>
+
+<script>
+  import { $ } from "../util/$";
+
+  if ("ontouchstart" in window) {
+    const guide = $<HTMLParagraphElement>("guide");
+    guide.innerText = "Swipe up, down, left, or right to navigate";
+  }
+</script>

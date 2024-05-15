@@ -1,0 +1,63 @@
+---
+import QuantumSocietyIcon from "../assets/projects/quantum-society.gif";
+import PenguinEmoji from "../assets/emojis/penguin.png";
+import PenguinHeartEmoji from "../assets/emojis/penguin-heart.png";
+import PenguinSpinEmoji from "../assets/emojis/penguin-spin.gif";
+import PenguinPartyEmoji from "../assets/emojis/penguin-party.gif";
+import PenguinVibeEmoji from "../assets/emojis/penguin-vibe.gif";
+import PlayStationIcon from "../assets/projects/ps512.gif";
+import SolSanctumIcon from "../assets/projects/ian.gif";
+import BirbParadiseIcon from "../assets/projects/birb.gif";
+import KeycapDesignersIcon from "../assets/projects/keycap-designers.gif";
+
+import Card from "../components/Card.astro";
+import { Image } from "astro:assets";
+---
+
+<h1>Graphics Design</h1>
+
+<Card
+  title="Quantum Society Discord Server"
+  url="https://discord.gg/gYAW7JF"
+  icon={QuantumSocietyIcon}
+  color="rgba(29, 91, 138, 0.25)"
+>
+  I designed and created all the graphics for the Quantum Society Discord server, including the penguin emotes.
+  <Image alt="Penguin Emoji" class="emoji" src={PenguinEmoji} width={24} height={24} />
+  <Image alt="Penguin Heart Emoji" class="emoji" src={PenguinHeartEmoji} width={24} height={24} />
+  <Image alt="Penguin Spin Emoji" class="emoji" src={PenguinSpinEmoji} width={24} height={24} />
+  <Image alt="Penguin Party Emoji" class="emoji" src={PenguinPartyEmoji} width={24} height={24} />
+  <Image alt="Penguin Vibe Emoji" class="emoji" src={PenguinVibeEmoji} width={24} height={24} />
+</Card>
+<Card
+  title="PlayStation Discord Server"
+  url="https://discord.gg/ps"
+  icon={PlayStationIcon}
+  color="rgba(8, 15, 138, 0.25)"
+>
+  I created the icon for the community-run PlayStation Discord server.
+</Card>
+<Card
+  title="Sol Sanctum Discord Server"
+  url="https://discord.gg/ian"
+  icon={SolSanctumIcon}
+  color="rgba(171, 55, 206, 0.25)"
+>
+  I animated the icon and designed several stickers for the Sol Sanctum Discord server.
+</Card>
+<Card
+  title="Birb Paradise Discord Server"
+  url="https://discord.gg/bird"
+  icon={BirbParadiseIcon}
+  color="rgba(60, 206, 55, 0.25)"
+>
+  I created the animated icon for the Birb Paradise Discord server.
+</Card>
+<Card
+  title="Keycap Designers Subreddit"
+  url="https://www.reddit.com/r/keycapdesigners"
+  icon={KeycapDesignersIcon}
+  color="rgba(206, 55, 55, 0.25)"
+>
+  I designed and animated the icon for the Keycap Designers subreddit.
+</Card>

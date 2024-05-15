@@ -1,0 +1,106 @@
+---
+import QuantumUtilitiesIcon from "../assets/projects/quantum-utilities.png";
+import QuantumMusicIcon from "../assets/projects/quantum-music.png";
+import QuantumStaffIcon from "../assets/projects/quantum-staff.png";
+import SourcererIcon from "../assets/projects/sourcerer.svg";
+import PortfolioIcon from "../assets/avatar.gif";
+import DiscordSecurityIcon from "../assets/projects/discord-security.svg";
+import OtterGeneratorIcon from "../assets/projects/otter.png";
+import CodeSharerIcon from "../assets/projects/paste.svg";
+
+import Card from "../components/Card.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<h1>Development</h1>
+
+<Card
+  title="My Portfolio"
+  url="/"
+  color="rgba(98, 42, 202, 0.25)"
+  badges={["Astro", "HTML", "CSS", "TypeScript"]}
+  icon={PortfolioIcon}
+>
+  This website
+</Card>
+<Card
+  title="Discord Security Bug Bounty"
+  url="https://discord.com/security"
+  color="rgba(43, 56, 84, 0.25)"
+  icon={DiscordSecurityIcon}
+>
+  Reported multiple security vulnerabilities to Discord from low to critical severity
+</Card>
+<Card
+  title="Quantum Utilities"
+  url="https://discord.gg/gYAW7JF"
+  color="rgba(29, 91, 138, 0.25)"
+  badges={["JavaScript", "PostgreSQL"]}
+  icon={QuantumUtilitiesIcon}
+>
+  Primary Discord bot for Quantum Society with various utilities and games
+</Card>
+<Card
+  title="Quantum Music"
+  url="https://discord.gg/gYAW7JF"
+  color="rgba(29, 91, 138, 0.25)"
+  badges={["TypeScript", "Redis"]}
+  icon={QuantumMusicIcon}
+>
+  High quality music bot which offers music from many services
+</Card>
+<Card
+  title="Quantum Staff"
+  url="https://discord.gg/gYAW7JF"
+  color="rgba(29, 91, 138, 0.25)"
+  badges={["TypeScript", "React"]}
+  icon={QuantumStaffIcon}
+>
+  Modmail and tickets bot for Quantum Society's staff and management
+</Card>
+<Card
+  title="Package Explorers"
+  url="/package-explorers"
+  color="rgba(35, 218, 231, 0.25)"
+  badges={["HTML", "CSS", "JavaScript"]}
+  icon="twemoji:package"
+>
+  Tool for displaying statistics from various platform's data exports
+</Card>
+<Card
+  title="Snowflake Deconstructor"
+  url="/snowflake"
+  color="rgba(146, 198, 248, 0.25)"
+  badges={["HTML", "CSS", "JavaScript"]}
+  icon="twemoji:snowflake"
+>
+  Deconstructs Discord snowflakes into a timestamp
+</Card>
+<Card
+  title="Sourcerer"
+  url="https://github.com/commandtechno/sourcerer"
+  color="rgba(244, 119, 68, 0.25)"
+  badges={["Go"]}
+  icon={SourcererIcon}
+>
+  CLI tool for extracting source code from website's source maps
+</Card>
+<Card
+  title="Otter Generator 9000"
+  url="https://discord.com/api/oauth2/authorize?client_id=899089676751765524&permissions=0&scope=applications.commands"
+  color="rgba(163, 144, 119, 0.25)"
+  badges={["Cloudflare Workers", "JavaScript"]}
+  icon={OtterGeneratorIcon}
+>
+  A serverless Discord bot that displays random otter images! <Icon name="twemoji:otter" width={24} height={24} />
+</Card>
+<Card
+  title="Code Sharer"
+  url="https://commandtechno.com/paste"
+  color="rgba(85, 85, 85, 0.25)"
+  badges={["HTML", "CSS", "JavaScript"]}
+  icon={CodeSharerIcon}
+>
+  Allows you to upload code, and share it with a permanent URL, with syntax highlighting and integration with multiple
+  IDEs
+</Card>
