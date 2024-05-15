@@ -40,7 +40,7 @@ import Avatar from "../assets/avatar.gif";
   function connect() {
     const ws = new WebSocket(
       import.meta.env.DEV
-        ? `wss://new.commandtechno.com/presence`
+        ? `wss://commandtechno.com/presence`
         : `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/presence`
     );
 
