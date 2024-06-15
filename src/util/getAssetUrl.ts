@@ -1,4 +1,10 @@
+import { CDNRoutes, ImageFormat, RouteBases } from "discord-api-types/v10";
+
 export function getAssetUrl(asset: string, applicationId?: string) {
+  if (applicationId) {
+    return RouteBases.cdn + CDNRoutes.applicationAsset(applicationId, asset, ImageFormat.WebP);
+  }
+
   if (asset.includes(":")) {
     const [platform, id] = asset.split(":");
     switch (platform) {
@@ -18,6 +24,4 @@ export function getAssetUrl(asset: string, applicationId?: string) {
         return null;
     }
   }
-
-  return `https://cdn.discordapp.com/app-assets/${applicationId}/${asset}.webp`;
 }

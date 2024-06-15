@@ -15,10 +15,11 @@ import Avatar from "../assets/avatar.gif";
   import Online from "../assets/status/online.svg";
   import Streaming from "../assets/status/streaming.svg";
 
-  import { $ } from "../util/$";
-  import { ActivityType } from "discord-api-types/v10";
-  import type { GatewayPresenceUpdateDispatchData } from "discord-api-types/v10";
+  import type { APIApplication, GatewayPresenceUpdateDispatchData } from "discord-api-types/v10";
+  import { ActivityType, CDNRoutes, ImageFormat, RouteBases } from "discord-api-types/v10";
+  import { formatDigital, formatNatural } from "../util/activityDuration";
   import { getAssetUrl } from "../util/getAssetUrl";
+  import { $ } from "../util/$";
 
   const $profile = $("profile");
   const $profileAvatarContainer = $("profile-avatar-container");
@@ -35,6 +36,42 @@ import Avatar from "../assets/avatar.gif";
     $profileAvatarStatus.src = src;
     $profileAvatarStatusContainer.title = status;
     if (!$profileAvatarStatusContainer.isConnected) $profileAvatarContainer.appendChild($profileAvatarStatusContainer);
+  }
+
+  function makeActivityImage(id: string, size: number, src: string, alt?: string) {
+    const $img = document.createElement("img");
+    $img.id = "profile-activity-" + id;
+    $img.width = size;
+    $img.height = size;
+    $img.src = src;
+    if (alt) {
+      $img.alt = alt;
+      $img.title = alt;
+    }
+    return $img;
+  }
+
+  function makeActivityText(tag: keyof HTMLElementTagNameMap, id: string, text: string) {
+    const $text = document.createElement(tag);
+    $text.id = "profile-activity-" + id;
+    $text.textContent = text;
+    return $text;
+  }
+
+  function makeContainer(id?: string) {
+    const $container = document.createElement("div");
+    $container.id = id ? "profile-activity-" + id : "profile-activity";
+    return $container;
+  }
+
+  function makeLinkContainer(url: string, id?: string) {
+    const $container = document.createElement("a");
+    $container.id = id ? "profile-activity-" + id : "profile-activity";
+    $container.href = url;
+    $container.rel = "noopener norefferer";
+    $container.target = "_blank";
+    $container.className = "hover";
+    return $container;
   }
 
   function connect() {
@@ -76,22 +113,20 @@ import Avatar from "../assets/avatar.gif";
         return;
       }
 
-      let { url, name, details, state } = activity;
+      const $profileActivity = activity.url ? makeLinkContainer(activity.url) : makeContainer();
+      const $profileActivityContent = makeContainer("content");
       let $progressBar: HTMLDivElement | null = null;
 
       if (activity.id.startsWith("spotify")) {
-        if (activity.sync_id) url = "https://open.spotify.com/track/" + activity.sync_id;
-        if (activity.details) name = activity.details;
-        if (activity.state) details = "by " + activity.state;
-        if (activity.assets?.large_text) state = "on " + activity.assets.large_text;
+        if (activity.sync_id) activity.url = "https://open.spotify.com/track/" + activity.sync_id;
+        if (activity.details) activity.name = activity.details;
+        if (activity.state) activity.details = "by " + activity.state;
+        if (activity.assets?.large_text) activity.state = "on " + activity.assets.large_text;
         if (activity.timestamps?.start && activity.timestamps?.end) {
           const { start, end } = activity.timestamps;
           const progress = (Date.now() - start) / (end - start);
-          const $barContainer = document.createElement("div");
-          $barContainer.id = "profile-activity-bar-container";
-
-          const $bar = document.createElement("div");
-          $bar.id = "profile-activity-bar";
+          const $barContainer = makeContainer("bar-container");
+          const $bar = makeContainer("bar");
           $bar.style.width = `${progress * 100}%`;
           let interval = setInterval(() => {
             if (!$progressBar?.isConnected) clearInterval(interval);
@@ -102,85 +137,63 @@ import Avatar from "../assets/avatar.gif";
           $barContainer.appendChild($bar);
           $progressBar = $barContainer;
         }
-      }
-
-      let $profileActivity = url ? document.createElement("a") : document.createElement("div");
-      if (url) {
-        $profileActivity = document.createElement("a");
-        $profileActivity.href = url;
-        $profileActivity.rel = "noopener norefferer";
-        $profileActivity.target = "_blank";
-        $profileActivity.className = "hover";
       } else {
-        $profileActivity = document.createElement("div");
+        if (activity.name) $profileActivityContent.appendChild(makeActivityText("h2", "name", activity.name));
+        if (activity.details) $profileActivityContent.appendChild(makeActivityText("h3", "details", activity.details));
+        if (activity.state) $profileActivityContent.appendChild(makeActivityText("h3", "state", activity.state));
+        if (activity.timestamps?.end)
+          $profileActivityContent.appendChild(
+            makeActivityText("h3", "time", formatDigital(activity.timestamps.end - Date.now(), "left"))
+          );
+        else if (activity.timestamps?.start)
+          $profileActivityContent.appendChild(
+            makeActivityText(
+              "h3",
+              "time",
+              activity.details || activity.state
+                ? formatDigital(Date.now() - activity.timestamps.start, "elapsed")
+                : formatNatural(Date.now() - activity.timestamps.start)
+            )
+          );
       }
-
-      $profileActivity.id = "profile-activity";
 
       const largeImageUrl =
         activity.assets?.large_image && getAssetUrl(activity.assets.large_image, activity.application_id);
       if (largeImageUrl) {
-        const $profileActivityAssets = document.createElement("div");
-        $profileActivityAssets.id = "profile-activity-assets";
-
-        const $profileActivityLargeImage = document.createElement("img");
-        $profileActivityLargeImage.id = "profile-activity-large-image";
-        $profileActivityLargeImage.src = largeImageUrl;
-        $profileActivityLargeImage.width = 120;
-        $profileActivityLargeImage.height = 120;
-        if (activity.assets?.large_text) {
-          $profileActivityLargeImage.alt = activity.assets.large_text;
-          $profileActivityLargeImage.title = activity.assets.large_text;
-        }
-
-        $profileActivityAssets.appendChild($profileActivityLargeImage);
+        const $profileActivityAssets = makeContainer("assets");
+        $profileActivityAssets.appendChild(
+          makeActivityImage("large-image", 120, largeImageUrl, activity.assets?.large_text)
+        );
 
         const smallImageUrl =
           activity.assets?.small_image && getAssetUrl(activity.assets.small_image, activity.application_id);
+
         if (smallImageUrl) {
-          const $profileActivitySmallImageContainer = document.createElement("div");
-          $profileActivitySmallImageContainer.id = "profile-activity-small-image-container";
-
-          const $profileActivitySmallImage = document.createElement("img");
-          $profileActivitySmallImage.id = "profile-activity-small-image";
-          $profileActivitySmallImage.src = smallImageUrl;
-          $profileActivitySmallImage.width = 40;
-          $profileActivitySmallImage.height = 40;
-          if (activity.assets?.small_text) {
-            $profileActivitySmallImage.alt = activity.assets.small_text;
-            $profileActivitySmallImage.title = activity.assets.small_text;
-          }
-
-          $profileActivitySmallImageContainer.appendChild($profileActivitySmallImage);
+          const $profileActivitySmallImageContainer = makeContainer("small-image-container");
+          $profileActivitySmallImageContainer.appendChild(
+            makeActivityImage("small-image", 40, smallImageUrl, activity.assets?.small_text)
+          );
           $profileActivityAssets.appendChild($profileActivitySmallImageContainer);
         }
 
-        $profileActivity.appendChild($profileActivityAssets);
-      }
+        $profileActivity.prepend($profileActivityAssets);
+      } else if (activity.application_id)
+        fetch(`${RouteBases.api}/applications/${activity.application_id}/rpc`)
+          .then(res => res.json())
+          .then((rpc: APIApplication) => {
+            if (!rpc.icon) return;
+            const $profileActivityAssets = makeContainer("assets");
+            $profileActivityAssets.appendChild(
+              makeActivityImage(
+                "large-image",
+                120,
+                RouteBases.cdn + CDNRoutes.applicationIcon(rpc.id, rpc.icon, ImageFormat.WebP),
+                rpc.name
+              )
+            );
 
-      const $profileActivityContent = document.createElement("div");
-      $profileActivityContent.id = "profile-activity-content";
-
-      if (name) {
-        const $profileActivityName = document.createElement("h2");
-        $profileActivityName.id = "profile-activity-name";
-        $profileActivityName.textContent = name;
-        $profileActivityContent.appendChild($profileActivityName);
-      }
-
-      if (details) {
-        const $profileActivityDetails = document.createElement("h3");
-        $profileActivityDetails.id = "profile-activity-details";
-        $profileActivityDetails.textContent = details;
-        $profileActivityContent.appendChild($profileActivityDetails);
-      }
-
-      if (state) {
-        const $profileActivityState = document.createElement("h3");
-        $profileActivityState.id = "profile-activity-state";
-        $profileActivityState.textContent = state;
-        $profileActivityContent.appendChild($profileActivityState);
-      }
+            $profileActivity.prepend($profileActivityAssets);
+          });
 
       if ($progressBar) $profileActivityContent.appendChild($progressBar);
       $profileActivity.appendChild($profileActivityContent);
@@ -258,7 +271,7 @@ import Avatar from "../assets/avatar.gif";
   }
 
   #profile-activity-large-image {
-    border-radius: 7.5px;
+    border-radius: 5px;
   }
 
   #profile-activity-small-image-container {
@@ -289,16 +302,13 @@ import Avatar from "../assets/avatar.gif";
     flex-grow: 1;
   }
 
-  #profile-activity-name,
-  #profile-activity-details,
-  #profile-activity-state {
+  #profile-activity-content > * {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
 
-  #profile-activity-details,
-  #profile-activity-state {
+  #profile-activity-content > h3 {
     color: var(--light-secondary);
     font-weight: normal;
   }
