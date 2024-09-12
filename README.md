@@ -1,6 +1,6 @@
 # Commandtechno's portfolio
 
-[![avatar](assets/avatar.gif)](https://commandtechno.com)
+[![avatar](src/assets/avatar.gif)](https://commandtechno.com)
 
 My portfolio built with HTML, CSS, TypeScript, and a custom JSX factory implementation
 
