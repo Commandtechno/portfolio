@@ -26,7 +26,7 @@ const { title, url, color, badges, icon } = Astro.props;
     typeof icon === "string" ? (
       <Icon class="icon" name={icon} width={75} height={75} />
     ) : (
-      <Image class="icon" alt={`${title} icon`} src={icon} width={75} height={75} />
+      <Image class="icon" alt={`${title} icon`} src={icon} width={75} height={75} densities={[2]} />
     )
   }
   <div class="content">

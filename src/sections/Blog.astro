@@ -1,2 +1,16 @@
+---
+import BlogPost, { type Props } from "../components/BlogPost.astro";
+
+const posts: Props[] = await fetch("https://commandtechno.com/blog/latest.json").then(res => res.json());
+---
+
 <h1>Blog</h1>
-<div id="post-list"></div>
+<div id="list">{posts.map(post => <BlogPost {...post} />)}</div>
+
+<style>
+  .list {
+    gap: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+</style>

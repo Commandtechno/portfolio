@@ -1,0 +1,149 @@
+---
+export interface Props {
+  created: string;
+  updated: string;
+  published: boolean;
+
+  slug: string;
+  title: string;
+  description?: string;
+  tags: {
+    name: string;
+    color: string;
+  }[];
+  icon: {
+    emoji: string;
+    url: string;
+  };
+  cover: {
+    small: string;
+    medium: string;
+    large: string;
+  };
+}
+
+const { created, slug, icon, cover, title, description, tags } = Astro.props;
+---
+
+<a class="post hover" href={`blog/${slug}`}>
+  <img
+    class="cover"
+    srcset={`blog/${cover.small} 1x, blog/${cover.medium} 2x, blog/${cover.large} 4x`}
+    src={cover.small}
+  />
+  <div class="info">
+    <p class="timestamp">
+      {
+        new Date(created).toLocaleString("en-CA", {
+          month: "long",
+          day: "numeric",
+          year: "numeric"
+        })
+      }
+    </p>
+    <h3 class="title">
+      <img class="icon emoji" src={`blog/${icon.url}`} />
+      {title}
+    </h3>
+    <p class="description">{description}</p>
+    <div class="tags">
+      {tags.map(tag => <span class={`tag tag-${tag.color}`}>{tag.name}</span>)}
+    </div>
+  </div>
+</a>
+
+<style>
+  .post {
+    display: block;
+    height: fit-content;
+    border-radius: 10px;
+    background-color: var(--dark-secondary);
+  }
+
+  .cover {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 2/1;
+    border-radius: 10px;
+  }
+
+  .info {
+    gap: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timestamp {
+    font-size: 12px;
+    color: var(--light-tertiary);
+  }
+
+  .icon {
+    margin-right: 5px;
+  }
+
+  .description {
+    font-size: 14px;
+    color: var(--light-secondary);
+
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .tag {
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  /* https://github.com/NotionX/react-notion-x/blob/master/packages/react-notion-x/src/styles.css#L54 */
+
+  .tag-blue {
+    background-color: rgba(0, 120, 223, 0.2);
+  }
+
+  .tag-orange {
+    background-color: rgba(245, 93, 0, 0.2);
+  }
+
+  .tag-green {
+    background-color: rgba(0, 135, 107, 0.2);
+  }
+
+  .tag-pink {
+    background-color: rgba(221, 0, 129, 0.2);
+  }
+
+  .tag-brown {
+    background-color: rgba(140, 46, 0, 0.2);
+  }
+
+  .tag-red {
+    background-color: rgba(255, 0, 26, 0.2);
+  }
+
+  .tag-yellow {
+    background-color: rgba(233, 168, 0, 0.2);
+  }
+
+  .tag-default {
+    background-color: rgba(206, 205, 202, 0.5);
+  }
+
+  .tag-purple {
+    background-color: rgba(103, 36, 222, 0.2);
+  }
+
+  .tag-gray {
+    background-color: rgba(155, 154, 151, 0.4);
+  }
+</style>
