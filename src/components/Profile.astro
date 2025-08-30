@@ -114,14 +114,13 @@ import Avatar from "../assets/avatar.gif";
         return;
       }
 
-      const $profileActivity = activity.url ? makeLinkContainer(activity.url) : makeContainer();
       const $profileActivityContent = makeContainer("content");
       let $progressBar: HTMLDivElement | null = null;
 
       if (activity.id.startsWith("spotify")) {
         if (activity.sync_id) activity.url = "https://open.spotify.com/track/" + activity.sync_id;
-        if (activity.details) activity.name = activity.details;
-        if (activity.state) activity.details = "by " + activity.state;
+        if (activity.details) $profileActivityContent.appendChild(makeActivityText("h2", "name", activity.details));
+        if (activity.state) $profileActivityContent.appendChild(makeActivityText("h3", "state", activity.state));
         if (activity.assets?.large_text) activity.state = "on " + activity.assets.large_text;
         if (activity.timestamps?.start && activity.timestamps?.end) {
           const { start, end } = activity.timestamps;
@@ -157,6 +156,9 @@ import Avatar from "../assets/avatar.gif";
             )
           );
       }
+
+      // must be after because we set the spotify url in the spotify block
+      const $profileActivity = activity.url ? makeLinkContainer(activity.url) : makeContainer();
 
       const largeImageUrl =
         activity.assets?.large_image && getAssetUrl(activity.assets.large_image, activity.application_id);

@@ -42,7 +42,7 @@ const { created, slug, icon, cover, title, description, tags } = Astro.props;
       }
     </p>
     <h3 class="title">
-      <img class="icon emoji" src={`blog/${icon.url}`} />
+      <img class="emoji" src={`blog/${icon.url}`} width="20" height="20" />
       {title}
     </h3>
     <p class="description">{description}</p>
@@ -77,10 +77,6 @@ const { created, slug, icon, cover, title, description, tags } = Astro.props;
   .timestamp {
     font-size: 12px;
     color: var(--light-tertiary);
-  }
-
-  .icon {
-    margin-right: 5px;
   }
 
   .description {
