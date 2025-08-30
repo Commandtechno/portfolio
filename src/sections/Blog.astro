@@ -1,7 +1,7 @@
 ---
-import BlogPost, { type Props } from "../components/BlogPost.astro";
+import BlogPost, { type Props as Post } from "../components/BlogPost.astro";
 
-const posts: Props[] = await fetch("https://commandtechno.com/blog/latest.json").then(res => res.json());
+const posts: Post[] = await fetch("https://commandtechno.com/blog/latest.json").then(res => res.json());
 ---
 
 <h1>Blog</h1>
