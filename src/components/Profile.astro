@@ -1,12 +1,13 @@
 ---
 import { Image } from "astro:assets";
 import Avatar from "../assets/avatar.gif";
+import audioSrc from "../assets/Modjo - Lady (Hear Me Tonight).ogg";
 ---
 
 <div id="profile">
   <div id="profile-avatar-container">
     <audio id="music" preload="none">
-      <source type="audio/ogg" src="/Modjo - Lady (Hear Me Tonight).ogg" />
+      <source type="audio/ogg" src={audioSrc} />
     </audio>
     <Image alt="My avatar" id="profile-avatar" src={Avatar} width="150" height="150" />
   </div>
