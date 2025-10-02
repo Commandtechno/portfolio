@@ -5,6 +5,9 @@ import Avatar from "../assets/avatar.gif";
 
 <div id="profile">
   <div id="profile-avatar-container">
+    <audio id="music" preload="none">
+      <source type="audio/ogg" src="/Modjo - Lady (Hear Me Tonight).ogg" />
+    </audio>
     <Image alt="My avatar" id="profile-avatar" src={Avatar} width="150" height="150" />
   </div>
 </div>
@@ -23,6 +26,12 @@ import Avatar from "../assets/avatar.gif";
 
   const $profile = $("profile");
   const $profileAvatarContainer = $("profile-avatar-container");
+
+  $profileAvatarContainer.addEventListener("click", () => {
+    const $music = $<HTMLAudioElement>("music");
+    if ($music.paused) $music.play();
+    else $music.pause();
+  });
 
   const $profileAvatarStatusContainer = document.createElement("div");
   $profileAvatarStatusContainer.id = "profile-avatar-status-container";
