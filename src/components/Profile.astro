@@ -218,7 +218,11 @@ import audioSrc from "../assets/Modjo - Lady (Hear Me Tonight).ogg";
 
     ws.addEventListener("close", () => {
       $profileAvatarStatusContainer.remove();
-      $profile;
+      if ($currentProfileActivity) {
+        $currentProfileActivity.remove();
+        $currentProfileActivity = null;
+      }
+
       clearInterval(ping);
       setTimeout(connect, 5000);
     });
